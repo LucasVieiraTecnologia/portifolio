@@ -886,19 +886,19 @@
           <div class="flex flex-wrap items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3" id="dashboardTabContainer">
             <button onclick="switchDashboardView(0)" id="dashTab-0" class="dash-tab active px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-600 text-white flex items-center gap-1.5 transition-all shadow-sm">
               <i data-lucide="map" class="w-3.5 h-3.5"></i>
-              <span>1. Visão Macro (3.jpg)</span>
+              <span>1. Visão Macro)</span>
             </button>
             <button onclick="switchDashboardView(1)" id="dashTab-1" class="dash-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-cyan-500 transition-all flex items-center gap-1.5">
               <i data-lucide="search" class="w-3.5 h-3.5"></i>
-              <span>2. Busca por Tokens (2.jpg)</span>
+              <span>2. Busca por Tokens</span>
             </button>
             <button onclick="switchDashboardView(2)" id="dashTab-2" class="dash-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-cyan-500 transition-all flex items-center gap-1.5">
               <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>
-              <span>3. Análise Composta (1.jpg)</span>
+              <span>3. Análise Composta</span>
             </button>
             <button onclick="switchDashboardView(3)" id="dashTab-3" class="dash-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-cyan-500 transition-all flex items-center gap-1.5">
               <i data-lucide="network" class="w-3.5 h-3.5"></i>
-              <span>4. Modelo Relacional (4.png)</span>
+              <span>4. Modelo Relacional</span>
             </button>
           </div>
 
@@ -909,7 +909,7 @@
             <div class="lg:col-span-7">
               <div class="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-950 shadow-md group aspect-[16/10] max-h-[380px] flex items-center justify-center">
                 
-                <img id="dashboardImg" src="3.jpg" alt="Visão Estratégica Macro" class="w-full h-full object-contain transition-opacity duration-300" onerror="handleImageFallback(this);">
+                <img id="dashboardImg" src="3.png" alt="Visão Estratégica Macro" class="w-full h-full object-contain transition-opacity duration-300" onerror="handleImageFallback(this);">
                 
                 <!-- Fallback Informativo caso a imagem não esteja no diretório local -->
                 <div id="imageFallbackAlert" class="hidden absolute inset-0 bg-slate-900/95 flex flex-col items-center justify-center p-6 text-center space-y-3">
@@ -917,9 +917,9 @@
                     <i data-lucide="image" class="w-6 h-6"></i>
                   </div>
                   <div class="space-y-1 max-w-sm">
-                    <p class="text-xs font-bold text-white font-mono" id="fallbackFileName">Arquivo 3.jpg</p>
+                    <p class="text-xs font-bold text-white font-mono" id="fallbackFileName">Arquivo 3.png</p>
                     <p class="text-[11px] text-slate-400 leading-relaxed">
-                      Para exibir esta tela no GitHub Pages ou em seu teste local, certifique-se de salvar a imagem <code class="text-cyan-300 font-mono">3.jpg</code> na mesma pasta do seu <code class="text-cyan-300 font-mono">index.html</code>.
+                      Para exibir esta tela no GitHub Pages ou em seu teste local, certifique-se de salvar a imagem <code class="text-cyan-300 font-mono">3.png</code> na mesma pasta do seu <code class="text-cyan-300 font-mono">index.html</code>.
                     </p>
                   </div>
                 </div>
@@ -1324,7 +1324,7 @@
     // Dados das 4 Visualizações do Projeto de Power BI
     const dashboardViews = [
       {
-        fileName: '3.jpg',
+        fileName: '3.png',
         badge: 'Tela 1 de 4 • Visão Geral & Mapeamento Territorial',
         title: 'Painel Estratégico de P&D (Visão Geral de MG)',
         desc: 'Mapeamento georreferenciado e consolidação das estruturas de Ciência, Tecnologia e Inovação do Estado com navegação interativa.',
@@ -1335,7 +1335,7 @@
         ]
       },
       {
-        fileName: '2.jpg',
+        fileName: '2.png',
         badge: 'Tela 2 de 4 • Busca Textual por Tokens',
         title: 'Busca Dinâmica por Tokenização em Propostas & Papers',
         desc: 'Mecanismo analítico no Power BI que possibilita a pesquisa livre por termos digitados (ex: "farmacia"), localizando propostas em tempo real.',
@@ -1346,7 +1346,7 @@
         ]
       },
       {
-        fileName: '1.jpg',
+        fileName: '1.png',
         badge: 'Tela 3 de 4 • Análise Visual Pós-Filtragem',
         title: 'Painel Analítico Composto Pós-Busca por Token',
         desc: 'Exibição quantitativa e financeira agregada gerada a partir dos resultados do termo pesquisado no Power BI.',
