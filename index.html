@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucas Vieira | Cientista de Dados & Analista de Dados</title>
+  
+  <!-- Meta tags para SEO e compartilhamento -->
+  <meta name="description" content="Portfólio profissional de Lucas Vieira. Cientista de Dados, Analista de Dados & Requisitos e Especialista em Business Intelligence com atuação na SEDE-MG.">
+  <meta name="author" content="Lucas Vieira">
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              400: '#4ade80',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+            },
+            accent: {
+              500: '#3b82f6',
+              600: '#2563eb',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0ea5e9;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #38bdf8;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .dark .glass {
+      background: rgba(15, 23, 42, 0.82);
+    }
+
+    .terminal-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+    .terminal-scroll::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+
+    /* Tarjas de Proteção e Sigilo de Dados (LGPD) */
+    .censor-tarja {
+      background: rgba(2, 6, 23, 0.95);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      backdrop-filter: blur(6px);
+      color: #f87171;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      user-select: none;
+      z-index: 20;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 font-sans antialiased selection:bg-cyan-500 selection:text-white">
+
+  <!-- Header & Barra de Navegação -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-200 dark:border-slate-800 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand / Identidade -->
+      <a href="#hero" class="flex items-center space-x-3 group">
+        <span class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-600 flex items-center justify-center text-white font-mono font-bold shadow-md shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+          LV
+        </span>
+        <div class="flex flex-col">
+          <span class="font-bold text-slate-900 dark:text-white tracking-tight leading-tight flex items-center gap-1.5">
+            Lucas Vieira
+            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+          </span>
+          <span class="text-[11px] font-mono text-cyan-600 dark:text-cyan-400 font-medium">Data Science & Inovação</span>
+        </div>
+      </a>
+
+      <!-- Menu Desktop -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 text-sm font-medium">
+        <a href="#sobre" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors">Sobre Mim</a>
+        <a href="#experiencia" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors">Experiência</a>
+        <a href="#formacao" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors">Formação</a>
+        <a href="#habilidades" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors">Habilidades</a>
+        <a href="#projetos" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors">Projetos</a>
+        <a href="#contato" class="px-3 py-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors">Contato</a>
+      </nav>
+
+      <!-- Ações rápidas (Tema, LinkedIn, WhatsApp) -->
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <!-- Alternador de Tema -->
+        <button id="themeToggle" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 focus:outline-none transition-colors" title="Alternar Tema Claro/Escuro" aria-label="Alternar Tema">
+          <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+          <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+        </button>
+
+        <!-- LinkedIn Direto -->
+        <a href="https://www.linkedin.com/in/lucas-augusto-48828619b/" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 hover:border-cyan-500 dark:hover:border-cyan-500 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-cyan-600 transition-colors">
+          <svg class="w-4 h-4 fill-[#0A66C2]" viewBox="0 0 24 24">
+            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64c-.95 0-1.72.78-1.72 1.73s.77 1.73 1.72 1.73a1.73 1.73 0 0 0 1.73-1.73c0-.95-.78-1.73-1.73-1.73Z"/>
+          </svg>
+          <span>LinkedIn</span>
+        </a>
+
+        <!-- Botão WhatsApp -->
+        <a href="https://wa.me/5531971840502?text=Ol%C3%A1%20Lucas%2C%20vi%20seu%20portf%C3%B3lio%20e%20gostar%C3%ADamos%20de%20conversar%20com%20voc%C3%AA!" target="_blank" rel="noopener noreferrer" class="hidden sm:flex items-center space-x-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-sm transition-all">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>WhatsApp</span>
+        </a>
+
+        <!-- Botão Menu Mobile -->
+        <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none" aria-label="Abrir Menu">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menu Mobile Dropdown -->
+    <div id="mobileMenu" class="hidden md:hidden border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-4 pt-2 pb-4 space-y-2">
+      <a href="#sobre" class="block py-2 px-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 mobile-nav-link">Sobre Mim</a>
+      <a href="#experiencia" class="block py-2 px-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 mobile-nav-link">Experiência</a>
+      <a href="#formacao" class="block py-2 px-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 mobile-nav-link">Formação</a>
+      <a href="#habilidades" class="block py-2 px-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 mobile-nav-link">Habilidades</a>
+      <a href="#projetos" class="block py-2 px-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 mobile-nav-link">Projetos</a>
+      <a href="#contato" class="block py-2 px-3 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 mobile-nav-link">Contato</a>
+      <div class="pt-2 flex gap-2">
+        <a href="https://www.linkedin.com/in/lucas-augusto-48828619b/" target="_blank" class="flex-1 flex items-center justify-center gap-1.5 text-center py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold">
+          <svg class="w-3.5 h-3.5 fill-white" viewBox="0 0 24 24">
+            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64c-.95 0-1.72.78-1.72 1.73s.77 1.73 1.72 1.73a1.73 1.73 0 0 0 1.73-1.73c0-.95-.78-1.73-1.73-1.73Z"/>
+          </svg>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://wa.me/5531971840502?text=Ol%C3%A1%20Lucas%2C%20vi%20seu%20portf%C3%B3lio%20e%20gostar%C3%ADamos%20de%20conversar%20com%20voc%C3%AA!" target="_blank" class="flex-1 text-center py-2 rounded-lg bg-emerald-600 text-white text-xs font-semibold">WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+    <!-- Efeitos de Luz no Fundo -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none -z-10"></div>
+    <div class="absolute top-1/3 right-10 w-80 h-80 bg-blue-600/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
+    <div class="absolute bottom-10 left-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Apresentação Principal -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          
+          <!-- Badge de Status & Localização -->
+          <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-300 dark:border-cyan-800/80 text-cyan-700 dark:text-cyan-300 text-xs font-medium tracking-wide">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Belo Horizonte, MG • Aberto a Oportunidades Estratégicas</span>
+          </div>
+
+          <!-- Título Principal -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
+            Transformando dados brutos em <br class="hidden sm:inline">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-500">
+              decisões inteligentes
+            </span> e inovação.
+          </h1>
+
+          <!-- Resumo de Impacto -->
+          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+            Olá, sou <strong>Lucas Vieira</strong>. Especialista pós-graduado em <strong>Data Science</strong>, com sólida atuação na <strong>Secretaria de Estado de Desenvolvimento Econômico de Minas Gerais (SEDE-MG)</strong>. Meu foco absoluto é a inteligência de negócios: modelagem e consultas em SQL, dashboards em Power BI, análise de indicadores, levantamento de requisitos e automações ágeis de processos.
+          </p>
+
+          <!-- Chamadas para Ação -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-2">
+            <a href="#experiencia" class="px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-semibold text-sm shadow-lg shadow-cyan-600/25 hover:shadow-cyan-600/40 transition-all flex items-center space-x-2 group">
+              <span>Conhecer Trajetória</span>
+              <i data-lucide="arrow-down" class="w-4 h-4 group-hover:translate-y-0.5 transition-transform"></i>
+            </a>
+
+            <a href="https://wa.me/5531971840502?text=Ol%C3%A1%20Lucas%2C%20vi%20seu%20portf%C3%B3lio%20e%20gostar%C3%ADamos%20de%20conversar%20com%20voc%C3%AA!" target="_blank" class="px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 font-semibold text-sm transition-all flex items-center space-x-2">
+              <i data-lucide="message-square" class="w-4 h-4 text-emerald-500"></i>
+              <span>Conversar via WhatsApp</span>
+            </a>
+
+            <!-- Copiar E-mail -->
+            <button onclick="copyToClipboard('lucasvieira.tecnologia@gmail.com', 'E-mail de Lucas copiado com sucesso!')" class="p-3 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-cyan-500 text-slate-600 dark:text-slate-400 hover:text-cyan-500 transition-colors" title="Copiar e-mail" aria-label="Copiar e-mail">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- Tags das Principais Competências -->
+          <div class="pt-6 border-t border-slate-200 dark:border-slate-800/80 flex flex-wrap items-center justify-center lg:justify-start gap-2 text-xs text-slate-500 dark:text-slate-400 font-mono">
+            <span class="font-semibold text-slate-700 dark:text-slate-300">Destaques:</span>
+            <span class="px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800 text-cyan-600 dark:text-cyan-400 font-medium">Data Science (Pós Concluída)</span>
+            <span class="px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800">SQL & Bancos de Dados</span>
+            <span class="px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800">Power BI & Relatórios</span>
+            <span class="px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800">Power Automate</span>
+            <span class="px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-800">Engenharia de Requisitos</span>
+          </div>
+        </div>
+
+        <!-- Terminal Interativo Personalizado -->
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-200 shadow-2xl shadow-slate-950/40 overflow-hidden font-mono text-xs sm:text-sm">
+            
+            <!-- Barra Superior do Terminal -->
+            <div class="bg-slate-800/80 px-4 py-3 border-b border-slate-700/80 flex items-center justify-between">
+              <div class="flex items-center space-x-2">
+                <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+              </div>
+              <div class="text-slate-400 text-xs font-semibold flex items-center space-x-1.5">
+                <i data-lucide="terminal" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span>lucas-vieira@datascience:~</span>
+              </div>
+              <div class="w-8"></div>
+            </div>
+
+            <!-- Corpo de Saída do Terminal -->
+            <div id="terminalScreen" class="p-4 space-y-2.5 h-80 overflow-y-auto terminal-scroll bg-slate-950/90 text-slate-300">
+              <p class="text-slate-500 leading-relaxed">
+                # Terminal do portfólio profissional de Lucas Vieira<br>
+                # Digite <span class="text-cyan-400 font-bold">help</span> para comandos interativos.
+              </p>
+              
+              <div>
+                <span class="text-emerald-400 font-semibold">lucas@analytics</span>:<span class="text-cyan-400">~</span>$ whoami
+                <p class="text-slate-300 mt-1">Lucas Vieira • Cientista de Dados & Analista de Requisitos/Dados na Secretaria de Estado de Desenvolvimento Econômico de MG.</p>
+              </div>
+
+              <div>
+                <span class="text-emerald-400 font-semibold">lucas@analytics</span>:<span class="text-cyan-400">~</span>$ cat perfil.json
+                <pre class="text-cyan-300 bg-slate-900/80 p-2 rounded text-[11px] mt-1 leading-snug">{
+  "nome": "Lucas Vieira",
+  "local": "Belo Horizonte, MG 🇧🇷",
+  "pos_graduacoes": [
+    "Data Science (União das Américas) - CONCLUÍDA",
+    "Desenvolvimento Web Full Stack (União das Américas) - CONCLUÍDA"
+  ],
+  "graduacoes": [
+    "Bacharelado em Sistemas de Informação (UniBH)",
+    "Tecnólogo em Segurança da Informação (Uniasselvi)"
+  ],
+  "foco_principal": "Ciência de Dados, SQL, Power BI, Requisitos e Automação"
+}</pre>
+              </div>
+
+              <!-- Saídas dinâmicas são inseridas aqui -->
+              <div id="dynamicTerminalOutput" class="space-y-2"></div>
+            </div>
+
+            <!-- Linha de Comando -->
+            <form id="terminalForm" class="bg-slate-900 border-t border-slate-800 px-4 py-2.5 flex items-center space-x-2">
+              <span class="text-emerald-400 font-semibold">$</span>
+              <input type="text" id="terminalInput" autocomplete="off" placeholder="Digite help, formacao, sedemg, skills ou contato..." class="w-full bg-transparent border-none text-slate-100 placeholder-slate-500 focus:outline-none font-mono text-xs sm:text-sm">
+              <button type="submit" class="text-cyan-400 hover:text-cyan-300 text-xs px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 transition-colors">Enter</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Métricas e Destaques Rápidos -->
+  <section class="border-y border-slate-200 dark:border-slate-800/80 bg-white/50 dark:bg-slate-900/50 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        
+        <div class="space-y-1">
+          <p class="text-3xl sm:text-4xl font-extrabold text-cyan-600 dark:text-cyan-400 font-mono">+5 Anos</p>
+          <p class="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">Atuação no Setor Público Estadual (SEDE-MG)</p>
+        </div>
+
+        <div class="space-y-1">
+          <p class="text-3xl sm:text-4xl font-extrabold text-blue-600 dark:text-blue-400 font-mono">Data Science</p>
+          <p class="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">Especialização Estratégica em Dados Concluída</p>
+        </div>
+
+        <div class="space-y-1">
+          <p class="text-3xl sm:text-4xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">2 Graduações</p>
+          <p class="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">Sistemas de Informação & Seg. da Informação</p>
+        </div>
+
+        <div class="space-y-1">
+          <p class="text-3xl sm:text-4xl font-extrabold text-indigo-600 dark:text-indigo-400 font-mono">100%</p>
+          <p class="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">Foco em Exibição e Apresentação de Dados</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção Sobre Mim -->
+  <section id="sobre" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Cartão Visual de Perfil -->
+      <div class="lg:col-span-5">
+        <div class="relative group">
+          <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-500 rounded-2xl blur-lg opacity-30 group-hover:opacity-60 transition duration-1000"></div>
+          
+          <div class="relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 sm:p-8 space-y-6 shadow-xl">
+            <div class="flex items-center space-x-4">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-700 flex items-center justify-center text-white text-2xl font-bold shadow-md shadow-cyan-500/30">
+                <i data-lucide="database" class="w-8 h-8"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-xl text-slate-900 dark:text-white">Lucas Vieira</h3>
+                <p class="text-xs sm:text-sm text-cyan-600 dark:text-cyan-400 font-medium">Analista de Dados & Cientista de Dados</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Belo Horizonte, MG • Brasil</p>
+              </div>
+            </div>
+
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Profissional de tecnologia focado em conectar regras de negócio, engenharia de dados e modelos estatísticos para gerar impacto mensurável e transparência em processos complexos.
+            </p>
+
+            <div class="grid grid-cols-2 gap-3 pt-2 text-xs font-medium">
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60">
+                <span class="text-slate-400 block mb-0.5">Especialidade</span>
+                <span class="text-slate-800 dark:text-slate-200">Data Science & SQL</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60">
+                <span class="text-slate-400 block mb-0.5">Gestão Visual</span>
+                <span class="text-slate-800 dark:text-slate-200">Power BI & Relatórios</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-800">
+              <span class="text-xs text-slate-500">Canais de Contato:</span>
+              <div class="flex space-x-2">
+                <a href="https://www.linkedin.com/in/lucas-augusto-48828619b/" target="_blank" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-blue-600 hover:text-blue-500 transition-colors" aria-label="LinkedIn" title="LinkedIn">
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64c-.95 0-1.72.78-1.72 1.73s.77 1.73 1.72 1.73a1.73 1.73 0 0 0 1.73-1.73c0-.95-.78-1.73-1.73-1.73Z"/>
+                  </svg>
+                </a>
+                <a href="https://wa.me/5531971840502?text=Ol%C3%A1%20Lucas%2C%20vi%20seu%20portf%C3%B3lio%20e%20gostar%C3%ADamos%20de%20conversar%20com%20voc%C3%AA!" target="_blank" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-emerald-500 transition-colors" aria-label="WhatsApp" title="WhatsApp"><i data-lucide="message-circle" class="w-4 h-4"></i></a>
+                <a href="mailto:lucasvieira.tecnologia@gmail.com" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-cyan-500 transition-colors" aria-label="Email" title="Enviar E-mail"><i data-lucide="mail" class="w-4 h-4"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Texto Biográfico Narrativo -->
+      <div class="lg:col-span-7 space-y-6">
+        <div>
+          <span class="text-cyan-600 dark:text-cyan-400 text-sm font-semibold tracking-wider uppercase font-mono">Sobre Mim & Visão</span>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-1">
+            Da engenharia de requisitos à ciência de dados na prática.
+          </h2>
+        </div>
+
+        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+          Atuo diretamente na <strong>Secretaria de Estado de Desenvolvimento Econômico de Minas Gerais (SEDE-MG)</strong>, conduzindo o levantamento de requisitos, elaboração de relatórios executivos, desenvolvimento de dashboards em Power BI e monitoramento sistemático dos índices de inovação e estruturas de P&D no estado.
+        </p>
+
+        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+          Minha experiência envolve a análise de dados e informações de projetos estaduais, apoio à sustentação de sistemas como o <em>portal Tecpop Minas</em>, estruturação de fluxos automatizados com Power Automate para extração e envio de mensagens, além de consultas a bancos relacionais para atender demandas técnicas operacionais.
+        </p>
+
+        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+          Após concluir a pós-graduação em Desenvolvimento Web Full Stack — formação que me conferiu uma sólida base técnica para dialogar com desenvolvedores e compreender arquiteturas —, decidi direcionar minha carreira com paixão para a <strong>Ciência de Dados</strong>. Com a pós-graduação em <strong>Data Science</strong> concluída, sigo em constante aprendizado para integrar a visão analítica com a governança da informação.
+        </p>
+
+        <!-- Diferenciais -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+          <div class="flex items-start space-x-3 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60">
+            <div class="p-2 rounded-lg bg-cyan-50 dark:bg-cyan-950/60 text-cyan-600 dark:text-cyan-400">
+              <i data-lucide="line-chart" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold text-sm text-slate-900 dark:text-white">Inteligência de Dados & BI</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Modelagem em Power BI, consultas SQL complexas e relatórios estratégicos.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start space-x-3 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/60">
+            <div class="p-2 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400">
+              <i data-lucide="bot" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="font-semibold text-sm text-slate-900 dark:text-white">Automação de Processos</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Fluxos ágeis com Power Automate, integrações e mensageria automática.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Experiência Profissional -->
+  <section id="experiencia" class="py-20 bg-slate-100/60 dark:bg-slate-900/40 border-y border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="text-center space-y-2">
+        <span class="text-cyan-600 dark:text-cyan-400 text-sm font-semibold tracking-wider uppercase font-mono">Carreira & Impacto</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Experiência Profissional</h2>
+        <p class="text-slate-600 dark:text-slate-300 text-sm">
+          Atuação de ponta a ponta na gestão de dados, análise de sistemas e suporte a projetos de inovação.
+        </p>
+      </div>
+
+      <div class="relative border-l-2 border-cyan-300 dark:border-cyan-900/80 ml-4 sm:ml-40 space-y-10">
+        
+        <!-- Cargo 1: Analista de Requisitos/Dados SEDE-MG -->
+        <div class="relative pl-6 sm:pl-8 group">
+          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-cyan-600 ring-4 ring-white dark:ring-slate-950 group-hover:scale-125 transition-transform"></div>
+          
+          <div class="hidden sm:block absolute -left-44 top-1 text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 text-right w-36">
+            2021 — Presente
+          </div>
+
+          <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-3 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <div>
+                <h3 class="font-bold text-lg text-slate-900 dark:text-white">Analista de Requisitos e Dados</h3>
+                <p class="text-xs font-semibold text-cyan-600 dark:text-cyan-400">Secretaria de Estado de Desenvolvimento Econômico de MG (SEDE-MG)</p>
+              </div>
+              <span class="sm:hidden text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400">2021 — O momento</span>
+            </div>
+
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Responsável pelo ciclo de análise de dados, acompanhamento de projetos de ciência e tecnologia e sustentação de processos estratégicos do Estado:
+            </p>
+
+            <ul class="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside">
+              <li><strong>Monitoramento de P&D & Inovação:</strong> Acompanhamento de estruturas de P&D e índices de inovação em Minas Gerais com relatórios e gestão de portfólio.</li>
+              <li><strong>Análise de Projetos Estaduais:</strong> Apoio na avaliação e acompanhamento documental de propostas e projetos de pesquisa vinculados ao estado.</li>
+              <li><strong>Dashboards & Indicadores:</strong> Construção de relatórios analíticos e painéis interativos em <em>Power BI</em> e <em>Excel</em> para visualização de métricas e atendimentos.</li>
+              <li><strong>Consultas e Banco de Dados:</strong> Atendimento a demandas técnicas de empresas parceiras por meio de buscas avançadas e extrações via SQL (queries).</li>
+              <li><strong>Portal Tecpop Minas:</strong> Apoio contínuo na manutenção corretiva, preventiva e evolutiva da plataforma de tecnologia popular.</li>
+              <li><strong>Automação com Power Automate:</strong> Implementação de fluxos automáticos para captura de dados e disparos de notificações e mensagens via WhatsApp.</li>
+            </ul>
+
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Análise de Dados</span>
+              <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Power BI</span>
+              <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">SQL Queries</span>
+              <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Power Automate</span>
+              <span class="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">Requisitos</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cargo 2: Estagiário SEDE-MG -->
+        <div class="relative pl-6 sm:pl-8 group">
+          <div class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-slate-400 dark:bg-slate-600 ring-4 ring-white dark:ring-slate-950 group-hover:scale-125 transition-transform"></div>
+          
+          <div class="hidden sm:block absolute -left-44 top-1 text-xs font-mono font-bold text-slate-500 dark:text-slate-400 text-right w-36">
+            07/2020 — 10/2021
+          </div>
+
+          <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-3 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+              <div>
+                <h3 class="font-bold text-lg text-slate-900 dark:text-white">Estagiário de Suporte Técnico & Soluções</h3>
+                <p class="text-xs font-semibold text-slate-500 dark:text-slate-400">Secretaria de Estado de Desenvolvimento Econômico de MG (SEDE-MG)</p>
+              </div>
+              <span class="sm:hidden text-xs font-mono font-bold text-slate-500 dark:text-slate-400">07/2020 — 10/2021</span>
+            </div>
+
+            <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Atuação técnica prestando atendimento e suporte especializado aos usuários e líderes da instituição:
+            </p>
+
+            <ul class="space-y-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 list-disc list-inside">
+              <li>Suporte técnico operacional a redes locais, VPN corporativa, servidores de arquivos (FileServer) e infraestrutura de e-mails.</li>
+              <li>Atendimento técnico direcionado ao alto escalão governamental com foco em resolutividade e discrição.</li>
+              <li>Configuração, diagnóstico e manutenção física e lógica de computadores e notebooks.</li>
+              <li>Desenvolvimento de soluções internas e controle de inventário de hardware e software.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Formação Acadêmica & Pós-Graduações -->
+  <section id="formacao" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    
+    <div class="text-center space-y-2 max-w-2xl mx-auto">
+      <span class="text-cyan-600 dark:text-cyan-400 text-sm font-semibold tracking-wider uppercase font-mono">Educação Contínua</span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Formação Acadêmica</h2>
+      <p class="text-slate-600 dark:text-slate-300 text-sm">
+        Base sólida unindo Ciência de Dados, Engenharia de Software, Sistemas e Segurança.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- Card 1: Pós em Data Science (FINALIZADA) -->
+      <div class="p-6 sm:p-7 rounded-2xl border-2 border-cyan-500/50 bg-white dark:bg-slate-900 shadow-md relative overflow-hidden group">
+        <div class="absolute top-0 right-0 px-3.5 py-1 rounded-bl-xl bg-cyan-600 text-white text-[11px] font-mono font-bold uppercase tracking-wider flex items-center gap-1">
+          <i data-lucide="check-check" class="w-3.5 h-3.5"></i>
+          <span>Concluída</span>
+        </div>
+
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
+            <i data-lucide="brain-circuit" class="w-7 h-7"></i>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider">Pós-Graduação Lato Sensu</span>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Data Science</h3>
+          </div>
+        </div>
+
+        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2">União das Américas</p>
+        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          Especialização focada em análise preditiva, mineração de dados, machine learning, estatística descritiva e inferencial, modelagem de dados e geração de insights para decisões de negócio.
+        </p>
+      </div>
+
+      <!-- Card 2: Pós em Full Stack (Base Complementar) -->
+      <div class="p-6 sm:p-7 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden group">
+        <div class="absolute top-0 right-0 px-3.5 py-1 rounded-bl-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px] font-mono font-bold uppercase tracking-wider flex items-center gap-1">
+          <i data-lucide="check" class="w-3.5 h-3.5"></i>
+          <span>Concluída (2024–2025)</span>
+        </div>
+
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="p-3 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
+            <i data-lucide="layers" class="w-7 h-7"></i>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Base Complementar de Software</span>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Desenvolvimento Web Full Stack</h3>
+          </div>
+        </div>
+
+        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2">União das Américas</p>
+        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          Formação utilizada como alicerce técnico complementar para entender o ecossistema de ponta a ponta: requisições, APIs, consumo de bancos de dados e viabilidade técnica no levantamento de requisitos de sistemas.
+        </p>
+      </div>
+
+      <!-- Card 3: Graduação em Sistemas de Informação -->
+      <div class="p-6 sm:p-7 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden group">
+        <div class="absolute top-0 right-0 px-3 py-1 rounded-bl-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px] font-mono font-medium">
+          2019 — 2023
+        </div>
+
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="p-3 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+            <i data-lucide="graduation-cap" class="w-7 h-7"></i>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Bacharelado</span>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Sistemas de Informação</h3>
+          </div>
+        </div>
+
+        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2">UniBH (Centro Universitário de Belo Horizonte)</p>
+        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          Formação ampla em engenharia de software, modelagem de banco de dados, governança de TI, gestão de requisitos, redes e arquitetura de sistemas corporativos.
+        </p>
+      </div>
+
+      <!-- Card 4: Tecnólogo em Segurança da Informação -->
+      <div class="p-6 sm:p-7 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm relative overflow-hidden group">
+        <div class="absolute top-0 right-0 px-3 py-1 rounded-bl-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px] font-mono font-medium">
+          2020 — 2022
+        </div>
+
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+            <i data-lucide="shield-check" class="w-7 h-7"></i>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Tecnólogo</span>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Segurança da Informação</h3>
+          </div>
+        </div>
+
+        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-2">Uniasselvi (Universidade Leonardo Da Vinci)</p>
+        <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          Formação voltada para proteção de dados corporativos, governança, conformidade (compliance), gestão de acessos e políticas de segurança institucional (atuação gerencial e defensiva, sem foco em testes de invasão/hacking).
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Habilidades & Caixa de Ferramentas -->
+  <section id="habilidades" class="py-20 bg-slate-100/60 dark:bg-slate-900/40 border-y border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-3">
+        <span class="text-cyan-600 dark:text-cyan-400 text-sm font-semibold tracking-wider uppercase font-mono">Competências Técnicas</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Matriz de Habilidades</h2>
+        <p class="text-slate-600 dark:text-slate-300 text-sm">
+          Transparência técnica: ferramentas e metodologias aplicadas no cotidiano de trabalho e em constante aprimoramento.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Categoria 1: Dados & BI -->
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+          <div class="flex items-center space-x-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">
+              <i data-lucide="bar-chart-3" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Dados & BI</h3>
+          </div>
+          <div class="space-y-3 text-xs">
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Power BI (DAX & Dashboards)</span><span class="text-cyan-600 dark:text-cyan-400 font-mono">Avançado</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-cyan-500 h-full rounded-full" style="width: 95%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Análise de Indicadores & Métricas</span><span class="text-cyan-600 dark:text-cyan-400 font-mono">Avançado</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-cyan-500 h-full rounded-full" style="width: 90%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Excel (Relatórios & Funções)</span><span class="text-cyan-600 dark:text-cyan-400 font-mono">Quase Avançado</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-cyan-500 h-full rounded-full" style="width: 78%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Python p/ Ciência de Dados</span><span class="text-cyan-600 dark:text-cyan-400 font-mono">Básico / Interm.</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-cyan-500 h-full rounded-full" style="width: 52%"></div></div>
+              <span class="text-[10px] text-slate-400 mt-0.5 block">Em aprendizado e prática contínua</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categoria 2: Banco de Dados & SQL -->
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+          <div class="flex items-center space-x-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
+              <i data-lucide="database" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Bancos & SQL</h3>
+          </div>
+          <div class="space-y-3 text-xs">
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Consultas SQL (Queries)</span><span class="text-blue-600 dark:text-blue-400 font-mono">Avançado</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width: 90%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Modelagem Relacional</span><span class="text-blue-600 dark:text-blue-400 font-mono">Quase Avançado</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width: 78%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>MySQL</span><span class="text-blue-600 dark:text-blue-400 font-mono">Sólido</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width: 85%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Busca de Dados & Atendimento</span><span class="text-blue-600 dark:text-blue-400 font-mono">Avançado</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-blue-500 h-full rounded-full" style="width: 90%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categoria 3: Requisitos & Automação -->
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+          <div class="flex items-center space-x-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+              <i data-lucide="cpu" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">Requisitos & RPA</h3>
+          </div>
+          <div class="space-y-3 text-xs">
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Power Automate (Workflows/RPA)</span><span class="text-emerald-600 dark:text-emerald-400 font-mono">Avançado</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width: 90%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Levantamento de Requisitos</span><span class="text-emerald-600 dark:text-emerald-400 font-mono">Avançado</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width: 92%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Mapeamento de Regras & Processos</span><span class="text-emerald-600 dark:text-emerald-400 font-mono">Sólido</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width: 82%"></div></div>
+              <span class="text-[10px] text-slate-400 mt-0.5 block">Alinhamento entre demandas operacionais e regras de negócio</span>
+            </div>
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Apoio a Projetos de Inovação</span><span class="text-emerald-600 dark:text-emerald-400 font-mono">Sólido</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width: 86%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categoria 4: TI, Segurança & Fundamentos de Software -->
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+          <div class="flex items-center space-x-3 mb-5">
+            <div class="p-2.5 rounded-xl bg-violet-500/10 text-violet-600 dark:text-violet-400">
+              <i data-lucide="shield-check" class="w-6 h-6"></i>
+            </div>
+            <h3 class="font-bold text-lg text-slate-900 dark:text-white">TI & Governança</h3>
+          </div>
+          <div class="space-y-3 text-xs">
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Atendimento & Suporte Técnico</span><span class="text-violet-600 dark:text-violet-400 font-mono">Avançado</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-violet-500 h-full rounded-full" style="width: 95%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Segurança & Governança</span><span class="text-violet-600 dark:text-violet-400 font-mono">Graduado</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-violet-500 h-full rounded-full" style="width: 80%"></div></div>
+              <span class="text-[10px] text-slate-400 mt-0.5 block">Políticas e dados institucionais (não atuo com hacking)</span>
+            </div>
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Fundamentos Web (Noções)</span><span class="text-violet-600 dark:text-violet-400 font-mono">Conceitual</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-violet-500 h-full rounded-full" style="width: 45%"></div></div>
+            </div>
+            <div>
+              <div class="flex justify-between font-medium mb-1"><span>Git & Controle de Versão</span><span class="text-violet-600 dark:text-violet-400 font-mono">Sólido</span></div>
+              <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-violet-500 h-full rounded-full" style="width: 72%"></div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção de Projetos & Inovações em Andamento -->
+  <section id="projetos" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-6">
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="text-cyan-600 dark:text-cyan-400 text-sm font-semibold tracking-wider uppercase font-mono">Destaque de Engenharia Visual</span>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-medium bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-500 mr-1.5 animate-pulse"></span>
+            Caso em Produção
+          </span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mt-1">Projetos & Apresentação de Dados</h2>
+        <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">
+          Dashboard corporativo, modelo relacional avançado e motor de busca textual por tokenização.
+        </p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-mono">
+          <i data-lucide="layers" class="w-3.5 h-3.5 mr-1.5 text-cyan-500"></i>
+          Power BI & Star Schema
+        </span>
+      </div>
+    </div>
+
+    <!-- Banner Informativo: Foco em Aprendizado & Novos Projetos em Breve -->
+    <div class="p-4 sm:p-5 rounded-2xl border border-cyan-500/30 bg-gradient-to-r from-cyan-500/10 via-blue-500/5 to-transparent flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm">
+      <div class="flex items-center space-x-3">
+        <div class="p-2.5 rounded-xl bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 shrink-0">
+          <i data-lucide="sparkles" class="w-5 h-5"></i>
+        </div>
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+          <strong class="text-slate-900 dark:text-white font-semibold">Em breve novos projetos:</strong> No momento, estou direcionando energia e dedicação contínua ao aprofundamento prático e conceitual em Ciência de Dados e IA aplicada.
+        </p>
+      </div>
+      <span class="px-3 py-1 rounded-full text-[11px] font-mono font-semibold bg-cyan-100 dark:bg-cyan-950/80 text-cyan-700 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-800 shrink-0">
+        Foco em Aprendizagem
+      </span>
+    </div>
+
+    <!-- PROJETO 1: PAINEL PÚBLICO INTERATIVO EMBUTIDO VIA IFRAME (Mapeamento SPTEC) -->
+    <div class="rounded-3xl border border-cyan-500/40 bg-white dark:bg-slate-900 p-5 sm:p-7 shadow-xl space-y-5">
+      
+      <!-- Cabeçalho do Painel Público -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-5">
+        <div class="space-y-1.5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Painel Interativo Online (Aberto ao Público)
+            </span>
+          </div>
+          
+          <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+            Mapeamento SPTEC — Sistema de Informações de Ciência, Tecnologia e Inovação
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+            Painel público oficial com navegação interativa em tempo real por municípios, mesorregiões, editais e indicadores de P&D em Minas Gerais.
+          </p>
+        </div>
+
+        <!-- Ação para Abrir em Nova Aba / Tela Cheia -->
+        <div class="flex items-center gap-2 shrink-0">
+          <a href="https://app.powerbi.com/view?r=eyJrIjoiMzU0NmU1ZGMtZTRhYy00NTJjLTg5NDAtYjIyNTAzZWQzZGNkIiwidCI6ImU1ZDNhZTdjLTliMzgtNDhkZS1hMDg3LWY2NzM0YTI4NzU3NCJ9" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-semibold text-xs shadow-md shadow-cyan-600/20 transition-all">
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+            <span>Abrir em Tela Cheia</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Menção Institucional UFMG (Sutil e Discreta) -->
+      <div class="p-3.5 rounded-xl border border-indigo-200/70 dark:border-indigo-900/40 bg-indigo-50/50 dark:bg-indigo-950/20 flex items-center space-x-3 text-xs text-indigo-900 dark:text-indigo-200">
+        <i data-lucide="presentation" class="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0"></i>
+        <p>
+          Painel de indicadores de Ciência, Tecnologia e Inovação utilizado em apresentação institucional pela <strong>Profª. Sandra Goulart Almeida</strong> (ex-reitora da UFMG).
+        </p>
+      </div>
+
+      <!-- Container Responsivo com o Iframe Oficial Incorporado -->
+      <div class="relative w-full rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-950 shadow-2xl">
+        <div class="bg-slate-900 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between text-xs text-slate-300 font-mono">
+          <div class="flex items-center space-x-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+          </div>
+          <span class="text-cyan-400 hidden sm:inline text-[11px]">100% Funcional e Interativo</span>
+        </div>
+        
+        <div class="w-full flex justify-center bg-slate-950">
+          <iframe title="Mapeamento SPTEC" class="w-full h-[640px] sm:h-[780px] lg:h-[880px] border-0" src="https://app.powerbi.com/view?r=eyJrIjoiMzU0NmU1ZGMtZTRhYy00NTJjLTg5NDAtYjIyNTAzZWQzZGNkIiwidCI6ImU1ZDNhZTdjLTliMzgtNDhkZS1hMDg3LWY2NzM0YTI4NzU3NCJ9" frameborder="0" allowFullScreen="true"></iframe>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PROJETO 2: SISTEMA DE INTELIGÊNCIA E BUSCA POR TOKENIZAÇÃO (PROJETO INTERNO COM DADOS TARJADOS) -->
+    <div class="project-card" data-category="powerbi">
+      <div class="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 sm:p-7 shadow-xl space-y-6">
+        
+        <!-- Cabeçalho do Projeto de Tokenização -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-5">
+          <div class="space-y-1.5">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
+                Projeto Interno • Motor de Tokenização de Texto
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-mono font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                <i data-lucide="shield-check" class="w-3 h-3 inline mr-1 text-emerald-500"></i>Telas com Dados Tarjados (LGPD)
+              </span>
+            </div>
+            
+            <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+              Sistema de Busca por Tokenização e Engenharia do Modelo Relacional
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+              Mecanismo analítico no Power BI que implementa busca textual dinâmica por palavras-chave em propostas científicas, apoiado por um modelo relacional com dezenas de tabelas integradas.
+            </p>
+          </div>
+        </div>
+
+        <!-- Seletor Interativo de Visualizações (Abas Compactas) -->
+        <div class="space-y-4">
+          <div class="flex flex-wrap items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-3" id="dashboardTabContainer">
+            <button onclick="switchDashboardView(0)" id="dashTab-0" class="dash-tab active px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-600 text-white flex items-center gap-1.5 transition-all shadow-sm">
+              <i data-lucide="map" class="w-3.5 h-3.5"></i>
+              <span>1. Visão Macro (3.jpg)</span>
+            </button>
+            <button onclick="switchDashboardView(1)" id="dashTab-1" class="dash-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-cyan-500 transition-all flex items-center gap-1.5">
+              <i data-lucide="search" class="w-3.5 h-3.5"></i>
+              <span>2. Busca por Tokens (2.jpg)</span>
+            </button>
+            <button onclick="switchDashboardView(2)" id="dashTab-2" class="dash-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-cyan-500 transition-all flex items-center gap-1.5">
+              <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>
+              <span>3. Análise Composta (1.jpg)</span>
+            </button>
+            <button onclick="switchDashboardView(3)" id="dashTab-3" class="dash-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-cyan-500 transition-all flex items-center gap-1.5">
+              <i data-lucide="network" class="w-3.5 h-3.5"></i>
+              <span>4. Modelo Relacional (4.png)</span>
+            </button>
+          </div>
+
+          <!-- Visualizador Dividido: Imagem à Esquerda + Explicação à Direita -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            
+            <!-- Moldura da Imagem -->
+            <div class="lg:col-span-7">
+              <div class="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-950 shadow-md group aspect-[16/10] max-h-[380px] flex items-center justify-center">
+                
+                <img id="dashboardImg" src="3.jpg" alt="Visão Estratégica Macro" class="w-full h-full object-contain transition-opacity duration-300" onerror="handleImageFallback(this);">
+                
+                <!-- Fallback Informativo caso a imagem não esteja no diretório local -->
+                <div id="imageFallbackAlert" class="hidden absolute inset-0 bg-slate-900/95 flex flex-col items-center justify-center p-6 text-center space-y-3">
+                  <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+                    <i data-lucide="image" class="w-6 h-6"></i>
+                  </div>
+                  <div class="space-y-1 max-w-sm">
+                    <p class="text-xs font-bold text-white font-mono" id="fallbackFileName">Arquivo 3.jpg</p>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">
+                      Para exibir esta tela no GitHub Pages ou em seu teste local, certifique-se de salvar a imagem <code class="text-cyan-300 font-mono">3.jpg</code> na mesma pasta do seu <code class="text-cyan-300 font-mono">index.html</code>.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Selo de Dados Tarjados -->
+                <div class="absolute bottom-2.5 right-2.5 bg-slate-900/85 backdrop-blur-md px-2.5 py-1 rounded-lg border border-slate-700/80 text-[10px] font-mono text-cyan-300 flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span>Campos Sensíveis Tarjados (LGPD)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painel de Explicação Técnica Dinâmica -->
+            <div class="lg:col-span-5 space-y-3.5">
+              <div>
+                <span id="viewBadge" class="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
+                  Tela 1 de 4 • Visão Territorial
+                </span>
+                <h4 id="viewTitle" class="text-lg font-bold text-slate-900 dark:text-white mt-0.5">
+                  Painel Estratégico de P&D (Visão Geral de MG)
+                </h4>
+                <p id="viewDesc" class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+                  Visão consolidada das iniciativas de inovação com filtros multicritério e distribuição espacial por municípios e mesorregiões.
+                </p>
+              </div>
+
+              <!-- Lista de Destaques Técnicos -->
+              <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/40 space-y-2.5 text-xs text-slate-600 dark:text-slate-300" id="viewPoints">
+                <div class="flex items-start space-x-2">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-cyan-500 shrink-0 mt-0.5"></i>
+                  <span><strong>Georreferenciamento de MG:</strong> Mapa interativo com intensidade de ações científicas e projetos alocados em cada polo territorial.</span>
+                </div>
+                <div class="flex items-start space-x-2">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-cyan-500 shrink-0 mt-0.5"></i>
+                  <span><strong>Filtros Multicritério:</strong> Seletores simultâneos por município, mesorregião, executora e ano, recalculando métricas instantaneamente.</span>
+                </div>
+                <div class="flex items-start space-x-2">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-cyan-500 shrink-0 mt-0.5"></i>
+                  <span><strong>Visão Departamental:</strong> Quadros dedicados segmentando os volumes entre as diretorias da SEDE-MG (DPD, DCTT, DIPRO e DIAE).</span>
+                </div>
+              </div>
+
+              <!-- Mini Indicadores de Competências Aplicadas -->
+              <div class="flex flex-wrap gap-1.5 pt-1 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">Power BI</span>
+                <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">DAX</span>
+                <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">Cartografia</span>
+                <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">UX Dashboard</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Seção de Aprendizagem Contínua: Leitura Atual & Laboratório de Fine-Tuning -->
+    <div class="pt-6 border-t border-slate-200 dark:border-slate-800 space-y-6">
+      <div>
+        <div class="flex items-center space-x-2">
+          <span class="text-cyan-600 dark:text-cyan-400 text-xs font-semibold tracking-wider uppercase font-mono">Pesquisa & Laboratório</span>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-medium bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+            Estudos Atuais
+          </span>
+        </div>
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-1">Foco de Aprendizagem & P&D</h3>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1">
+          Fundamentação teórica sólida combinada com experimentação prática e segura em Inteligência Artificial local.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Card 1: Leitura Atual em Estatística -->
+        <div class="p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm space-y-4 relative overflow-hidden group">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center space-x-3">
+              <div class="p-3 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 shrink-0">
+                <i data-lucide="book-open" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <span class="text-[11px] font-mono font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider block">Leitura Atual</span>
+                <h4 class="font-bold text-base text-slate-900 dark:text-white leading-snug">
+                  Estatística Prática para Cientistas de Dados
+                </h4>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 shrink-0">
+              Em Leitura
+            </span>
+          </div>
+
+          <p class="text-xs font-mono text-slate-500 dark:text-slate-400">
+            Livro: <em>+50 conceitos essenciais usando R e Python</em> (Peter Bruce, Andrew Bruce & Peter Gedeck)
+          </p>
+
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Consolidação rigorosa dos pilares estatísticos necessários para a ciência de dados: análise exploratória, distribuição de dados e amostragem, significância estatística, testes de hipóteses, modelos de regressão e classificação, conectando a teoria matemática à aplicação analítica em Python.
+          </p>
+
+          <div class="flex flex-wrap gap-1.5 pt-1 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+            <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">Estatística Prática</span>
+            <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">Python & R</span>
+            <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">Testes de Hipótese</span>
+            <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">Modelagem</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Laboratório Prático de Fine-Tuning Local -->
+        <div class="p-6 rounded-2xl border border-cyan-500/40 bg-white dark:bg-slate-900 shadow-sm space-y-4 relative overflow-hidden group">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center space-x-3">
+              <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 shrink-0">
+                <i data-lucide="cpu" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <span class="text-[11px] font-mono font-semibold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider block">Estudo & Experimentação</span>
+                <h4 class="font-bold text-base text-slate-900 dark:text-white leading-snug">
+                  Fine-Tuning Local com SLMs & Dados Institucionais
+                </h4>
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shrink-0">
+              Teletrabalho
+            </span>
+          </div>
+
+          <p class="text-xs font-mono text-cyan-600 dark:text-cyan-400">
+            Ambiente Local: Aceleração por GPU dedicada (RTX 5070)
+          </p>
+
+          <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            Estudo conjunto e implementação de rotinas de <em>Fine-Tuning</em> aplicadas aos dados do serviço atual, utilizando modelos de parâmetros compactos (SLMs / Small Language Models). O processo é executado diretamente na minha estação de teletrabalho equipada com uma <strong>GeForce RTX 5070</strong>, viabilizando adaptação de domínio, precisão nas respostas e garantia absoluta de privacidade dos dados (sem tráfego em nuvens de terceiros).
+          </p>
+
+          <div class="flex flex-wrap gap-1.5 pt-1 text-[11px] font-mono text-slate-500 dark:text-slate-400">
+            <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">Fine-Tuning</span>
+            <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">SLMs (Small Parameters)</span>
+            <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">NVIDIA RTX 5070</span>
+            <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800">Privacidade Local</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Seção de Contato -->
+  <section id="contato" class="py-20 bg-slate-100/60 dark:bg-slate-900/40 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-cyan-600 dark:text-cyan-400 text-sm font-semibold tracking-wider uppercase font-mono">Vamos Conversar</span>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">Entre em Contato</h2>
+        <p class="text-slate-600 dark:text-slate-300 text-sm">
+          Aberto a oportunidades em Ciência de Dados, Análise de Dados, SQL, Power BI e Automação de Processos.
+        </p>
+      </div>
+
+      <!-- Canais de Contato Direto Centralizados -->
+      <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        
+        <!-- Card WhatsApp Direto com Mensagem Pronta -->
+        <a href="https://wa.me/5531971840502?text=Ol%C3%A1%20Lucas%2C%20vi%20seu%20portf%C3%B3lio%20e%20gostar%C3%ADamos%20de%20conversar%20com%20voc%C3%AA!" target="_blank" rel="noopener noreferrer" class="flex flex-col justify-between p-6 rounded-2xl border border-emerald-500/30 bg-emerald-50/50 dark:bg-emerald-950/20 hover:border-emerald-500 hover:shadow-lg hover:shadow-emerald-500/10 transition-all group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-md shadow-emerald-500/30 group-hover:scale-105 transition-transform">
+              <i data-lucide="message-circle" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-xs font-mono uppercase text-emerald-600 dark:text-emerald-400 font-bold block mb-1">WhatsApp Direto</span>
+              <p class="text-base font-bold text-slate-900 dark:text-white">(31) 97184-0502</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Enviar mensagem rápida pré-preenchida</p>
+            </div>
+          </div>
+          <div class="pt-5 border-t border-emerald-500/20 mt-4 flex items-center text-xs font-semibold text-emerald-600 dark:text-emerald-400 group-hover:translate-x-1 transition-transform">
+            <span>Iniciar conversa</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+          </div>
+        </a>
+
+        <!-- Card LinkedIn -->
+        <a href="https://www.linkedin.com/in/lucas-augusto-48828619b/" target="_blank" rel="noopener noreferrer" class="flex flex-col justify-between p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/10 transition-all group">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-[#0A66C2] text-white flex items-center justify-center shadow-md shadow-blue-500/30 group-hover:scale-105 transition-transform">
+              <svg class="w-6 h-6 fill-white" viewBox="0 0 24 24">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64c-.95 0-1.72.78-1.72 1.73s.77 1.73 1.72 1.73a1.73 1.73 0 0 0 1.73-1.73c0-.95-.78-1.73-1.73-1.73Z"/>
+              </svg>
+            </div>
+            <div>
+              <span class="text-xs font-mono uppercase text-blue-600 dark:text-blue-400 font-bold block mb-1">Rede Profissional</span>
+              <p class="text-base font-bold text-slate-900 dark:text-white truncate">Lucas Vieira</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Conecte-se comigo no LinkedIn</p>
+            </div>
+          </div>
+          <div class="pt-5 border-t border-slate-200 dark:border-slate-800 mt-4 flex items-center text-xs font-semibold text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
+            <span>Ver perfil completo</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+          </div>
+        </a>
+
+        <!-- Card E-mail com Cópia e Abertura Direta -->
+        <div class="flex flex-col justify-between p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-cyan-500 hover:shadow-lg hover:shadow-cyan-500/10 transition-all group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <i data-lucide="mail" class="w-6 h-6"></i>
+              </div>
+              <button onclick="copyToClipboard('lucasvieira.tecnologia@gmail.com', 'E-mail de Lucas copiado com sucesso!')" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-cyan-500 text-slate-500 hover:text-cyan-500 transition-colors" title="Copiar e-mail" aria-label="Copiar e-mail">
+                <i data-lucide="copy" class="w-4 h-4"></i>
+              </button>
+            </div>
+            <div>
+              <span class="text-xs font-mono uppercase text-cyan-600 dark:text-cyan-400 font-bold block mb-1">E-mail Profissional</span>
+              <p class="text-xs font-mono font-bold text-slate-900 dark:text-white break-all">lucasvieira.tecnologia@gmail.com</p>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Clique abaixo para abrir seu cliente de e-mail</p>
+            </div>
+          </div>
+          <div class="pt-5 border-t border-slate-200 dark:border-slate-800 mt-4 flex items-center justify-between">
+            <a href="mailto:lucasvieira.tecnologia@gmail.com" class="text-xs font-semibold text-cyan-600 dark:text-cyan-400 flex items-center hover:underline">
+              <span>Enviar e-mail</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+            </a>
+            <span class="text-[10px] text-slate-400 font-mono">Resposta rápida</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-8 bg-white dark:bg-slate-950 text-xs text-slate-500 text-center space-y-2">
+    <p>© 2026 Lucas Vieira • Cientista de Dados & Analista de Dados e Requisitos.</p>
+    <p class="text-[11px] text-slate-400">Belo Horizonte, MG • Portfólio hospedado no GitHub Pages com foco em exibição e clareza analítica.</p>
+  </footer>
+
+  <!-- Toast de Notificação -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center space-x-3 px-4 py-3 rounded-xl bg-slate-900 text-white shadow-2xl border border-slate-700 text-xs">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toastMessage">Ação realizada com sucesso!</span>
+  </div>
+
+  <script>
+    // Inicialização dos ícones Lucide
+    lucide.createIcons();
+
+    // Controle de Tema (Dark / Light Mode)
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      htmlElement.classList.add('dark');
+    } else {
+      htmlElement.classList.remove('dark');
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      htmlElement.classList.toggle('dark');
+      if (htmlElement.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+      lucide.createIcons();
+    });
+
+    // Menu Mobile
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Terminal Interativo
+    const terminalForm = document.getElementById('terminalForm');
+    const terminalInput = document.getElementById('terminalInput');
+    const dynamicTerminalOutput = document.getElementById('dynamicTerminalOutput');
+    const terminalScreen = document.getElementById('terminalScreen');
+
+    const terminalCommands = {
+      help: () => `
+        <div class="text-slate-300 text-xs">
+          <p class="font-bold text-cyan-400">Comandos disponíveis:</p>
+          <ul class="list-disc list-inside space-y-0.5 mt-1">
+            <li><span class="text-emerald-400 font-mono">powerbi</span>: Painel interativo público (Mapeamento SPTEC)</li>
+            <li><span class="text-emerald-400 font-mono">tokens</span>: Sistema de tokenização de texto para papers</li>
+            <li><span class="text-emerald-400 font-mono">estudos</span>: Leitura atual e laboratório de fine-tuning (RTX 5070)</li>
+            <li><span class="text-emerald-400 font-mono">formacao</span>: Pós em Data Science e graduações</li>
+            <li><span class="text-emerald-400 font-mono">sedemg</span>: Atuação no Governo de MG desde 2020</li>
+            <li><span class="text-emerald-400 font-mono">skills</span>: Competências calibradas em Dados e SQL</li>
+            <li><span class="text-emerald-400 font-mono">contato</span>: WhatsApp, LinkedIn e e-mail</li>
+            <li><span class="text-emerald-400 font-mono">clear</span>: Limpa o terminal</li>
+          </ul>
+        </div>`,
+      powerbi: () => `
+        <div class="text-slate-300 text-xs">
+          <span class="text-cyan-400 font-bold">[Power BI Público • Mapeamento SPTEC]</span><br>
+          • Painel oficial de Ciência, Tecnologia e Inovação aberto ao público e embutido ao vivo no site.<br>
+          • Utilizado em apresentação institucional pela Profª. Sandra Goulart Almeida (ex-reitora da UFMG).<br>
+          • Navegue diretamente no relatório interativo ou abra em tela cheia na seção de projetos.
+        </div>`,
+      tokens: () => `
+        <div class="text-slate-300 text-xs">
+          <span class="text-purple-400 font-bold">[Tokenização & Busca Textual Dinâmica]</span><br>
+          • Algoritmo de normalização, quebra e indexação de tokens de texto integrado ao Power BI.<br>
+          • Permite pesquisar termos livres e filtrar projetos, editais e regiões em tempo real.<br>
+          • <span class="text-rose-400 font-semibold">Proteção de Dados:</span> Informações nominais e valores confidenciais estritamente tarjados (LGPD).
+        </div>`,
+      estudos: () => `
+        <div class="text-slate-300 text-xs">
+          <span class="text-amber-400 font-bold">[Leitura & Aprendizagem Contínua]</span><br>
+          • Livro atual: <em>Estatística Prática para Cientistas de Dados: +50 conceitos essenciais usando R e Python</em>.<br>
+          • Laboratório: Implementação de Fine-Tuning com SLMs (modelos de parâmetros pequenos) sobre dados contextuais do serviço.<br>
+          • Hardware & Ambiente: Execução local em teletrabalho com aceleração via NVIDIA RTX 5070, assegurando total privacidade dos dados.
+        </div>`,
+      formacao: () => `
+        <div class="text-slate-300 text-xs">
+          <span class="text-cyan-400 font-bold">[Formação Acadêmica]</span><br>
+          • Pós-Graduação em Data Science (União das Américas) - CONCLUÍDA<br>
+          • Pós-Graduação em Desenvolvimento Web Full Stack (União das Américas) - Base complementar de software<br>
+          • Bacharelado em Sistemas de Informação (UniBH, 2019-2023)<br>
+          • Tecnólogo em Segurança da Informação (Uniasselvi, 2020-2022)
+        </div>`,
+      sedemg: () => `
+        <div class="text-slate-300 text-xs">
+          <span class="text-emerald-400 font-bold">[SEDE-MG • 2020 até o momento]</span><br>
+          • Analista de Requisitos/Dados: Monitoramento de estruturas de P&D, relatórios Power BI/Excel, queries MySQL, análise de dados e fluxos com Power Automate.<br>
+          • Estágio Técnico (2020-2021): Suporte a redes, VPN, servidores e atendimento especializado ao alto escalão.
+        </div>`,
+      skills: () => `
+        <div class="text-slate-300 text-xs">
+          <span class="text-cyan-400 font-bold">[Especialidades & Ferramentas]</span><br>
+          • BI & Visualização: Power BI (Avançado), Análise de Indicadores, Excel (Quase Avançado), Python (Básico/Interm. - Em aprendizado)<br>
+          • Bancos de Dados: Consultas SQL (Queries), MySQL, Modelagem Relacional (Quase Avançado)<br>
+          • Processos & RPA: Power Automate (Workflows/Alertas), Levantamento de Requisitos, Mapeamento de Regras de Negócio<br>
+          • TI & Segurança: Governança e Proteção Corporativa de Dados (sem Pentest/Hacking)
+        </div>`,
+      contato: () => `
+        <div class="text-slate-300 text-xs">
+          <span class="text-emerald-400 font-bold">WhatsApp:</span> (31) 97184-0502<br>
+          <span class="text-cyan-400 font-bold">E-mail:</span> lucasvieira.tecnologia@gmail.com<br>
+          <span class="text-blue-400 font-bold">LinkedIn:</span> linkedin.com/in/lucas-augusto-48828619b/
+        </div>`,
+      clear: () => {
+        dynamicTerminalOutput.innerHTML = '';
+        return null;
+      }
+    };
+
+    terminalForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const rawCmd = terminalInput.value.trim().toLowerCase();
+      if (!rawCmd) return;
+
+      if (rawCmd === 'clear') {
+        terminalCommands.clear();
+        terminalInput.value = '';
+        return;
+      }
+
+      const cmdBlock = document.createElement('div');
+      cmdBlock.innerHTML = `
+        <div>
+          <span class="text-emerald-400 font-semibold">lucas@analytics</span>:<span class="text-cyan-400">~</span>$ ${escapeHtml(rawCmd)}
+        </div>
+      `;
+
+      if (terminalCommands[rawCmd]) {
+        const result = terminalCommands[rawCmd]();
+        if (result) {
+          const resDiv = document.createElement('div');
+          resDiv.innerHTML = result;
+          cmdBlock.appendChild(resDiv);
+        }
+      } else {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'text-rose-400 text-xs';
+        errorDiv.innerHTML = `Comando não reconhecido: "${escapeHtml(rawCmd)}". Digite <span class="text-cyan-400 font-bold">help</span> para lista.`;
+        cmdBlock.appendChild(errorDiv);
+      }
+
+      dynamicTerminalOutput.appendChild(cmdBlock);
+      terminalInput.value = '';
+      terminalScreen.scrollTop = terminalScreen.scrollHeight;
+    });
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, function(m) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+      });
+    }
+
+    // Dados das 4 Visualizações do Projeto de Power BI
+    const dashboardViews = [
+      {
+        fileName: '3.jpg',
+        badge: 'Tela 1 de 4 • Visão Geral & Mapeamento Territorial',
+        title: 'Painel Estratégico de P&D (Visão Geral de MG)',
+        desc: 'Mapeamento georreferenciado e consolidação das estruturas de Ciência, Tecnologia e Inovação do Estado com navegação interativa.',
+        points: [
+          '<strong>Georreferenciamento de MG:</strong> Mapa interativo destacando a densidade de ações científicas e projetos alocados em cada polo territorial.',
+          '<strong>Filtros Multicritério:</strong> Seletores simultâneos por município, mesorregião, executora e ano, recalculando métricas instantaneamente.',
+          '<strong>Visão Departamental:</strong> Quadros inferiores dedicados segmentando os volumes entre as diretorias da SEDE-MG (DPD, DCTT, DIPRO e DIAE).'
+        ]
+      },
+      {
+        fileName: '2.jpg',
+        badge: 'Tela 2 de 4 • Busca Textual por Tokens',
+        title: 'Busca Dinâmica por Tokenização em Propostas & Papers',
+        desc: 'Mecanismo analítico no Power BI que possibilita a pesquisa livre por termos digitados (ex: "farmacia"), localizando propostas em tempo real.',
+        points: [
+          '<strong>Entrada Livre de Palavras:</strong> O modelo decompõe a string em tokens atômicos e cruza instantaneamente com títulos e resumos.',
+          '<strong>Detalhamento em Cards:</strong> As propostas correspondentes são apresentadas em cartões modulares indicando o programa e o município.',
+          '<strong>Sincronismo Cartográfico:</strong> O mapa isola visualmente apenas os municípios onde os projetos vinculados ao token estão sediados.'
+        ]
+      },
+      {
+        fileName: '1.jpg',
+        badge: 'Tela 3 de 4 • Análise Visual Pós-Filtragem',
+        title: 'Painel Analítico Composto Pós-Busca por Token',
+        desc: 'Exibição quantitativa e financeira agregada gerada a partir dos resultados do termo pesquisado no Power BI.',
+        points: [
+          '<strong>Gráfico Composto Híbrido:</strong> Colunas verticais representam a quantidade volumétrica e a linha correlaciona o valor financeiro aprovado.',
+          '<strong>Destaques em Tempo Real:</strong> Identificação automática do município polo em quantidade e da localidade com maior investimento aprovado.',
+          '<strong>Controle Ergonômico de Navegação:</strong> Botões de usabilidade para expandir gráficos e alternar visões da análise micro para a macro.'
+        ]
+      },
+      {
+        fileName: '4.png',
+        badge: 'Tela 4 de 4 • Engenharia de Dados & Arquitetura',
+        title: 'Engenharia do Modelo Relacional Power BI',
+        desc: 'Esquema multidimensional com dezenas de tabelas integradas que viabiliza a tokenização, correlações territoriais e métricas em tempo de execução.',
+        points: [
+          '<strong>Modelo Estrela / Snowflake:</strong> Dezenas de tabelas fatos e dimensões garantindo integridade referencial e velocidade de resposta.',
+          '<strong>Tabelas Ponte & Tokenização:</strong> Tabelas de busca indexada conectadas aos projetos via relações controladas sem perda de performance.',
+          '<strong>Cardinalidade Calibrada:</strong> Relações 1:N e N:N com direção de filtro cruzado otimizada para evitar ambiguidades analíticas.'
+        ]
+      }
+    ];
+
+    let currentViewIndex = 0;
+
+    function switchDashboardView(index) {
+      currentViewIndex = index;
+      const view = dashboardViews[index];
+      const img = document.getElementById('dashboardImg');
+      const fallbackAlert = document.getElementById('imageFallbackAlert');
+      const fallbackFileName = document.getElementById('fallbackFileName');
+
+      // Atualiza botões de aba
+      document.querySelectorAll('.dash-tab').forEach((tab, i) => {
+        if (i === index) {
+          tab.className = 'dash-tab active px-3.5 py-2 rounded-xl text-xs font-semibold bg-cyan-600 text-white flex items-center gap-1.5 transition-all shadow-sm';
+        } else {
+          tab.className = 'dash-tab px-3.5 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-cyan-500 transition-all flex items-center gap-1.5';
+        }
+      });
+
+      // Atualiza imagem com transição suave
+      img.classList.add('opacity-0');
+      fallbackAlert.classList.add('hidden');
+      
+      setTimeout(() => {
+        img.src = view.fileName;
+        img.alt = view.title;
+        fallbackFileName.textContent = 'Arquivo ' + view.fileName;
+        img.classList.remove('opacity-0');
+      }, 150);
+
+      // Atualiza textos explicativos
+      document.getElementById('viewBadge').textContent = view.badge;
+      document.getElementById('viewTitle').textContent = view.title;
+      document.getElementById('viewDesc').textContent = view.desc;
+
+      const pointsContainer = document.getElementById('viewPoints');
+      pointsContainer.innerHTML = view.points.map(pt => `
+        <div class="flex items-start space-x-2">
+          <i data-lucide="check-circle" class="w-4 h-4 text-cyan-500 shrink-0 mt-0.5"></i>
+          <span>${pt}</span>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    // Tratamento inteligente quando a imagem não for encontrada localmente
+    function handleImageFallback(imgElement) {
+      imgElement.classList.add('opacity-0');
+      const fallbackAlert = document.getElementById('imageFallbackAlert');
+      if (fallbackAlert) {
+        fallbackAlert.classList.remove('hidden');
+      }
+    }
+
+    // Utilitário de Cópia com Notificação Toast
+    function copyToClipboard(text, customMessage = 'Copiado para a área de transferência!') {
+      try {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showToast(customMessage);
+      } catch (err) {
+        showToast('Não foi possível copiar automaticamente.');
+      }
+    }
+
+    let toastTimeout;
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMessage');
+      
+      toastMsg.textContent = message;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
