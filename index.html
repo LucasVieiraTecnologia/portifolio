@@ -13,40 +13,52 @@
   <meta property="og:description" content="Power BI, SQL, levantamento de requisitos e LGPD no Governo de Minas Gerais.">
   <meta property="og:locale" content="pt_BR">
 
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231d1c1a'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23f6f4ef' text-anchor='middle'%3ELV%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23173a32'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23f1ece2' text-anchor='middle'%3ELV%3C/text%3E%3C/svg%3E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;1,8..60,400;1,8..60,500&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #f8f6f1;
-      --text: #1d1c1a;
-      --muted: #5c5952;
-      --faint: #8b877e;
-      --line: #e2ded5;
-      --box: #ffffff;
-      --accent: #9c3b1b;
+      --bg: #f7f4ee;
+      --paper: #fffdf9;
+      --text: #1b1d1a;
+      --muted: #585b54;
+      --faint: #8b8d85;
+      --line: #e4ded3;
+      --green: #173a32;
+      --green-soft: #e3ebe5;
+      --on-green: #f1ece2;
+      --on-green-muted: #b7c3bb;
+      --accent: #b94e27;
 
       --sans: "Public Sans", -apple-system, "Segoe UI", Roboto, sans-serif;
       --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
       --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+      --shadow: 0 1px 2px rgba(27, 29, 26, .06), 0 12px 32px -18px rgba(27, 29, 26, .35);
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #171614;
-        --text: #e8e5de;
-        --muted: #a9a49b;
-        --faint: #7d7970;
-        --line: #2e2c28;
-        --box: #1f1e1b;
-        --accent: #e08a65;
+        --bg: #131513;
+        --paper: #1b1e1b;
+        --text: #e9e6de;
+        --muted: #aaada4;
+        --faint: #7c7f77;
+        --line: #2b2f2b;
+        --green: #0f2621;
+        --green-soft: #1d2a25;
+        --on-green: #ece7dc;
+        --on-green-muted: #9fb0a6;
+        --accent: #e5875f;
+        --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 14px 34px -18px rgba(0, 0, 0, .8);
       }
     }
 
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
     body {
       margin: 0;
@@ -58,347 +70,605 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    a {
-      color: inherit;
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    p { margin: 0 0 1em; }
+    p:last-child { margin-bottom: 0; }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; margin: 0; }
+
+    .link {
       text-decoration: underline;
       text-decoration-color: var(--faint);
       text-decoration-thickness: 1px;
       text-underline-offset: 3px;
     }
-    a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+    .link:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
-    img { max-width: 100%; display: block; }
-    p { margin: 0 0 1em; }
-    p:last-child { margin-bottom: 0; }
-    ul { margin: 0; padding-left: 1.2em; }
-    li { margin-bottom: .45em; }
-    li::marker { color: var(--faint); }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
-    h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.2; margin: 0; }
-
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* Cabeçalho */
+    /* ---------- Cabeçalho ---------- */
     .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .site-header .container {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: center;
       gap: 12px 32px;
-      padding-top: 28px;
-      padding-bottom: 28px;
+      min-height: 64px;
+      flex-wrap: wrap;
       font-size: 15px;
     }
-    .site-header .home { font-weight: 600; text-decoration: none; }
-    .site-header nav { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+    .home { display: flex; align-items: center; gap: 10px; font-weight: 600; text-decoration: none; }
+    .home .mono-mark {
+      width: 30px; height: 30px; border-radius: 7px;
+      display: grid; place-items: center;
+      background: var(--green); color: var(--on-green);
+      font-family: var(--serif); font-size: 14px;
+    }
+    .site-header nav { display: flex; flex-wrap: wrap; gap: 4px 22px; }
     .site-header nav a { color: var(--muted); text-decoration: none; }
     .site-header nav a:hover { color: var(--accent); }
-
-    /* Apresentação */
-    .intro { padding: 56px 0 72px; border-bottom: 1px solid var(--line); }
-    .intro h1 { font-size: clamp(2.2rem, 5vw, 3rem); font-weight: 500; letter-spacing: -.01em; }
-    .intro .role { color: var(--muted); margin: 8px 0 32px; }
-    .intro .text { max-width: 640px; font-size: 1.1rem; }
-    .intro .links { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 15px; }
-
-    /* Seções */
-    section { padding: 64px 0; border-bottom: 1px solid var(--line); }
-    section:last-of-type { border-bottom: 0; }
-
-    @media (min-width: 860px) {
-      .split { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 48px; }
+    @media (max-width: 640px) {
+      .site-header .container {
+        padding: 10px 18px;
+        gap: 8px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .site-header nav {
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 18px;
+        padding: 4px 0 2px;
+        font-size: 14px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .site-header nav::-webkit-scrollbar { display: none; }
+      .site-header nav a { white-space: nowrap; }
     }
-    .split > h2 { font-size: 1.3rem; margin-bottom: 24px; }
-    @media (min-width: 860px) { .split > h2 { margin-bottom: 0; padding-top: 2px; } }
 
-    .prose { max-width: 660px; }
-    .small { font-size: 14.5px; color: var(--muted); }
-    .meta { font-size: 14.5px; color: var(--faint); margin: 4px 0 16px; }
+    /* ---------- Botões ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .btn-primary { background: var(--green); color: var(--on-green); }
+    .btn-primary:hover { background: color-mix(in srgb, var(--green) 85%, #000); }
+    .btn-ghost { border-color: var(--line); background: var(--paper); }
+    .btn-ghost:hover { border-color: var(--text); }
+    .btn svg { width: 16px; height: 16px; }
 
-    /* Projetos */
-    .project + .project { margin-top: 64px; }
-    .project h3 { font-size: 1.35rem; }
+    /* ---------- Hero ---------- */
+    .hero { padding: 72px 0 88px; }
+    .hero .container { display: grid; gap: 48px; align-items: center; }
+    @media (min-width: 900px) { .hero .container { grid-template-columns: minmax(0, 1fr) 320px; gap: 72px; } }
+
+    .hero h1 { font-size: clamp(2.8rem, 7vw, 4.6rem); font-weight: 500; letter-spacing: -.02em; }
+    .hero .tagline {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+      color: var(--muted);
+      margin: 10px 0 32px;
+      line-height: 1.35;
+    }
+    .hero .tagline b { font-style: normal; font-weight: 500; color: var(--accent); }
+    .hero .text { max-width: 600px; font-size: 1.08rem; }
+    .hero .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+
+    .portrait { margin: 0; justify-self: start; width: 100%; max-width: 320px; }
+    .portrait .frame {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--green);
+      box-shadow: var(--shadow);
+    }
+    .portrait .initials {
+      position: absolute; inset: 0;
+      display: grid; place-items: center;
+      font-family: var(--serif);
+      font-size: 5.5rem;
+      color: var(--on-green);
+      opacity: .9;
+    }
+    .portrait img { position: relative; width: 100%; height: 100%; object-fit: cover; }
+    .portrait figcaption { margin-top: 12px; font-size: 14px; color: var(--faint); }
+
+    /* ---------- Seções ---------- */
+    section { padding: 88px 0; }
+    .tinted { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+    .section-title { max-width: 640px; margin-bottom: 48px; }
+    .section-title h2 { font-size: clamp(1.9rem, 3.6vw, 2.5rem); font-weight: 500; letter-spacing: -.01em; }
+    .section-title p { color: var(--muted); margin-top: 12px; }
+
+    .kicker { font-size: 14px; color: var(--accent); font-weight: 500; margin-bottom: 6px; }
+
+    /* ---------- Projetos ---------- */
+    .case + .case { margin-top: 96px; }
+    .case-head { display: grid; gap: 28px; margin-bottom: 28px; }
+    @media (min-width: 900px) { .case-head { grid-template-columns: minmax(0, 1fr) 300px; gap: 56px; } }
+    .case-head h3 { font-size: clamp(1.5rem, 2.6vw, 1.9rem); margin-bottom: 14px; }
+    .case-head .desc { color: var(--muted); max-width: 620px; }
+
+    .facts {
+      margin: 0;
+      padding: 18px 20px;
+      border-radius: 10px;
+      background: var(--green-soft);
+      font-size: 14.5px;
+      align-self: start;
+    }
+    .facts div + div { margin-top: 12px; padding-top: 12px; border-top: 1px solid color-mix(in srgb, var(--green) 14%, transparent); }
+    .facts dt { color: var(--faint); font-size: 13px; }
+    .facts dd { margin: 2px 0 0; }
 
     .embed {
-      margin-top: 24px;
       border: 1px solid var(--line);
-      border-radius: 6px;
+      border-radius: 12px;
       overflow: hidden;
-      background: var(--box);
+      background: var(--paper);
+      box-shadow: var(--shadow);
     }
-    .embed iframe { display: block; width: 100%; aspect-ratio: 16 / 10; min-height: 360px; border: 0; }
-    .embed-note { margin-top: 10px; }
+    .embed iframe { display: block; width: 100%; aspect-ratio: 16 / 9.6; min-height: 380px; border: 0; }
+    .embed-note { margin-top: 12px; font-size: 14px; color: var(--faint); }
 
-    .shots {
-      margin-top: 28px;
-      display: grid;
-      gap: 28px 24px;
+    .shots { display: grid; gap: 28px 20px; }
+    @media (min-width: 700px) {
+      .shots { grid-template-columns: repeat(3, 1fr); }
+      .shots figure:first-child { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 28px; align-items: end; }
+      .shots figure:first-child figcaption { font-size: 15.5px; margin: 0 0 8px; }
     }
-    @media (min-width: 640px) { .shots { grid-template-columns: 1fr 1fr; } }
-
     .shots figure { margin: 0; }
     .shots button {
       display: block;
+      position: relative;
       width: 100%;
       padding: 0;
       border: 1px solid var(--line);
-      border-radius: 6px;
+      border-radius: 10px;
       overflow: hidden;
-      background: var(--box);
+      background: var(--paper);
       cursor: zoom-in;
       aspect-ratio: 16 / 10;
+      box-shadow: var(--shadow);
+      transition: transform .2s ease, box-shadow .2s ease;
     }
+    .shots button:hover { transform: translateY(-3px); }
     .shots button img { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
-    .shots button.missing { cursor: default; display: grid; place-items: center; color: var(--faint); font-size: 13px; }
-    .shots figcaption { margin-top: 10px; font-size: 14.5px; color: var(--muted); line-height: 1.55; }
-    .shots figcaption b { color: var(--text); font-weight: 600; }
-
-    dialog {
-      border: 0;
-      padding: 0;
-      background: transparent;
-      max-width: min(1400px, 94vw);
-      max-height: 92vh;
+    .shots button.missing {
+      cursor: default;
+      transform: none;
+      background: repeating-linear-gradient(-45deg, var(--paper), var(--paper) 10px, var(--bg) 10px, var(--bg) 20px);
     }
-    dialog::backdrop { background: rgba(10, 10, 9, .88); }
-    dialog img { max-height: 84vh; width: auto; margin: 0 auto; border-radius: 4px; }
-    dialog p { color: #ddd; font-size: 14px; text-align: center; margin-top: 10px; }
-    dialog form { text-align: right; margin-bottom: 8px; }
-    dialog form button {
-      background: none; border: 0; color: #ddd; font: inherit; font-size: 14px; cursor: pointer;
-      text-decoration: underline; text-underline-offset: 3px;
+    .shots button.missing::after {
+      content: "Imagem " attr(data-full) " não encontrada";
+      position: absolute; inset: 0;
+      display: grid; place-items: center;
+      font-size: 13px; color: var(--faint);
     }
+    .shots figcaption { margin-top: 12px; font-size: 14.5px; color: var(--muted); line-height: 1.55; }
+    .shots figcaption b { display: block; color: var(--text); font-weight: 600; margin-bottom: 2px; }
 
-    /* Experiência */
-    .job + .job { margin-top: 44px; }
-    .job h3 { font-family: var(--sans); font-size: 1.05rem; font-weight: 600; }
-
-    /* Listas em linha (ferramentas, formação, certificados) */
-    .rows { margin: 0; }
-    .rows > div {
-      display: grid;
-      gap: 2px 24px;
-      padding: 14px 0;
-      border-top: 1px solid var(--line);
+    .now { display: grid; gap: 20px; margin-top: 96px; }
+    @media (min-width: 800px) { .now { grid-template-columns: 1fr 1fr; } }
+    .now-intro { grid-column: 1 / -1; margin-bottom: 4px; }
+    .now-intro h3 { font-size: 1.5rem; }
+    .now-intro p { color: var(--muted); margin-top: 8px; max-width: 640px; }
+    .note {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 26px 26px 28px;
     }
-    .rows > div:last-child { border-bottom: 1px solid var(--line); }
-    @media (min-width: 640px) { .rows > div { grid-template-columns: 170px minmax(0, 1fr); } }
-    .rows dt { color: var(--faint); font-size: 15px; }
-    .rows dd { margin: 0; }
-    .rows dd span { display: block; font-size: 14.5px; color: var(--muted); }
+    .note h4 { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; margin: 0 0 4px; line-height: 1.3; }
+    .note .by { font-size: 14px; color: var(--faint); margin-bottom: 14px; }
+    .note p { color: var(--muted); font-size: 15.5px; }
 
-    .certs { list-style: none; padding: 0; margin: 0; font-size: 15.5px; }
-    .certs li { padding: 10px 0; border-top: 1px solid var(--line); margin: 0; }
-    .certs li:last-child { border-bottom: 1px solid var(--line); }
-    .certs .from { color: var(--muted); }
+    /* ---------- Experiência ---------- */
+    .timeline { position: relative; max-width: 860px; }
+    .entry { display: grid; gap: 4px 40px; position: relative; padding-bottom: 48px; }
+    .entry:last-child { padding-bottom: 0; }
+    @media (min-width: 760px) { .entry { grid-template-columns: 170px minmax(0, 1fr); } }
+    .entry .when { font-size: 14.5px; color: var(--faint); padding-top: 3px; }
+    .entry .when b { display: block; color: var(--text); font-weight: 600; }
+    .entry .body { position: relative; }
+    @media (min-width: 760px) {
+      .entry .body { padding-left: 32px; border-left: 1px solid var(--line); }
+      .entry .body::before {
+        content: "";
+        position: absolute; left: -6px; top: 8px;
+        width: 11px; height: 11px; border-radius: 50%;
+        background: var(--bg); border: 2px solid var(--green);
+      }
+      .entry:first-child .body::before { background: var(--green); }
+    }
+    .entry h3 { font-size: 1.35rem; }
+    .entry .org { color: var(--muted); font-size: 15px; margin: 4px 0 16px; }
+    .entry ul { margin: 0; padding-left: 1.1em; color: var(--muted); }
+    .entry li { margin-bottom: .5em; }
+    .entry li::marker { color: var(--accent); }
+
+    /* ---------- Ferramentas ---------- */
+    .tools { display: grid; gap: 20px; }
+    @media (min-width: 760px) { .tools { grid-template-columns: 1fr 1fr; } }
+    .tool-group {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 22px 24px 24px;
+      background: var(--bg);
+    }
+    .tool-group h3 { font-family: var(--sans); font-size: 15px; font-weight: 600; }
+    .tool-group > p { font-size: 14px; color: var(--faint); margin: 2px 0 16px; }
+    .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+    .chips li {
+      font-size: 14.5px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .chips.daily li { background: var(--green); border-color: var(--green); color: var(--on-green); }
+    .chips.learning li { border-style: dashed; border-color: var(--faint); background: transparent; }
+    .chips.basic li { background: transparent; color: var(--muted); }
+    .tools-note { margin-top: 24px; font-size: 14.5px; color: var(--muted); max-width: 680px; }
+
+    /* ---------- Formação ---------- */
+    .edu-grid { display: grid; gap: 56px; }
+    @media (min-width: 900px) { .edu-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; } }
+    .edu-grid h3 { font-family: var(--sans); font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+
+    .degrees { list-style: none; margin: 0; padding: 0; }
+    .degrees li { padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .degrees .years { font-size: 14px; color: var(--faint); }
+    .degrees .name { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; line-height: 1.3; margin-top: 2px; }
+    .degrees .school { font-size: 15px; color: var(--muted); }
+    .degrees .about { font-size: 14.5px; color: var(--muted); margin-top: 6px; }
+
+    .certs { list-style: none; margin: 0; padding: 0; font-size: 15px; }
+    .certs li { padding: 12px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 16px; }
+    .certs .from { color: var(--faint); font-size: 14px; white-space: nowrap; }
     .certs code {
+      grid-column: 1 / -1;
       font-family: var(--mono);
-      font-size: 12.5px;
+      font-size: 12px;
       color: var(--faint);
       user-select: all;
       word-break: break-all;
     }
+    .langs { margin-top: 40px; }
+    .langs p { color: var(--muted); }
 
-    h4 { font-size: 1rem; font-weight: 600; margin: 40px 0 12px; }
+    /* ---------- Contato ---------- */
+    .contact { background: var(--green); color: var(--on-green); padding: 96px 0 0; }
+    .contact h2 { font-size: clamp(2rem, 4.4vw, 3rem); font-weight: 500; line-height: 1.2; margin-bottom: 20px; }
+    .contact .lead { color: var(--on-green-muted); max-width: 580px; margin: 0 0 32px; font-size: 1.05rem; line-height: 1.7; }
+    .contact .callout { font-size: 14.5px; color: var(--on-green-muted); margin: 32px 0 12px; }
+    .contact .email {
+      display: inline-block;
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 3.2vw, 2rem);
+      line-height: 1.35;
+      margin-bottom: 32px;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 8px;
+      text-decoration-color: var(--on-green-muted);
+      word-break: break-word;
+    }
+    .contact .email:hover { text-decoration-color: var(--on-green); }
+    .contact .actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
+    .contact .btn-cv { background: var(--on-green); color: var(--green); border-color: var(--on-green); font-weight: 600; }
+    .contact .btn-cv:hover { background: #ffffff; color: #000000; border-color: #ffffff; }
+    .contact .btn-ghost { background: transparent; border-color: color-mix(in srgb, var(--on-green) 30%, transparent); color: var(--on-green); }
+    .contact .btn-ghost:hover { border-color: var(--on-green); }
+
+    @media (max-width: 600px) {
+      .contact { padding: 64px 0 0; }
+      .contact h2 { font-size: 1.9rem; }
+      .contact .actions { flex-direction: column; width: 100%; max-width: 380px; gap: 12px; }
+      .contact .actions .btn { width: 100%; justify-content: center; padding: 13px 18px; }
+    }
 
     footer {
-      padding: 32px 0 48px;
+      margin-top: 72px;
+      padding: 24px 0 32px;
+      border-top: 1px solid color-mix(in srgb, var(--on-green) 15%, transparent);
       font-size: 14px;
-      color: var(--faint);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 8px 24px;
+      color: var(--on-green-muted);
+    }
+    footer .container { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+    footer a { color: inherit; }
+
+    /* ---------- Visualizador de imagens ---------- */
+    dialog { border: 0; padding: 0; background: transparent; max-width: min(1400px, 94vw); max-height: 94vh; }
+    dialog::backdrop { background: rgba(10, 12, 10, .9); }
+    dialog img { max-height: 82vh; width: auto; margin: 0 auto; border-radius: 6px; }
+    dialog p { color: #ddd; font-size: 14px; text-align: center; margin-top: 12px; max-width: 760px; margin-inline: auto; }
+    dialog form { text-align: right; margin-bottom: 8px; }
+    dialog form button { background: none; border: 0; color: #ddd; font: inherit; font-size: 14px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .shots button { transition: none; }
     }
   </style>
 </head>
 <body>
 
-  <header class="container site-header" id="topo">
-    <a class="home" href="#topo">Lucas Vieira</a>
-    <nav aria-label="Seções">
-      <a href="#projetos">Projetos</a>
-      <a href="#experiencia">Experiência</a>
-      <a href="#ferramentas">Ferramentas</a>
-      <a href="#formacao">Formação</a>
-      <a href="#contato">Contato</a>
-    </nav>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+    <symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  </svg>
+
+  <header class="site-header" id="topo">
+    <div class="container">
+      <a class="home" href="#topo"><span class="mono-mark">LV</span>Lucas Vieira</a>
+      <nav aria-label="Seções">
+        <a href="#projetos">Projetos</a>
+        <a href="#experiencia">Experiência</a>
+        <a href="#ferramentas">Ferramentas</a>
+        <a href="#formacao">Formação</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="container">
+  <main>
 
-    <div class="intro">
-      <h1>Lucas Vieira</h1>
-      <p class="role">Analista de requisitos e dados na SEDE-MG, em Belo Horizonte</p>
+    <!-- Apresentação -->
+    <div class="hero">
+      <div class="container">
+        <div>
+          <h1>Lucas Vieira</h1>
+          <p class="tagline">Analista de requisitos e dados no <b>Governo de Minas Gerais</b></p>
 
-      <div class="text">
-        <p>
-          Trabalho desde 2020 na Secretaria de Estado de Desenvolvimento Econômico de Minas Gerais.
-          Hoje faço o levantamento de requisitos com as áreas técnicas, monto os painéis em Power BI
-          que a equipe usa para acompanhar os programas de ciência, tecnologia e inovação do estado
-          e escrevo as consultas SQL que alimentam boa parte desses relatórios.
-        </p>
-        <p>
-          Também sou o ponto focal de LGPD da Subsecretaria de Ciência, Tecnologia e Inovação. Nos
-          últimos meses tenho usado modelos de IA rodando localmente para ajudar a escrever e revisar
-          documentos técnicos.
-        </p>
+          <div class="text">
+            <p>
+              Trabalho desde 2020 na Secretaria de Estado de Desenvolvimento Econômico (SEDE-MG).
+              Faço o levantamento de requisitos com as áreas técnicas, monto os painéis em Power BI
+              que a equipe usa para acompanhar os programas de ciência, tecnologia e inovação do
+              estado e escrevo as consultas SQL que alimentam boa parte desses relatórios.
+            </p>
+            <p>
+              Também sou ponto focal de LGPD da Subsecretaria de Ciência, Tecnologia e Inovação e
+              venho usando modelos de IA rodando localmente para escrever e revisar documentos técnicos.
+            </p>
+          </div>
+
+          <div class="actions">
+            <a class="btn btn-primary" href="#projetos">Ver projetos <svg aria-hidden="true"><use href="#i-down"/></svg></a>
+            <a class="btn btn-ghost" href="Curriculo-Lucas-Vieira.pdf" download><svg aria-hidden="true"><use href="#i-doc"/></svg> Currículo em PDF</a>
+          </div>
+        </div>
+
+        <figure class="portrait">
+          <div class="frame">
+            <span class="initials" aria-hidden="true">LV</span>
+            <!-- Coloque uma foto sua com o nome foto.jpg na mesma pasta deste arquivo -->
+            <img src="foto.jpg" alt="Foto de Lucas Vieira" onerror="this.remove()">
+          </div>
+          <figcaption>Belo Horizonte, MG</figcaption>
+        </figure>
       </div>
-
-      <p class="links">
-        <a href="Curriculo-Lucas-Vieira.pdf" download>Currículo (PDF)</a>
-        <a href="https://www.linkedin.com/in/lucasvieira-dados" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="mailto:lucasvieira.tecnologia@gmail.com">lucasvieira.tecnologia@gmail.com</a>
-        <a href="https://wa.me/5531971840502" target="_blank" rel="noopener">WhatsApp</a>
-      </p>
     </div>
 
     <!-- Projetos -->
-    <section id="projetos" class="split">
-      <h2>Projetos</h2>
-      <div>
+    <section id="projetos" class="tinted">
+      <div class="container">
+        <div class="section-title">
+          <h2>Projetos</h2>
+          <p>Dois trabalhos feitos na SEDE-MG, do tratamento dos dados até a tela final.</p>
+        </div>
 
-        <article class="project">
-          <h3>Mapeamento SPTEC</h3>
-          <p class="meta">Power BI · painel público</p>
-          <div class="prose">
-            <p>
-              Painel com os dados de ciência, tecnologia e inovação de Minas Gerais: estruturas de
-              pesquisa, editais e indicadores de P&amp;D, com filtros por município e mesorregião.
-              Fiz o tratamento dos dados, o modelo relacional e o layout.
-            </p>
-            <p>
-              Ele já foi usado em uma apresentação institucional da professora Sandra Goulart Almeida,
-              ex-reitora da UFMG.
-            </p>
+        <article class="case">
+          <div class="case-head">
+            <div>
+              <p class="kicker">Painel público</p>
+              <h3>Mapeamento SPTEC</h3>
+              <div class="desc">
+                <p>
+                  Reúne os dados de ciência, tecnologia e inovação de Minas Gerais: estruturas de
+                  pesquisa, editais e indicadores de P&amp;D, com filtros por município e mesorregião.
+                </p>
+                <p>
+                  Ele já foi usado em uma apresentação institucional da professora Sandra Goulart
+                  Almeida, ex-reitora da UFMG.
+                </p>
+              </div>
+            </div>
+            <dl class="facts">
+              <div><dt>O que eu fiz</dt><dd>Tratamento dos dados, modelo relacional e layout</dd></div>
+              <div><dt>Ferramentas</dt><dd>Power BI, DAX, SQL</dd></div>
+              <div><dt>Situação</dt><dd>Publicado e em uso</dd></div>
+            </dl>
           </div>
 
           <div class="embed">
             <iframe title="Mapeamento SPTEC, painel em Power BI" loading="lazy" allowfullscreen
               src="https://app.powerbi.com/view?r=eyJrIjoiMzU0NmU1ZGMtZTRhYy00NTJjLTg5NDAtYjIyNTAzZWQzZGNkIiwidCI6ImU1ZDNhZTdjLTliMzgtNDhkZS1hMDg3LWY2NzM0YTI4NzU3NCJ9"></iframe>
           </div>
-          <p class="small embed-note">
+          <p class="embed-note">
             Se demorar para carregar, dá para
-            <a href="https://app.powerbi.com/view?r=eyJrIjoiMzU0NmU1ZGMtZTRhYy00NTJjLTg5NDAtYjIyNTAzZWQzZGNkIiwidCI6ImU1ZDNhZTdjLTliMzgtNDhkZS1hMDg3LWY2NzM0YTI4NzU3NCJ9" target="_blank" rel="noopener">abrir direto no Power BI</a>.
+            <a class="link" href="https://app.powerbi.com/view?r=eyJrIjoiMzU0NmU1ZGMtZTRhYy00NTJjLTg5NDAtYjIyNTAzZWQzZGNkIiwidCI6ImU1ZDNhZTdjLTliMzgtNDhkZS1hMDg3LWY2NzM0YTI4NzU3NCJ9" target="_blank" rel="noopener">abrir direto no Power BI</a>.
           </p>
         </article>
 
-        <article class="project">
-          <h3>Busca por palavra-chave em propostas de pesquisa</h3>
-          <p class="meta">Power BI · DAX · uso interno</p>
-          <div class="prose">
-            <p>
-              A equipe precisava achar todas as propostas que tratavam de um assunto, por exemplo
-              "farmácia", sem depender de alguém lembrar o nome de cada projeto. Montei no Power BI
-              uma busca que quebra títulos e resumos em tokens e cruza com o termo digitado. O mapa
-              e os gráficos se ajustam ao resultado.
-            </p>
-            <p>Como o relatório é interno, nomes e valores aparecem tarjados nas imagens.</p>
+        <article class="case">
+          <div class="case-head">
+            <div>
+              <p class="kicker">Uso interno</p>
+              <h3>Busca por palavra-chave em propostas de pesquisa</h3>
+              <div class="desc">
+                <p>
+                  A equipe precisava achar todas as propostas que tratavam de um assunto, por exemplo
+                  "farmácia", sem depender de alguém lembrar o nome de cada projeto. Montei uma busca
+                  que quebra títulos e resumos em tokens e cruza com o termo digitado. O mapa e os
+                  gráficos se ajustam ao resultado.
+                </p>
+                <p>Como o relatório é interno, nomes e valores aparecem tarjados nas imagens.</p>
+              </div>
+            </div>
+            <dl class="facts">
+              <div><dt>O que eu fiz</dt><dd>Modelo de dados, lógica de busca e telas</dd></div>
+              <div><dt>Ferramentas</dt><dd>Power BI, DAX, modelo estrela</dd></div>
+              <div><dt>Situação</dt><dd>Em uso pela equipe</dd></div>
+            </dl>
           </div>
 
           <div class="shots">
             <figure>
-              <button type="button" data-full="3.png"><img src="3.png" alt="Visão geral do painel com mapa de Minas Gerais" loading="lazy"></button>
-              <figcaption><b>Visão geral.</b> Mapa de MG com as ações por município e filtros por mesorregião, executora, ano e diretoria (DPD, DCTT, DIPRO e DIAE).</figcaption>
+              <button type="button" data-full="3.png"><img src="3.png" alt="Visão geral do painel com mapa de Minas Gerais" onerror="this.parentElement.classList.add('missing');this.remove()"></button>
+              <figcaption><b>Visão geral</b>Mapa de MG com as ações por município e filtros por mesorregião, executora, ano e diretoria (DPD, DCTT, DIPRO e DIAE).</figcaption>
             </figure>
             <figure>
-              <button type="button" data-full="2.png"><img src="2.png" alt="Tela de busca por palavra-chave" loading="lazy"></button>
-              <figcaption><b>Busca.</b> O termo digitado filtra os cards de propostas, e o mapa passa a mostrar só os municípios envolvidos.</figcaption>
+              <button type="button" data-full="2.png"><img src="2.png" alt="Tela de busca por palavra-chave" loading="lazy" onerror="this.parentElement.classList.add('missing');this.remove()"></button>
+              <figcaption><b>Busca</b>O termo digitado filtra os cards de propostas e o mapa mostra só os municípios envolvidos.</figcaption>
             </figure>
             <figure>
-              <button type="button" data-full="1.png"><img src="1.png" alt="Gráficos de quantidade e valor por município" loading="lazy"></button>
-              <figcaption><b>Resultado.</b> Quantidade de projetos (colunas) e valor aprovado (linha) por município, com destaque para os maiores.</figcaption>
+              <button type="button" data-full="1.png"><img src="1.png" alt="Gráficos de quantidade e valor por município" loading="lazy" onerror="this.parentElement.classList.add('missing');this.remove()"></button>
+              <figcaption><b>Resultado</b>Quantidade de projetos (colunas) e valor aprovado (linha) por município.</figcaption>
             </figure>
             <figure>
-              <button type="button" data-full="4.png"><img src="4.png" alt="Diagrama do modelo relacional no Power BI" loading="lazy"></button>
-              <figcaption><b>Modelo.</b> Tabelas fato e dimensão, tabelas ponte para os tokens e relacionamentos ajustados para não gerar filtros ambíguos.</figcaption>
+              <button type="button" data-full="4.png"><img src="4.png" alt="Diagrama do modelo relacional no Power BI" loading="lazy" onerror="this.parentElement.classList.add('missing');this.remove()"></button>
+              <figcaption><b>Modelo</b>Tabelas fato e dimensão, com tabelas ponte ligando os tokens aos projetos.</figcaption>
             </figure>
           </div>
         </article>
 
-        <article class="project">
-          <h3>No que estou mexendo agora</h3>
-          <div class="prose" style="margin-top:16px">
+        <div class="now">
+          <div class="now-intro">
+            <h3>No que estou mexendo agora</h3>
             <p>
-              Estou lendo <em>Estatística Prática para Cientistas de Dados</em>, de Peter Bruce,
-              Andrew Bruce e Peter Gedeck, para firmar a base: amostragem, testes de hipótese,
-              regressão. Vou refazendo os exemplos em Python conforme avanço.
-            </p>
-            <p>
-              No meu computador (uma RTX 5070), sigo testando modelos de linguagem locais com
-              LM Studio, MCP e RAG, e fazendo alguns experimentos de fine-tuning com modelos
-              pequenos. Só uso dados públicos ou sintéticos nesses testes.
-            </p>
-            <p class="small">
-              É por isso que a lista de projetos está curta por enquanto. Devo publicar mais coisa
-              assim que esses estudos virarem algo apresentável.
+              A lista de projetos está curta porque boa parte do meu tempo livre está indo para
+              estes estudos. Devo publicar mais coisa quando eles virarem algo apresentável.
             </p>
           </div>
-        </article>
-
+          <div class="note">
+            <p class="kicker">Lendo</p>
+            <h4>Estatística Prática para Cientistas de Dados</h4>
+            <p class="by">Peter Bruce, Andrew Bruce e Peter Gedeck</p>
+            <p>
+              Para firmar a base: amostragem, testes de hipótese, regressão e classificação.
+              Vou refazendo os exemplos em Python conforme avanço.
+            </p>
+          </div>
+          <div class="note">
+            <p class="kicker">Testando</p>
+            <h4>Modelos de linguagem rodando no meu computador</h4>
+            <p class="by">LM Studio, MCP, RAG · RTX 5070</p>
+            <p>
+              Uso RAG e MCP para apoiar a escrita de documentos e faço alguns experimentos de
+              fine-tuning com modelos pequenos. Só uso dados públicos ou sintéticos nesses testes.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Experiência -->
-    <section id="experiencia" class="split">
-      <h2>Experiência</h2>
-      <div class="prose">
-
-        <div class="job">
-          <h3>Analista de Requisitos e Dados</h3>
-          <p class="meta">SEDE-MG · out. 2021 até hoje</p>
-          <ul>
-            <li>Levanto requisitos com as diretorias e entrego relatórios e painéis em Power BI e Excel.</li>
-            <li>Acompanho as estruturas de P&amp;D e os indicadores de inovação de Minas, e apoio a análise documental de projetos de pesquisa ligados ao Estado.</li>
-            <li>Atendo pedidos de dados de outros órgãos e de instituições parceiras com consultas em MySQL.</li>
-            <li>Dou suporte à manutenção do portal TecPop Minas.</li>
-            <li>Automatizei fluxos de coleta de dados e envio de notificações com Power Automate.</li>
-            <li>Sou ponto focal de LGPD da Subsecretaria de CT&amp;I e da Superintendência de Pesquisa e Tecnologia (SPTEC).</li>
-            <li>Uso LM Studio com MCP e RAG para apoiar a redação e a revisão de documentos técnicos.</li>
-          </ul>
+    <section id="experiencia">
+      <div class="container">
+        <div class="section-title">
+          <h2>Experiência</h2>
+          <p>Comecei no suporte técnico da secretaria e fui migrando para requisitos e dados.</p>
         </div>
 
-        <div class="job">
-          <h3>Estagiário de Suporte Técnico</h3>
-          <p class="meta">SEDE-MG · jul. 2020 a out. 2021</p>
-          <ul>
-            <li>Suporte a rede local, VPN, servidores de arquivos e e-mail.</li>
-            <li>Atendimento técnico à alta gestão da secretaria.</li>
-            <li>Manutenção de computadores e notebooks e controle do inventário de hardware e software.</li>
-          </ul>
-        </div>
+        <div class="timeline">
+          <div class="entry">
+            <div class="when"><b>Out. 2021 até hoje</b>SEDE-MG</div>
+            <div class="body">
+              <h3>Analista de Requisitos e Dados</h3>
+              <p class="org">Secretaria de Estado de Desenvolvimento Econômico de Minas Gerais</p>
+              <ul>
+                <li>Levanto requisitos com as diretorias e entrego relatórios e painéis em Power BI e Excel.</li>
+                <li>Acompanho as estruturas de P&amp;D e os indicadores de inovação de Minas, e apoio a análise documental de projetos de pesquisa ligados ao Estado.</li>
+                <li>Atendo pedidos de dados de outros órgãos e de instituições parceiras com consultas em MySQL.</li>
+                <li>Dou suporte à manutenção do portal TecPop Minas.</li>
+                <li>Automatizei fluxos de coleta de dados e envio de notificações com Power Automate.</li>
+                <li>Sou ponto focal de LGPD da Subsecretaria de CT&amp;I e da Superintendência de Pesquisa e Tecnologia (SPTEC).</li>
+                <li>Uso LM Studio com MCP e RAG para apoiar a redação e a revisão de documentos técnicos.</li>
+              </ul>
+            </div>
+          </div>
 
+          <div class="entry">
+            <div class="when"><b>Jul. 2020 a out. 2021</b>SEDE-MG</div>
+            <div class="body">
+              <h3>Estagiário de Suporte Técnico</h3>
+              <p class="org">Secretaria de Estado de Desenvolvimento Econômico de Minas Gerais</p>
+              <ul>
+                <li>Suporte a rede local, VPN, servidores de arquivos e e-mail.</li>
+                <li>Atendimento técnico à alta gestão da secretaria.</li>
+                <li>Manutenção de computadores e notebooks e controle do inventário de hardware e software.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Ferramentas -->
-    <section id="ferramentas" class="split">
-      <h2>Ferramentas</h2>
-      <div class="prose">
-        <p>Separei pelo quanto eu realmente uso cada coisa.</p>
-        <dl class="rows" style="margin-top:20px">
-          <div>
-            <dt>Todo dia</dt>
-            <dd>Power BI (DAX e modelagem), SQL e MySQL, Excel, Power Automate, SEI</dd>
+    <section id="ferramentas" class="tinted">
+      <div class="container">
+        <div class="section-title">
+          <h2>Ferramentas</h2>
+          <p>Separei pelo quanto eu realmente uso cada coisa no trabalho.</p>
+        </div>
+
+        <div class="tools">
+          <div class="tool-group">
+            <h3>Todo dia</h3>
+            <p>É a base do meu trabalho na SEDE-MG.</p>
+            <ul class="chips daily">
+              <li>Power BI</li><li>DAX</li><li>SQL</li><li>MySQL</li><li>Excel</li><li>Power Automate</li><li>SEI</li>
+            </ul>
           </div>
-          <div>
-            <dt>Com frequência</dt>
-            <dd>Levantamento de requisitos, mapeamento de processos, LGPD, IA local (LM Studio, MCP, RAG)</dd>
+          <div class="tool-group">
+            <h3>Com frequência</h3>
+            <p>Faz parte da rotina, mas não todo dia.</p>
+            <ul class="chips">
+              <li>Levantamento de requisitos</li><li>Mapeamento de processos</li><li>LGPD</li><li>Modelagem relacional</li><li>LM Studio</li><li>RAG</li><li>MCP</li>
+            </ul>
           </div>
-          <div>
-            <dt>Aprendendo</dt>
-            <dd>Python para análise de dados, estatística aplicada, fine-tuning de modelos pequenos</dd>
+          <div class="tool-group">
+            <h3>Aprendendo</h3>
+            <p>Estudo e pratico, mas ainda não domino.</p>
+            <ul class="chips learning">
+              <li>Python para análise de dados</li><li>Estatística aplicada</li><li>Fine-tuning de modelos pequenos</li>
+            </ul>
           </div>
-          <div>
-            <dt>Tenho noção</dt>
-            <dd>Git, HTML e CSS, conceitos de APIs e desenvolvimento web</dd>
+          <div class="tool-group">
+            <h3>Tenho noção</h3>
+            <p>Vi na faculdade e na pós, uso pouco.</p>
+            <ul class="chips basic">
+              <li>Git</li><li>HTML e CSS</li><li>APIs</li><li>Desenvolvimento web</li>
+            </ul>
           </div>
-        </dl>
-        <p class="small" style="margin-top:16px">
+        </div>
+
+        <p class="tools-note">
           Sobre segurança da informação: minha formação e minha prática são do lado de governança,
           políticas e conformidade. Não trabalho com pentest.
         </p>
@@ -406,80 +676,92 @@
     </section>
 
     <!-- Formação -->
-    <section id="formacao" class="split">
-      <h2>Formação</h2>
-      <div class="prose">
-        <dl class="rows">
-          <div>
-            <dt>2025 – 2026</dt>
-            <dd>Pós-graduação em Data Science<span>União das Américas</span></dd>
-          </div>
-          <div>
-            <dt>2024 – 2025</dt>
-            <dd>Pós-graduação em Desenvolvimento Web Full Stack<span>União das Américas</span></dd>
-          </div>
-          <div>
-            <dt>2019 – 2023</dt>
-            <dd>Bacharelado em Sistemas de Informação<span>UniBH</span></dd>
-          </div>
-          <div>
-            <dt>2020 – 2022</dt>
-            <dd>Tecnólogo em Segurança da Informação<span>Uniasselvi</span></dd>
-          </div>
-        </dl>
+    <section id="formacao">
+      <div class="container">
+        <div class="section-title">
+          <h2>Formação</h2>
+          <p>Duas graduações, duas pós e alguns cursos que fui fazendo pelo caminho.</p>
+        </div>
 
-        <h4>Cursos e certificados</h4>
-        <ul class="certs">
-          <li>Business Analysis Fundamentals <span class="from">· Microsoft, 2025</span><br><code title="Código da credencial">DOCF5PGHSHGD</code></li>
-          <li>Virtualização de Servidores <span class="from">· ESR, 2023</span><br><code title="Código da credencial">CDC-EAD-0391-23</code></li>
-          <li>Introdução à Lei Brasileira de Proteção de Dados Pessoais <span class="from">· ENAP, 2021</span><br><code title="Código da credencial">xMLa5664657xuuM</code></li>
-          <li>Proteção de Dados Pessoais no Setor Público <span class="from">· ENAP, 2021</span><br><code title="Código da credencial">iE7a5627507Y3vQ</code></li>
-          <li>HTML, CSS e PHP para iniciantes <span class="from">· Udemy, 2021</span><br><code title="Código da credencial">UC-a108d162-e92b-4b6c-8431-2e540b9b28ba</code></li>
-          <li>Introdução ao Git e ao GitHub <span class="from">· DIO, 2021</span><br><code title="Código da credencial">CBBD6ACB</code></li>
-          <li>Fundamentos do Azure <span class="from">· DIO, 2020</span><br><code title="Código da credencial">3EAB9BD0</code></li>
-          <li>Fundamentos da Computação em Nuvem <span class="from">· DIO, 2020</span><br><code title="Código da credencial">25C978CC</code></li>
-        </ul>
+        <div class="edu-grid">
+          <div>
+            <h3>Graduação e pós</h3>
+            <ul class="degrees">
+              <li>
+                <div class="years">2025 – 2026</div>
+                <div class="name">Pós-graduação em Data Science</div>
+                <div class="school">União das Américas</div>
+                <p class="about">Estatística, machine learning, mineração de dados e análise preditiva.</p>
+              </li>
+              <li>
+                <div class="years">2024 – 2025</div>
+                <div class="name">Pós-graduação em Desenvolvimento Web Full Stack</div>
+                <div class="school">União das Américas</div>
+                <p class="about">Fiz para entender melhor APIs e bancos do lado de quem desenvolve, o que ajuda muito no levantamento de requisitos.</p>
+              </li>
+              <li>
+                <div class="years">2019 – 2023</div>
+                <div class="name">Bacharelado em Sistemas de Informação</div>
+                <div class="school">UniBH</div>
+              </li>
+              <li>
+                <div class="years">2020 – 2022</div>
+                <div class="name">Tecnólogo em Segurança da Informação</div>
+                <div class="school">Uniasselvi</div>
+              </li>
+            </ul>
+          </div>
 
-        <h4>Idiomas</h4>
-        <p>Português nativo. Inglês básico (A2).</p>
+          <div>
+            <h3>Cursos e certificados</h3>
+            <ul class="certs">
+              <li>Business Analysis Fundamentals <span class="from">Microsoft, 2025</span><code title="Código da credencial">DOCF5PGHSHGD</code></li>
+              <li>Virtualização de Servidores <span class="from">ESR, 2023</span><code title="Código da credencial">CDC-EAD-0391-23</code></li>
+              <li>Introdução à Lei Brasileira de Proteção de Dados Pessoais <span class="from">ENAP, 2021</span><code title="Código da credencial">xMLa5664657xuuM</code></li>
+              <li>Proteção de Dados Pessoais no Setor Público <span class="from">ENAP, 2021</span><code title="Código da credencial">iE7a5627507Y3vQ</code></li>
+              <li>HTML, CSS e PHP para iniciantes <span class="from">Udemy, 2021</span><code title="Código da credencial">UC-a108d162-e92b-4b6c-8431-2e540b9b28ba</code></li>
+              <li>Introdução ao Git e ao GitHub <span class="from">DIO, 2021</span><code title="Código da credencial">CBBD6ACB</code></li>
+              <li>Fundamentos do Azure <span class="from">DIO, 2020</span><code title="Código da credencial">3EAB9BD0</code></li>
+              <li>Fundamentos da Computação em Nuvem <span class="from">DIO, 2020</span><code title="Código da credencial">25C978CC</code></li>
+            </ul>
+
+            <div class="langs">
+              <h3>Idiomas</h3>
+              <p>Português nativo. Inglês básico (A2).</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Contato -->
-    <section id="contato" class="split">
-      <h2>Contato</h2>
-      <div class="prose">
-        <p>
-          Se quiser falar sobre uma vaga, um projeto ou só trocar ideia sobre dados no setor
-          público, pode me chamar. Costumo responder mais rápido por e-mail ou WhatsApp.
+    <section id="contato" class="contact">
+      <div class="container">
+        <h2>Disponibilidade profissional</h2>
+        <p class="lead">
+          Estou aberto a oportunidades como <strong>Analista de Requisitos</strong>, <strong>Analista de BI</strong> ou <strong>Analista de Dados</strong>.
+          Disponível para atuação presencial ou híbrida em Belo Horizonte e região, ou em modelo 100% remoto.
         </p>
-        <dl class="rows" style="margin-top:24px">
-          <div>
-            <dt>E-mail</dt>
-            <dd><a href="mailto:lucasvieira.tecnologia@gmail.com">lucasvieira.tecnologia@gmail.com</a></dd>
-          </div>
-          <div>
-            <dt>WhatsApp</dt>
-            <dd><a href="https://wa.me/5531971840502?text=Ol%C3%A1%2C%20Lucas!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener">(31) 97184-0502</a></dd>
-          </div>
-          <div>
-            <dt>LinkedIn</dt>
-            <dd><a href="https://www.linkedin.com/in/lucasvieira-dados" target="_blank" rel="noopener">linkedin.com/in/lucasvieira-dados</a></dd>
-          </div>
-          <div>
-            <dt>Currículo</dt>
-            <dd><a href="Curriculo-Lucas-Vieira.pdf" download>Baixar PDF</a></dd>
-          </div>
-        </dl>
+        
+        <p class="callout">Para propostas, descritivos de vaga ou agendamento de entrevistas:</p>
+        <a class="email" href="mailto:lucasvieira.tecnologia@gmail.com">lucasvieira.tecnologia@gmail.com</a>
+
+        <div class="actions">
+          <a class="btn btn-cv" href="Curriculo-Lucas-Vieira.pdf" download><svg aria-hidden="true"><use href="#i-doc"/></svg> Baixar Currículo (PDF)</a>
+          <a class="btn btn-ghost" href="https://wa.me/5531971840502?text=Ol%C3%A1%2C%20Lucas!%20Acessei%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20uma%20oportunidade." target="_blank" rel="noopener">WhatsApp (31) 97184-0502 <svg aria-hidden="true"><use href="#i-out"/></svg></a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/lucasvieira-dados" target="_blank" rel="noopener">LinkedIn <svg aria-hidden="true"><use href="#i-out"/></svg></a>
+        </div>
       </div>
+
+      <footer>
+        <div class="container">
+          <span>Lucas Vieira · Belo Horizonte, 2026</span>
+          <a href="#topo">Voltar ao topo</a>
+        </div>
+      </footer>
     </section>
 
   </main>
-
-  <footer class="container">
-    <span>Lucas Vieira · Belo Horizonte, 2026</span>
-    <a href="#topo">Voltar ao topo</a>
-  </footer>
 
   <dialog id="viewer">
     <form method="dialog"><button>Fechar</button></form>
@@ -494,20 +776,14 @@
     var viewerCaption = document.getElementById('viewerCaption');
 
     document.querySelectorAll('.shots button').forEach(function (btn) {
-      var img = btn.querySelector('img');
-
-      function markMissing() {
-        btn.classList.add('missing');
-        btn.textContent = 'Imagem ' + btn.dataset.full + ' não encontrada';
-      }
-      if (img.complete && img.naturalWidth === 0) markMissing();
-      else img.addEventListener('error', markMissing);
-
       btn.addEventListener('click', function () {
         if (btn.classList.contains('missing')) return;
+        var img = btn.querySelector('img');
+        var caption = btn.parentElement.querySelector('figcaption');
         viewerImg.src = btn.dataset.full;
-        viewerImg.alt = img.alt;
-        viewerCaption.textContent = btn.parentElement.querySelector('figcaption').textContent;
+        viewerImg.alt = img ? img.alt : '';
+        viewerCaption.textContent = caption.querySelector('b').textContent + ': ' +
+          caption.textContent.replace(caption.querySelector('b').textContent, '');
         viewer.showModal();
       });
     });
