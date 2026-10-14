@@ -422,7 +422,8 @@
     <symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
   </svg>
 
-  <header class="site-header" id="topo">
+  <span id="topo" style="position:absolute;top:0;left:0;pointer-events:none;" aria-hidden="true"></span>
+  <header class="site-header">
     <div class="container">
       <a class="home" href="#topo"><span class="mono-mark">LV</span>Lucas Vieira</a>
       <nav aria-label="Seções">
@@ -791,6 +792,17 @@
     // Fecha ao clicar fora da imagem.
     viewer.addEventListener('click', function (e) {
       if (e.target === viewer) viewer.close();
+    });
+
+    // Rolagem suave e infalível para o topo da página.
+    document.querySelectorAll('a[href="#topo"]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (history.pushState) {
+          history.pushState(null, '', window.location.pathname + window.location.search);
+        }
+      });
     });
   </script>
 </body>
