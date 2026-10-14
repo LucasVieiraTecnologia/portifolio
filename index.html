@@ -1,2468 +1,521 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lucas Vieira — Analista de Requisitos e Dados | Power BI, SQL e IA</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230b0b0c'/%3E%3Ctext x='32' y='45' font-family='Arial,Helvetica,sans-serif' font-weight='bold' font-size='32' fill='%23ffffff' text-anchor='middle'%3ELV%3C/text%3E%3C/svg%3E">
-
-  <meta name="description" content="Lucas Vieira — Analista de Requisitos e Dados em Belo Horizonte. Power BI (DAX), SQL, modelagem relacional, automação, LGPD e IA local aplicada ao setor público.">
+  <title>Lucas Vieira · Analista de Requisitos e Dados</title>
+  <meta name="description" content="Lucas Vieira, analista de requisitos e dados na SEDE-MG, em Belo Horizonte. Power BI, SQL, LGPD e IA local aplicados ao setor público.">
   <meta name="author" content="Lucas Vieira">
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0a0a0b" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Lucas Vieira — Analista de Requisitos e Dados">
-  <meta property="og:description" content="Power BI (DAX), SQL, levantamento de requisitos, automação, LGPD e IA local aplicados à gestão pública.">
+  <meta property="og:title" content="Lucas Vieira · Analista de Requisitos e Dados">
+  <meta property="og:description" content="Power BI, SQL, levantamento de requisitos e LGPD no Governo de Minas Gerais.">
   <meta property="og:locale" content="pt_BR">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231d1c1a'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23f6f4ef' text-anchor='middle'%3ELV%3C/text%3E%3C/svg%3E">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <script>
-    // Aplica o tema antes da pintura para evitar flash de cor errada.
-    (function () {
-      var stored = localStorage.getItem('lv-theme');
-      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var theme = stored || (prefersDark ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', theme);
-    })();
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
 
   <style>
-    /* ============================================================
-       DESIGN TOKENS
-       ============================================================ */
     :root {
-      --paper:      #ffffff;
-      --paper-2:    #f4f4f5;
-      --surface:    #ffffff;
-      --ink:        #0b0b0c;
-      --ink-soft:   #55565b;
-      --ink-faint:  #8e8f95;
-      --line:       #e3e3e7;
-      --line-soft:  #ecedf0;
-      --accent:     #e5231b;
-      --accent-ink: #b81a13;
-      --pine:       #0b6b45;
-      --gold:       #e5231b;
-      --shadow:     0 1px 2px rgba(11,11,12,.05), 0 28px 50px -36px rgba(11,11,12,.55);
+      --bg: #f8f6f1;
+      --text: #1d1c1a;
+      --muted: #5c5952;
+      --faint: #8b877e;
+      --line: #e2ded5;
+      --box: #ffffff;
+      --accent: #9c3b1b;
 
-      --display: "Bricolage Grotesque", "Archivo", "Helvetica Neue", Arial, sans-serif;
-      --sans: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --mono: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-      --serif: var(--display);
-
-      --max: 1180px;
-      --gutter: clamp(20px, 5vw, 56px);
-      --radius: 0px;
+      --sans: "Public Sans", -apple-system, "Segoe UI", Roboto, sans-serif;
+      --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+      --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
     }
 
-    html[data-theme="dark"] {
-      --paper:      #0a0a0b;
-      --paper-2:    #121214;
-      --surface:    #101012;
-      --ink:        #f3f3f4;
-      --ink-soft:   #a2a3a8;
-      --ink-faint:  #75767c;
-      --line:       #26262a;
-      --line-soft:  #1c1c1f;
-      --accent:     #ff4432;
-      --accent-ink: #ff6a5b;
-      --pine:       #3ec98a;
-      --gold:       #ff4432;
-      --shadow:     0 1px 2px rgba(0,0,0,.4), 0 30px 54px -36px rgba(0,0,0,.95);
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #171614;
+        --text: #e8e5de;
+        --muted: #a9a49b;
+        --faint: #7d7970;
+        --line: #2e2c28;
+        --box: #1f1e1b;
+        --accent: #e08a65;
+      }
     }
 
     * { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
-
     body {
       margin: 0;
-      background: var(--paper);
-      color: var(--ink);
+      background: var(--bg);
+      color: var(--text);
       font-family: var(--sans);
-      font-size: 16px;
-      line-height: 1.7;
+      font-size: 17px;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-      transition: background .35s ease, color .35s ease;
     }
 
-    ::selection { background: var(--ink); color: var(--paper); }
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-decoration-color: var(--faint);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
     img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; color: inherit; cursor: pointer; }
-
-    :focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-      border-radius: 2px;
-    }
-
-    .skip-link {
-      position: absolute;
-      left: -9999px;
-      top: 0;
-      z-index: 100;
-      background: var(--ink);
-      color: var(--paper);
-      padding: 10px 16px;
-      font-family: var(--mono);
-      font-size: 12px;
-    }
-    .skip-link:focus { left: 12px; top: 12px; }
-
-    /* ============================================================
-       LAYOUT PRIMITIVES
-       ============================================================ */
-    .wrap {
-      width: 100%;
-      max-width: var(--max);
-      margin-inline: auto;
-      padding-inline: var(--gutter);
-      position: relative;
-      z-index: 1;
-    }
-
-    section { position: relative; z-index: 1; }
-
-    .band { padding-block: clamp(64px, 9vw, 118px); }
-    .band--tight { padding-block: clamp(48px, 6vw, 78px); }
-
-    .rule { border: 0; border-top: 1px solid var(--line); margin: 0; }
-
-    /* Rótulo de seção: mono, minúsculo, com índice numérico — nada de pílulas coloridas. */
-    .eyebrow {
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 11.5px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .eyebrow .idx { font-family: var(--mono); color: var(--accent); font-weight: 600; letter-spacing: .04em; }
-    .eyebrow .tick {
-      flex: 1;
-      height: 1px;
-      background: var(--line);
-      max-width: 90px;
-    }
-
-    .section-head {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-      padding-bottom: 34px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 44px;
-    }
-    @media (min-width: 900px) {
-      .section-head { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); align-items: end; gap: 40px; }
-    }
-
-    h1, h2, h3, h4 { margin: 0; font-weight: 500; }
-
-    .display {
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: clamp(2.5rem, 7vw, 5rem);
-      line-height: 0.97;
-      letter-spacing: -0.04em;
-    }
-    .display em {
-      font-style: normal;
-      font-weight: 800;
-      color: var(--accent);
-    }
-
-    .h2 {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: clamp(1.9rem, 4vw, 3.05rem);
-      line-height: 1.0;
-      letter-spacing: -0.034em;
-    }
-    .h3 {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 1.3rem;
-      line-height: 1.2;
-      letter-spacing: -0.022em;
-    }
-
-    .lead {
-      font-size: clamp(1rem, 1.35vw, 1.1rem);
-      line-height: 1.75;
-      color: var(--ink-soft);
-      max-width: 62ch;
-    }
-    p { margin: 0 0 1.05em; }
+    p { margin: 0 0 1em; }
     p:last-child { margin-bottom: 0; }
+    ul { margin: 0; padding-left: 1.2em; }
+    li { margin-bottom: .45em; }
+    li::marker { color: var(--faint); }
 
-    strong { font-weight: 600; color: var(--ink); }
-    em { font-style: italic; }
+    h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.2; margin: 0; }
 
-    .mono { font-family: var(--mono); }
-
-    /* ============================================================
-       TOPBAR
-       ============================================================ */
-    .topbar {
-      position: fixed;
-      inset: 0 0 auto 0;
-      z-index: 60;
-      background: color-mix(in srgb, var(--paper) 82%, transparent);
-      backdrop-filter: blur(14px) saturate(1.1);
-      -webkit-backdrop-filter: blur(14px) saturate(1.1);
-      border-bottom: 1px solid transparent;
-      transition: border-color .3s ease, background .3s ease;
-    }
-    .topbar.is-stuck { border-bottom-color: var(--line); }
-
-    .topbar-inner {
-      max-width: var(--max);
-      margin-inline: auto;
-      padding-inline: var(--gutter);
-      height: 66px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 28px;
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
 
-    .brand { display: flex; align-items: center; gap: 12px; min-width: 0; flex: none; }
-    .brand .mark {
-      font-family: var(--display);
-      font-size: 18px;
-      font-weight: 800;
-      line-height: 1;
-      padding: 8px 9px;
-      border: 1.5px solid var(--ink);
-      border-radius: 0;
-      letter-spacing: -0.03em;
-      transition: background .25s ease, color .25s ease;
-    }
-    .brand:hover .mark { background: var(--ink); color: var(--paper); }
-    .brand .who { display: none; flex-direction: column; line-height: 1.25; white-space: nowrap; }
-    @media (min-width: 1240px) { .brand .who { display: flex; } }
-    .brand .who b { font-weight: 700; font-size: 14.5px; letter-spacing: -.02em; white-space: nowrap; }
-    .brand .who span {
-      font-family: var(--sans);
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-    }
-
-    .nav { display: none; align-items: center; gap: 2px; margin-left: auto; }
-    @media (min-width: 1020px) { .nav { display: flex; } }
-    .nav a {
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 12.5px;
-      letter-spacing: .04em;
-      color: var(--ink-soft);
-      padding: 8px;
-      position: relative;
-      transition: color .2s ease;
-    }
-    .nav a .n { font-family: var(--mono); color: var(--ink-faint); font-size: 10px; margin-right: 5px; }
-    .nav a::after {
-      content: "";
-      position: absolute;
-      left: 8px;
-      right: 8px;
-      bottom: 3px;
-      height: 1px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform .28s cubic-bezier(.2,.7,.2,1);
-    }
-    .nav a:hover { color: var(--ink); }
-    .nav a:hover::after { transform: scaleX(1); }
-
-    .topbar-actions { display: flex; align-items: center; gap: 8px; flex: none; }
-
-    .icon-btn {
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      border: 1px solid var(--line);
-      border-radius: 0;
-      background: transparent;
-      color: var(--ink-soft);
-      transition: border-color .2s ease, color .2s ease, background .2s ease;
-    }
-    .icon-btn:hover { color: var(--ink); border-color: var(--ink-soft); }
-    .icon-btn .sun { display: none; }
-    html[data-theme="dark"] .icon-btn .sun { display: block; }
-    html[data-theme="dark"] .icon-btn .moon { display: none; }
-
-    .ghost-btn {
-      display: none;
-      align-items: center;
-      gap: 7px;
-      height: 38px;
-      padding: 0 14px;
-      border: 1px solid var(--line);
-      border-radius: 0;
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 11.5px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--ink);
-      transition: border-color .2s ease, background .2s ease, color .2s ease;
-    }
-    .ghost-btn:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-    @media (min-width: 700px) { .ghost-btn--cv { display: inline-flex; } }
-    @media (min-width: 1120px) { .ghost-btn--wa { display: inline-flex; } }
-
-    .menu-btn { display: grid; }
-    @media (min-width: 1020px) { .menu-btn { display: none; } }
-
-    /* Drawer mobile */
-    .drawer {
-      display: none;
-      border-top: 1px solid var(--line);
-      background: var(--paper);
-      padding: 10px var(--gutter) 26px;
-    }
-    .drawer.is-open { display: block; }
-    @media (min-width: 1020px) { .drawer { display: none !important; } }
-    .drawer a {
-      display: flex;
-      align-items: baseline;
-      gap: 14px;
-      padding: 15px 2px;
-      border-bottom: 1px solid var(--line-soft);
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 1.4rem;
-      letter-spacing: -.025em;
-    }
-    .drawer a .n { font-family: var(--mono); font-size: 11px; color: var(--accent); }
-    .drawer-foot { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
-    .drawer-foot a { font-family: var(--sans); font-size: .9rem; flex: 1 1 120px; justify-content: center; border: 1px solid var(--line); border-radius: 2px; padding: 12px; }
-
-    /* ============================================================
-       HERO
-       ============================================================ */
-    .hero {
-      padding-top: 118px;
-      padding-bottom: clamp(40px, 6vw, 72px);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-meta {
+    /* Cabeçalho */
+    .site-header {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px 26px;
-      align-items: center;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--line);
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 11.5px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-    }
-    .hero-meta .spacer { flex: 1; }
-    .status { display: inline-flex; align-items: center; gap: 8px; color: var(--pine); }
-    .status i {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: currentColor;
-      box-shadow: 0 0 0 0 currentColor;
-      animation: pulse 2.6s ease-out infinite;
-    }
-    @keyframes pulse {
-      0%   { box-shadow: 0 0 0 0 color-mix(in srgb, var(--pine) 55%, transparent); }
-      70%  { box-shadow: 0 0 0 8px rgba(0,0,0,0); }
-      100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
-    }
-
-    .hero-title { margin-top: clamp(30px, 5vw, 58px); max-width: 22ch; }
-    .hero-title .kicker {
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 11.5px;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      display: block;
-      margin-bottom: 20px;
-    }
-
-    .hero-grid {
-      margin-top: clamp(38px, 5vw, 58px);
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 48px;
-      align-items: start;
-    }
-    @media (min-width: 940px) {
-      .hero-grid { grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); gap: 64px; }
-    }
-
-    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      padding: 13px 20px;
-      border: 1px solid var(--ink);
-      border-radius: 0;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: .01em;
-      background: var(--ink);
-      color: var(--paper);
-      transition: transform .18s ease, background .2s ease, color .2s ease, border-color .2s ease;
-    }
-    .btn:hover { transform: translateY(-2px); }
-    .btn svg { width: 15px; height: 15px; }
-    .btn--outline { background: transparent; color: var(--ink); border-color: var(--line); }
-    .btn--outline:hover { border-color: var(--ink); }
-    .btn--accent { background: var(--accent); border-color: var(--accent); color: #fff; }
-    html[data-theme="dark"] .btn--accent { color: #1a1207; }
-
-    .skills-inline {
-      margin-top: 34px;
-      padding-top: 22px;
-      border-top: 1px solid var(--line);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 22px;
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 12.5px;
-      letter-spacing: .02em;
-      color: var(--ink-soft);
-    }
-    .skills-inline span { display: inline-flex; align-items: center; gap: 8px; }
-    .skills-inline span::before { content: ""; width: 4px; height: 4px; background: var(--ink-faint); border-radius: 50%; }
-
-    /* Ficha profissional */
-    .ficha {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      position: relative;
-    }
-    .ficha::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 3px;
-      background: var(--ink);
-    }
-    .ficha-top {
-      padding: 22px 24px 18px;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      align-items: baseline;
       justify-content: space-between;
-      gap: 14px;
-    }
-    .ficha-top .lbl {
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 10.5px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-    }
-    .ficha-top .yr { font-family: var(--sans); font-weight: 600; font-size: 10.5px; color: var(--accent); letter-spacing: .14em; text-transform: uppercase; }
-
-    .ficha-body { padding: 6px 24px 22px; }
-    .frow {
-      display: grid;
-      grid-template-columns: 96px 1fr;
-      gap: 16px;
-      padding: 13px 0;
-      border-bottom: 1px solid var(--line-soft);
       align-items: baseline;
+      gap: 12px 32px;
+      padding-top: 28px;
+      padding-bottom: 28px;
+      font-size: 15px;
     }
-    .frow:last-child { border-bottom: 0; }
-    .frow dt {
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 10.5px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-    }
-    .frow dd { margin: 0; font-size: 14px; line-height: 1.5; }
+    .site-header .home { font-weight: 600; text-decoration: none; }
+    .site-header nav { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+    .site-header nav a { color: var(--muted); text-decoration: none; }
+    .site-header nav a:hover { color: var(--accent); }
 
-    .spark { margin-top: 6px; display: flex; align-items: flex-end; gap: 3px; height: 46px; }
-    .spark i {
-      flex: 1;
-      background: var(--line);
-      border-radius: 1px;
-      height: var(--h);
-      transition: background .3s ease;
-    }
-    .spark i.hi { background: var(--accent); }
-    .spark i.mid { background: var(--gold); }
-    .spark-cap {
-      display: flex;
-      justify-content: space-between;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .08em;
-      color: var(--ink-faint);
-      margin-top: 8px;
-      text-transform: uppercase;
-    }
+    /* Apresentação */
+    .intro { padding: 56px 0 72px; border-bottom: 1px solid var(--line); }
+    .intro h1 { font-size: clamp(2.2rem, 5vw, 3rem); font-weight: 500; letter-spacing: -.01em; }
+    .intro .role { color: var(--muted); margin: 8px 0 32px; }
+    .intro .text { max-width: 640px; font-size: 1.1rem; }
+    .intro .links { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 15px; }
 
-    /* ============================================================
-       FAIXA DE NÚMEROS
-       ============================================================ */
-    .stats {
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: var(--paper-2);
-    }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-    }
-    @media (min-width: 860px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
-    .stat {
-      padding: 30px 0 30px 26px;
-      border-left: 1px solid var(--line);
-      position: relative;
-    }
-    .stat:nth-child(2n+1) { border-left: 0; padding-left: 0; }
+    /* Seções */
+    section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+    section:last-of-type { border-bottom: 0; }
+
     @media (min-width: 860px) {
-      .stat { padding-left: 30px; }
-      .stat:first-child { padding-left: 0; }
-      .stat:nth-child(2n+1) { border-left: 1px solid var(--line); padding-left: 30px; }
-      .stat:first-child { border-left: 0; padding-left: 0; }
+      .split { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 48px; }
     }
-    @media (max-width: 859px) {
-      .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
-    }
-    .stat .k {
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 10.5px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      display: block;
-      margin-bottom: 10px;
-    }
-    .stat .v {
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: clamp(1.75rem, 3.4vw, 2.45rem);
-      line-height: 1;
-      letter-spacing: -.04em;
-      color: var(--ink);
-    }
-    .stat .v small { font-size: .55em; color: var(--accent); font-family: var(--mono); letter-spacing: 0; margin-left: 4px; }
-    .stat .d { font-size: 13px; color: var(--ink-soft); margin-top: 9px; line-height: 1.5; }
+    .split > h2 { font-size: 1.3rem; margin-bottom: 24px; }
+    @media (min-width: 860px) { .split > h2 { margin-bottom: 0; padding-top: 2px; } }
 
-    /* ============================================================
-       SOBRE
-       ============================================================ */
-    .cols { display: grid; gap: 48px; }
-    @media (min-width: 940px) {
-      .cols { grid-template-columns: minmax(0, 6.4fr) minmax(0, 4.2fr); gap: 72px; }
-      .cols--flip > :first-child { order: 2; }
-    }
+    .prose { max-width: 660px; }
+    .small { font-size: 14.5px; color: var(--muted); }
+    .meta { font-size: 14.5px; color: var(--faint); margin: 4px 0 16px; }
 
-    .prose p { color: var(--ink-soft); line-height: 1.8; }
-    .prose p + p { margin-top: 1.15em; }
+    /* Projetos */
+    .project + .project { margin-top: 64px; }
+    .project h3 { font-size: 1.35rem; }
 
-    .pull {
-      border-left: 3px solid var(--accent);
-      padding: 2px 0 2px 24px;
-      margin: 36px 0 0;
-      font-family: var(--display);
-      font-weight: 600;
-      font-size: 1.32rem;
-      line-height: 1.3;
-      letter-spacing: -0.022em;
-      color: var(--ink);
-    }
-
-    .pillars { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-    .pillars li {
-      display: grid;
-      grid-template-columns: 34px 1fr;
-      gap: 16px;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .pillars .ic { color: var(--ink); padding-top: 3px; }
-    .pillars .ic svg { width: 20px; height: 20px; }
-    .pillars h4 { font-family: var(--sans); font-weight: 600; font-size: 15px; margin-bottom: 5px; }
-    .pillars p { margin: 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
-
-    /* ============================================================
-       TRAJETÓRIA
-       ============================================================ */
-    .job {
-      display: grid;
-      gap: 10px 40px;
-      padding: 34px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    @media (min-width: 900px) {
-      .job { grid-template-columns: 190px minmax(0, 1fr); }
-    }
-    .job:first-of-type { border-top: 1px solid var(--line); }
-
-    .job-when {
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: .06em;
-      color: var(--ink-faint);
-      padding-top: 4px;
-    }
-    .job-when b { display: block; color: var(--accent); font-weight: 600; }
-
-    .job-role { font-family: var(--serif); font-size: 1.42rem; line-height: 1.2; letter-spacing: -.01em; }
-    .job-org {
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 12.5px;
-      letter-spacing: .01em;
-      color: var(--pine);
-      margin-top: 7px;
-    }
-    .job-desc { margin-top: 14px; color: var(--ink-soft); font-size: 14.5px; }
-    .job ul { margin: 14px 0 0; padding: 0; list-style: none; display: grid; gap: 9px; }
-    .job ul li {
-      position: relative;
-      padding-left: 20px;
-      font-size: 14px;
-      color: var(--ink-soft);
-      line-height: 1.65;
-    }
-    .job ul li::before {
-      content: "";
-      position: absolute;
-      left: 2px;
-      top: .72em;
-      width: 8px;
-      height: 1px;
-      background: var(--accent);
-    }
-    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px; }
-    .tags span {
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 10.5px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
+    .embed {
+      margin-top: 24px;
       border: 1px solid var(--line);
-      border-radius: 0;
-      padding: 4px 9px;
-    }
-
-    /* ============================================================
-       FORMAÇÃO
-       ============================================================ */
-    .edu { display: grid; gap: 0; }
-    .edu-item {
-      display: grid;
-      gap: 12px 40px;
-      padding: 30px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .edu-item:first-child { border-top: 1px solid var(--line); }
-    @media (min-width: 900px) { .edu-item { grid-template-columns: 190px minmax(0, 1fr); gap: 12px 40px; } }
-
-    .edu-kind {
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 10.5px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--accent);
-      display: block;
-      margin-bottom: 8px;
-    }
-    .edu-item h3 { font-family: var(--display); font-size: 1.5rem; line-height: 1.15; font-weight: 700; letter-spacing: -.03em; }
-    .edu-school { font-family: var(--sans); font-weight: 500; font-size: 12.5px; color: var(--ink-faint); margin-top: 7px; letter-spacing: .01em; }
-    .edu-item p { margin-top: 12px; font-size: 14px; color: var(--ink-soft); }
-    .edu-when {
-      font-family: var(--mono);
-      font-size: 11.5px;
-      letter-spacing: .06em;
-      color: var(--ink-faint);
-      padding-top: 4px;
-    }
-    .edu-when b {
-      display: block;
-      color: var(--pine);
-      font-family: var(--sans);
-      font-weight: 600;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      font-size: 10.5px;
-      margin-bottom: 5px;
-    }
-
-    /* Certificações e idiomas */
-    .certs {
-      margin-top: 60px;
-      padding-top: 36px;
-      border-top: 1px solid var(--line);
-      display: grid;
-      gap: 44px;
-    }
-    @media (min-width: 900px) {
-      .certs { grid-template-columns: minmax(0, 1fr) 280px; gap: 64px; }
-    }
-    .certs h3 {
-      font-family: var(--sans);
-      font-weight: 700;
-      font-size: 11.5px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--ink);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .certs h3::after { content: ""; flex: 1; height: 1px; background: var(--line); max-width: 80px; }
-    .cert-list, .lang-list { list-style: none; margin: 0; padding: 0; }
-    .cert-list li {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, auto);
-      gap: 6px 18px;
-      align-items: start;
-      padding: 13px 0;
-      border-bottom: 1px solid var(--line-soft);
-      font-size: 14px;
-      color: var(--ink-soft);
-    }
-    .cert-list li:last-child, .lang-list li:last-child { border-bottom: 0; }
-    .cert-list b { font-weight: 600; color: var(--ink); }
-    .cert-meta {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 5px;
-      text-align: right;
-    }
-    .cert-issuer {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--ink-faint);
-      white-space: nowrap;
-    }
-    .cert-code {
-      font-family: var(--mono);
-      font-size: 10.5px;
-      line-height: 1.4;
-      color: var(--ink-soft);
-      background: var(--paper-2);
-      border: 1px solid var(--line);
-      border-radius: 0;
-      padding: 2px 6px;
-      max-width: 100%;
-      word-break: break-all;
-      text-align: right;
-      transition: border-color .2s ease, color .2s ease;
-    }
-    .cert-code:hover { border-color: var(--ink); color: var(--ink); }
-    @media (max-width: 760px) {
-      .cert-list li { grid-template-columns: 1fr; }
-      .cert-meta { align-items: flex-start; text-align: left; }
-      .cert-code { text-align: left; }
-    }
-    .lang-list span {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--ink-faint);
-      white-space: nowrap;
-    }
-    .lang-list li {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      align-items: baseline;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--line-soft);
-      font-size: 14px;
-      color: var(--ink);
-    }
-
-    /* ============================================================
-       COMPETÊNCIAS
-       ============================================================ */
-    .skills-grid { display: grid; gap: 0; border-top: 1px solid var(--line); }
-    @media (min-width: 700px) { .skills-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1060px) { .skills-grid { grid-template-columns: repeat(4, 1fr); } }
-
-    .skill-col {
-      padding: 30px 26px 34px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    @media (min-width: 700px) {
-      .skill-col { padding-right: 30px; }
-      .skill-col:nth-child(2n) { border-left: 1px solid var(--line); padding-left: 30px; }
-    }
-    @media (min-width: 1060px) {
-      .skill-col { border-left: 1px solid var(--line); padding-left: 30px; padding-right: 30px; }
-      .skill-col:first-child { border-left: 0; padding-left: 0; }
-      .skill-col:nth-child(2n) { border-left: 1px solid var(--line); }
-    }
-
-    .skill-col .ch {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 24px;
-      min-height: 44px;
-    }
-    .skill-col .ch svg { width: 17px; height: 17px; color: var(--ink); flex: none; margin-top: 2px; }
-    .skill-col .ch h3 {
-      font-family: var(--sans);
-      font-size: 11.5px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--ink);
-    }
-
-    .skill { margin-bottom: 19px; }
-    .skill:last-child { margin-bottom: 0; }
-    .skill-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 10px;
-      margin-bottom: 7px;
-    }
-    .skill-name { font-size: 13.5px; color: var(--ink); line-height: 1.4; }
-    .skill-lvl {
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 10px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      white-space: nowrap;
-    }
-    .meter { display: flex; gap: 3px; }
-    .meter i {
-      flex: 1;
-      height: 5px;
-      background: var(--line);
-      border-radius: 1px;
-      transition: background .45s ease;
-    }
-    .meter i.on { background: var(--ink); }
-    .meter i.on.a { background: var(--accent); }
-    .skill-note {
-      display: block;
-      font-family: var(--sans);
-      font-weight: 500;
-      font-size: 11.5px;
-      color: var(--ink-faint);
-      margin-top: 7px;
-      letter-spacing: .02em;
-    }
-
-    /* ============================================================
-       PROJETOS
-       ============================================================ */
-    .notice {
-      display: grid;
-      grid-template-columns: 30px 1fr;
-      gap: 16px;
-      padding: 20px 22px;
-      border: 1px solid var(--line);
-      border-left: 3px solid var(--accent);
-      background: var(--surface);
-      border-radius: 0;
-      margin-bottom: 40px;
-    }
-    .notice svg { width: 20px; height: 20px; color: var(--gold); margin-top: 3px; }
-    .notice p { font-size: 14px; color: var(--ink-soft); margin: 0; }
-
-    .project { border-top: 1px solid var(--line); padding-top: 32px; margin-bottom: 72px; }
-    .project-head {
-      display: grid;
-      gap: 18px;
-      margin-bottom: 26px;
-    }
-    @media (min-width: 900px) {
-      .project-head { grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 40px; }
-    }
-    .project-head h3 { font-family: var(--display); font-size: clamp(1.5rem, 2.6vw, 2.05rem); line-height: 1.1; font-weight: 700; letter-spacing: -.032em; margin-top: 10px; }
-    .project-head .sub { font-size: 14.5px; color: var(--ink-soft); margin-top: 12px; max-width: 68ch; }
-
-    .flag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 10.5px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--pine);
-    }
-    .flag i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-    .flag--accent { color: var(--accent); }
-    .flag--muted { color: var(--ink-faint); }
-
-    .meta-line {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 20px;
-      align-items: center;
-      font-family: var(--sans);
-      font-weight: 500;
-      font-size: 12px;
-      color: var(--ink-faint);
-      letter-spacing: .02em;
-    }
-
-    .credit {
-      display: grid;
-      grid-template-columns: 26px 1fr;
-      gap: 14px;
-      align-items: start;
-      padding: 16px 18px;
-      border: 1px solid var(--line);
-      border-radius: 0;
-      background: var(--paper-2);
-      margin-bottom: 22px;
-    }
-    .credit svg { width: 18px; height: 18px; color: var(--ink); margin-top: 2px; }
-    .credit p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
-
-    /* Frame do relatório embutido */
-    .frame {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
+      border-radius: 6px;
       overflow: hidden;
-      background: #0b0b0c;
-      box-shadow: var(--shadow);
+      background: var(--box);
     }
-    .frame-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--line);
-      background: var(--surface);
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 10.5px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-    }
-    .frame-bar .dots { display: flex; gap: 5px; }
-    .frame-bar .dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
-    .frame iframe { display: block; width: 100%; height: 620px; border: 0; }
-    @media (min-width: 1100px) { .frame iframe { height: 760px; } }
+    .embed iframe { display: block; width: 100%; aspect-ratio: 16 / 10; min-height: 360px; border: 0; }
+    .embed-note { margin-top: 10px; }
 
-    /* Abas do case interno */
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 28px;
+    .shots {
+      margin-top: 28px;
+      display: grid;
+      gap: 28px 24px;
     }
-    .tab {
-      position: relative;
-      background: transparent;
+    @media (min-width: 640px) { .shots { grid-template-columns: 1fr 1fr; } }
+
+    .shots figure { margin: 0; }
+    .shots button {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--box);
+      cursor: zoom-in;
+      aspect-ratio: 16 / 10;
+    }
+    .shots button img { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+    .shots button.missing { cursor: default; display: grid; place-items: center; color: var(--faint); font-size: 13px; }
+    .shots figcaption { margin-top: 10px; font-size: 14.5px; color: var(--muted); line-height: 1.55; }
+    .shots figcaption b { color: var(--text); font-weight: 600; }
+
+    dialog {
       border: 0;
-      padding: 12px 16px 13px;
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 13.5px;
-      letter-spacing: .01em;
-      color: var(--ink-faint);
-      transition: color .2s ease;
+      padding: 0;
+      background: transparent;
+      max-width: min(1400px, 94vw);
+      max-height: 92vh;
     }
-    .tab .n { font-family: var(--mono); color: var(--accent); margin-right: 7px; }
-    .tab:hover { color: var(--ink); }
-    .tab::after {
-      content: "";
-      position: absolute;
-      left: 12px; right: 12px; bottom: -1px;
-      height: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform .3s cubic-bezier(.2,.7,.2,1);
+    dialog::backdrop { background: rgba(10, 10, 9, .88); }
+    dialog img { max-height: 84vh; width: auto; margin: 0 auto; border-radius: 4px; }
+    dialog p { color: #ddd; font-size: 14px; text-align: center; margin-top: 10px; }
+    dialog form { text-align: right; margin-bottom: 8px; }
+    dialog form button {
+      background: none; border: 0; color: #ddd; font: inherit; font-size: 14px; cursor: pointer;
+      text-decoration: underline; text-underline-offset: 3px;
     }
-    .tab.is-active { color: var(--ink); }
-    .tab.is-active::after { transform: scaleX(1); }
 
-    .case-grid { display: grid; gap: 34px; }
-    @media (min-width: 960px) { .case-grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 44px; } }
+    /* Experiência */
+    .job + .job { margin-top: 44px; }
+    .job h3 { font-family: var(--sans); font-size: 1.05rem; font-weight: 600; }
 
-    .shot {
-      position: relative;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: #0b0b0c;
-      overflow: hidden;
-      min-height: 260px;
+    /* Listas em linha (ferramentas, formação, certificados) */
+    .rows { margin: 0; }
+    .rows > div {
       display: grid;
-      place-items: center;
+      gap: 2px 24px;
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
     }
-    .shot img { width: 100%; height: auto; object-fit: contain; transition: opacity .3s ease; }
-    .shot img.is-fading { opacity: 0; }
-    .shot-tag {
-      position: absolute;
-      bottom: 10px; right: 10px;
-      background: rgba(15, 27, 38, .88);
-      border: 1px solid rgba(255,255,255,.14);
-      color: #cfe6dd;
+    .rows > div:last-child { border-bottom: 1px solid var(--line); }
+    @media (min-width: 640px) { .rows > div { grid-template-columns: 170px minmax(0, 1fr); } }
+    .rows dt { color: var(--faint); font-size: 15px; }
+    .rows dd { margin: 0; }
+    .rows dd span { display: block; font-size: 14.5px; color: var(--muted); }
+
+    .certs { list-style: none; padding: 0; margin: 0; font-size: 15.5px; }
+    .certs li { padding: 10px 0; border-top: 1px solid var(--line); margin: 0; }
+    .certs li:last-child { border-bottom: 1px solid var(--line); }
+    .certs .from { color: var(--muted); }
+    .certs code {
       font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .06em;
-      padding: 5px 9px;
-      border-radius: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
+      font-size: 12.5px;
+      color: var(--faint);
+      user-select: all;
+      word-break: break-all;
     }
-    .shot-tag i { width: 6px; height: 6px; border-radius: 50%; background: #7fd8b4; }
 
-    .shot-fallback {
-      display: none;
-      padding: 40px 26px;
-      text-align: center;
-      color: #cfe6dd;
-      font-family: var(--mono);
-      font-size: 12px;
-      line-height: 1.7;
-    }
-    .shot-fallback.is-on { display: block; }
-    .shot-fallback code { color: var(--gold); }
-
-    .case-text .badge {
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 10.5px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-    .case-text h4 { font-family: var(--display); font-size: 1.5rem; line-height: 1.15; font-weight: 700; letter-spacing: -.03em; margin-top: 9px; }
-    .case-text > p { margin-top: 12px; font-size: 14px; color: var(--ink-soft); }
-    .case-points { list-style: none; margin: 20px 0 0; padding: 0; border-top: 1px solid var(--line); }
-    .case-points li {
-      padding: 13px 0;
-      border-bottom: 1px solid var(--line-soft);
-      font-size: 13.5px;
-      color: var(--ink-soft);
-      line-height: 1.65;
-    }
-    .case-points strong { color: var(--ink); }
-
-    .lab-grid { display: grid; gap: 0; border-top: 1px solid var(--line); }
-    @media (min-width: 800px) { .lab-grid { grid-template-columns: repeat(2, 1fr); } }
-    .lab {
-      padding: 30px 0;
-      border-bottom: 1px solid var(--line);
-    }
-    @media (min-width: 800px) {
-      .lab { padding-right: 34px; }
-      .lab + .lab { padding-left: 34px; border-left: 1px solid var(--line); }
-    }
-    .lab-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-    .lab-head svg { width: 19px; height: 19px; color: var(--ink); }
-    .lab-head .t { font-family: var(--sans); font-weight: 600; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-faint); }
-    .lab h3 { font-family: var(--display); font-size: 1.4rem; line-height: 1.15; font-weight: 700; letter-spacing: -.028em; }
-    .lab .src { font-family: var(--sans); font-weight: 500; font-size: 12.5px; color: var(--ink-faint); margin-top: 10px; }
-    .lab p { margin-top: 12px; font-size: 14px; color: var(--ink-soft); }
-
-    /* ============================================================
-       CONTATO
-       ============================================================ */
-    .contact-list { border-top: 1px solid var(--line); }
-    .contact-row {
-      display: grid;
-      grid-template-columns: 34px 1fr 22px;
-      align-items: center;
-      gap: 18px;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--line);
-      transition: padding-left .25s cubic-bezier(.2,.7,.2,1), color .2s ease;
-    }
-    .contact-row:hover { padding-left: 10px; }
-    .contact-row svg.ic { width: 21px; height: 21px; color: var(--ink); }
-    .contact-row svg.ar { width: 18px; height: 18px; color: var(--ink-faint); transition: transform .25s ease, color .2s ease; }
-    .contact-row:hover svg.ar { transform: translate(3px, -3px); color: var(--accent); }
-    .contact-row .lbl {
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 10.5px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      display: block;
-      margin-bottom: 5px;
-    }
-    .contact-row .val { font-family: var(--display); font-weight: 700; font-size: 1.32rem; line-height: 1.25; letter-spacing: -.028em; word-break: break-word; }
+    h4 { font-size: 1rem; font-weight: 600; margin: 40px 0 12px; }
 
     footer {
-      border-top: 1px solid var(--line);
-      padding: 34px 0 44px;
-      background: var(--paper-2);
-    }
-    .foot-inner {
+      padding: 32px 0 48px;
+      font-size: 14px;
+      color: var(--faint);
       display: flex;
       flex-wrap: wrap;
-      gap: 14px 30px;
-      align-items: baseline;
       justify-content: space-between;
-      font-family: var(--sans);
-      font-weight: 500;
-      font-size: 12px;
-      letter-spacing: .02em;
-      color: var(--ink-faint);
+      gap: 8px 24px;
     }
-    .foot-inner a:hover { color: var(--accent); }
-
-    /* Toast */
-    .toast {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      z-index: 90;
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding: 13px 18px;
-      background: var(--ink);
-      color: var(--paper);
-      border-radius: 0;
-      font-size: 13px;
-      box-shadow: 0 20px 40px -20px rgba(0,0,0,.6);
-      transform: translateY(140%);
-      opacity: 0;
-      pointer-events: none;
-      transition: transform .35s cubic-bezier(.2,.7,.2,1), opacity .3s ease;
-    }
-    .toast.is-on { transform: translateY(0); opacity: 1; }
-    .toast svg { width: 16px; height: 16px; color: var(--gold); }
-
-    /* ============================================================
-       INTERAÇÕES EM JAVASCRIPT
-       ============================================================ */
-    .progress {
-      position: fixed;
-      top: 0; left: 0;
-      height: 2px;
-      width: 0;
-      background: var(--accent);
-      z-index: 95;
-      pointer-events: none;
-    }
-
-    .nav a.is-current { color: var(--ink); }
-    .nav a.is-current::after { transform: scaleX(1); }
-    .drawer a.is-current { color: var(--accent); }
-
-    .shot-open {
-      position: absolute;
-      left: 10px; bottom: 10px;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 7px 11px;
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 10.5px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: #fff;
-      background: rgba(11, 11, 12, .82);
-      border: 1px solid rgba(255, 255, 255, .2);
-      border-radius: 0;
-      transition: background .2s ease, border-color .2s ease;
-    }
-    .shot-open:hover { background: var(--accent); border-color: var(--accent); }
-    .shot-open svg { width: 13px; height: 13px; }
-    .shot img { cursor: zoom-in; }
-
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 120;
-      background: rgba(8, 8, 9, .97);
-      display: grid;
-      grid-template-rows: auto minmax(0, 1fr);
-    }
-    .lightbox[hidden] { display: none; }
-    .lb-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 13px clamp(16px, 4vw, 28px);
-      border-bottom: 1px solid rgba(255, 255, 255, .16);
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 11px;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, .72);
-    }
-    .lb-close {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 13px;
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, .26);
-      border-radius: 0;
-      color: #fff;
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 10.5px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      transition: background .2s ease, border-color .2s ease;
-    }
-    .lb-close:hover { background: var(--accent); border-color: var(--accent); }
-    .lb-close svg { width: 13px; height: 13px; }
-    .lb-stage {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      align-items: center;
-      gap: clamp(8px, 2vw, 20px);
-      padding: clamp(14px, 3vw, 26px);
-      min-height: 0;
-    }
-    .lb-nav {
-      width: 44px; height: 44px;
-      display: grid;
-      place-items: center;
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, .26);
-      border-radius: 0;
-      color: #fff;
-      transition: background .2s ease, border-color .2s ease;
-    }
-    .lb-nav:hover { background: var(--accent); border-color: var(--accent); }
-    .lb-nav svg { width: 17px; height: 17px; }
-    .lb-stage img {
-      width: 100%;
-      max-height: calc(100vh - 150px);
-      object-fit: contain;
-      background: #0b0b0c;
-      border: 1px solid rgba(255, 255, 255, .14);
-    }
-
-    .palette {
-      position: fixed;
-      inset: 0;
-      z-index: 130;
-      background: rgba(11, 11, 12, .5);
-      display: grid;
-      align-content: start;
-      justify-items: center;
-      padding: clamp(56px, 12vh, 130px) 18px 18px;
-    }
-    .palette[hidden] { display: none; }
-    .palette-panel {
-      width: 100%;
-      max-width: 560px;
-      background: var(--surface);
-      border: 1px solid var(--line);
-      box-shadow: 0 44px 80px -44px rgba(0, 0, 0, .7);
-      overflow: hidden;
-    }
-    .palette-head {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 15px 18px;
-      border-bottom: 1px solid var(--line);
-    }
-    .palette-head svg { width: 18px; height: 18px; color: var(--ink-faint); flex: none; }
-    .palette-head input {
-      flex: 1;
-      min-width: 0;
-      border: 0;
-      outline: none;
-      background: transparent;
-      font-family: var(--sans);
-      font-size: 16px;
-      color: var(--ink);
-    }
-    .palette-head input::placeholder { color: var(--ink-faint); }
-    .palette-head kbd {
-      font-family: var(--mono);
-      font-size: 10.5px;
-      color: var(--ink-faint);
-      border: 1px solid var(--line);
-      padding: 3px 6px;
-    }
-    .palette-list {
-      list-style: none;
-      margin: 0;
-      padding: 8px;
-      max-height: 46vh;
-      overflow-y: auto;
-    }
-    .palette-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 11px 12px;
-      border-left: 2px solid transparent;
-      cursor: pointer;
-    }
-    .palette-item .tt { font-size: 14.5px; color: var(--ink); }
-    .palette-item .cat {
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 10px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      white-space: nowrap;
-    }
-    .palette-item[aria-selected="true"] {
-      background: var(--paper-2);
-      border-left-color: var(--accent);
-    }
-    .palette-empty { padding: 22px 14px; font-size: 14px; color: var(--ink-faint); }
-    .palette-foot {
-      margin: 0;
-      padding: 11px 18px;
-      border-top: 1px solid var(--line);
-      font-family: var(--sans);
-      font-weight: 500;
-      font-size: 11.5px;
-      color: var(--ink-faint);
-    }
-
-    .drawer-search {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      width: 100%;
-      margin-top: 16px;
-      padding: 13px 14px;
-      background: var(--paper-2);
-      border: 1px solid var(--line);
-      border-radius: 0;
-      font-family: var(--sans);
-      font-weight: 600;
-      font-size: 14px;
-      color: var(--ink-soft);
-      text-align: left;
-    }
-    .drawer-search svg { width: 16px; height: 16px; }
-
-    @media (max-width: 699px) { .palette-btn { display: none; } }
-
-    html[data-theme="dark"] .palette-item[aria-selected="true"] { background: var(--paper-2); }
-
-    /* Reveal on scroll */
-    [data-reveal] {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity .75s cubic-bezier(.2,.7,.2,1), transform .75s cubic-bezier(.2,.7,.2,1);
-    }
-    [data-reveal].is-in { opacity: 1; transform: none; }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { animation: none !important; transition: none !important; }
-      [data-reveal] { opacity: 1; transform: none; }
-    }
-
-    /* Ícones */
-    .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
-    .icon { width: 18px; height: 18px; flex: none; }
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Pular para o conteúdo</a>
-  <div class="progress" id="progress" aria-hidden="true"></div>
 
-  <!-- Biblioteca de ícones -->
-  <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-    <symbol id="i-arrow-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m5 12 7 7 7-7"/></symbol>
-    <symbol id="i-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
-    <symbol id="i-arrow-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></symbol>
-    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.8"/><path d="m20 20-3.7-3.7"/></symbol>
-    <symbol id="i-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5"/></symbol>
-    <symbol id="i-arrow-ur" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></symbol>
-    <symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></symbol>
-    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
-    <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="1.5"/><path d="M6 15H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v1"/></symbol>
-    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
-    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></symbol>
-    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.6A8.6 8.6 0 1 1 9.4 3.5a7 7 0 0 0 11.1 11.1z"/></symbol>
-    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></symbol>
-    <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></symbol>
-    <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20v-7M11 20V5M16 20v-10M21 20v-4"/></symbol>
-    <symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5.5" rx="8" ry="2.7"/><path d="M4 5.5v13c0 1.5 3.6 2.7 8 2.7s8-1.2 8-2.7v-13"/><path d="M4 12c0 1.5 3.6 2.7 8 2.7s8-1.2 8-2.7"/></symbol>
-    <symbol id="i-flow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.6"/><circle cx="18" cy="6" r="2.6"/><circle cx="12" cy="18" r="2.6"/><path d="M8.6 6h6.8M8 8.3l3 7.4M16 8.3l-3 7.4"/></symbol>
-    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 2.8V12c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V5.8z"/><path d="m9 12 2.2 2.2L15.5 10"/></symbol>
-    <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.6C10.4 5 7.8 4.4 5 4.4V18c2.8 0 5.4.6 7 2 1.6-1.4 4.2-2 7-2V4.4c-2.8 0-5.4.6-7 2.2z"/><path d="M12 6.6V20"/></symbol>
-    <symbol id="i-cpu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><rect x="3.5" y="3.5" width="17" height="17" rx="2.5"/><path d="M9 1.8v1.7M15 1.8v1.7M9 22.2v-1.7M15 22.2v-1.7M1.8 9h1.7M1.8 15h1.7M22.2 9h-1.7M22.2 15h-1.7"/></symbol>
-    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
-    <symbol id="i-grad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-4 10 4-10 4z"/><path d="M6 11v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></symbol>
-    <symbol id="i-present" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18"/><rect x="4" y="4" width="16" height="10" rx="1"/><path d="M12 14v6M9 20h6"/></symbol>
-    <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M4.5 12h4M15.5 12h4M6.7 6.7l2.8 2.8M14.5 14.5l2.8 2.8M17.3 6.7l-2.8 2.8M9.5 14.5l-2.8 2.8"/></symbol>
-    <symbol id="i-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.15c-1.53 0-3.03-.41-4.34-1.19l-.31-.18-3.12.82.83-3.04-.2-.32a8.2 8.2 0 0 1-1.26-4.33c0-4.54 3.7-8.24 8.25-8.24 4.54 0 8.24 3.7 8.24 8.24 0 4.55-3.7 8.24-8.25 8.24zm4.52-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.65.81-.8.98-.15.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.07s.89 2.4 1.02 2.57c.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.23-.17-.48-.29z"/></symbol>
-    <symbol id="i-in" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64c-.95 0-1.72.78-1.72 1.73s.77 1.73 1.72 1.73a1.73 1.73 0 0 0 1.73-1.73c0-.95-.78-1.73-1.73-1.73Z"/></symbol>
-  </svg>
-
-  <!-- ===================== TOPBAR ===================== -->
-  <header class="topbar" id="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#top" aria-label="Início — Lucas Vieira">
-        <span class="mark">LV</span>
-        <span class="who">
-          <b>Lucas Vieira</b>
-          <span>Dados &amp; BI</span>
-        </span>
-      </a>
-
-      <nav class="nav" aria-label="Navegação principal">
-        <a href="#sobre"><span class="n">01</span>Sobre</a>
-        <a href="#trajetoria"><span class="n">02</span>Trajetória</a>
-        <a href="#formacao"><span class="n">03</span>Formação</a>
-        <a href="#competencias"><span class="n">04</span>Competências</a>
-        <a href="#projetos"><span class="n">05</span>Projetos</a>
-        <a href="#contato"><span class="n">06</span>Contato</a>
-      </nav>
-
-      <div class="topbar-actions">
-        <button class="icon-btn palette-btn" id="paletteBtn" type="button" aria-label="Busca rápida (Ctrl K)" title="Busca rápida — Ctrl K">
-          <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
-        </button>
-        <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema claro e escuro" title="Alternar tema">
-          <svg class="icon moon" aria-hidden="true"><use href="#i-moon"/></svg>
-          <svg class="icon sun" aria-hidden="true"><use href="#i-sun"/></svg>
-        </button>
-        <a class="ghost-btn ghost-btn--cv" href="Curriculo-Lucas-Vieira.pdf" download="Curriculo-Lucas-Vieira.pdf" target="_blank" rel="noopener">
-          <svg class="icon" style="width:14px;height:14px" aria-hidden="true"><use href="#i-doc"/></svg>
-          Currículo
-        </a>
-        <a class="ghost-btn ghost-btn--wa" href="https://wa.me/5531971840502?text=Ol%C3%A1%2C%20Lucas!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener">
-          <svg class="icon" style="width:14px;height:14px" aria-hidden="true"><use href="#i-wa"/></svg>
-          WhatsApp
-        </a>
-        <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="drawer">
-          <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <div class="drawer" id="drawer">
-      <a href="#sobre"><span class="n">01</span>Sobre</a>
-      <a href="#trajetoria"><span class="n">02</span>Trajetória</a>
-      <a href="#formacao"><span class="n">03</span>Formação</a>
-      <a href="#competencias"><span class="n">04</span>Competências</a>
-      <a href="#projetos"><span class="n">05</span>Projetos</a>
-      <a href="#contato"><span class="n">06</span>Contato</a>
-      <button class="drawer-search" id="drawerSearch" type="button">
-        <svg aria-hidden="true"><use href="#i-search"/></svg>
-        Busca rápida
-        <kbd class="mono" style="margin-left:auto;font-size:10px;color:var(--ink-faint)">Ctrl K</kbd>
-      </button>
-      <div class="drawer-foot">
-        <a href="Curriculo-Lucas-Vieira.pdf" download="Curriculo-Lucas-Vieira.pdf" target="_blank" rel="noopener">Baixar CV</a>
-        <a href="https://www.linkedin.com/in/lucasvieira-dados" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://wa.me/5531971840502" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-    </div>
+  <header class="container site-header" id="topo">
+    <a class="home" href="#topo">Lucas Vieira</a>
+    <nav aria-label="Seções">
+      <a href="#projetos">Projetos</a>
+      <a href="#experiencia">Experiência</a>
+      <a href="#ferramentas">Ferramentas</a>
+      <a href="#formacao">Formação</a>
+      <a href="#contato">Contato</a>
+    </nav>
   </header>
 
-  <main id="main">
-    <span id="top"></span>
+  <main class="container">
 
-    <!-- ===================== HERO ===================== -->
-    <section class="hero">
-      <div class="wrap">
-        <div class="hero-meta">
-          <span>Portfólio profissional · 2026</span>
-          <span class="spacer"></span>
-          <span class="status"><i></i>Atuando na SEDE-MG · Governo de Minas</span>
-        </div>
+    <div class="intro">
+      <h1>Lucas Vieira</h1>
+      <p class="role">Analista de requisitos e dados na SEDE-MG, em Belo Horizonte</p>
 
-        <h1 class="display hero-title">
-          <span class="kicker">Analista de Requisitos e Dados</span>
-          Transformo dados dispersos em <em>decisões claras</em>.
-        </h1>
-
-        <div class="hero-grid">
-          <div data-reveal>
-            <p class="lead">
-              Trabalho na <strong>Secretaria de Estado de Desenvolvimento Econômico de Minas Gerais</strong>,
-              onde levanto requisitos com as áreas de negócio, construo dashboards em Power BI e organizo
-              modelos de dados que a gestão realmente usa. Sou <strong>ponto focal de LGPD</strong> na
-              Subsecretaria de Ciência, Tecnologia e Inovação e tenho pós-graduação em
-              <strong>Data Science</strong>.
-            </p>
-
-            <div class="cta-row">
-              <a class="btn" href="#trajetoria">
-                Ver trajetória
-                <svg aria-hidden="true"><use href="#i-arrow-down"/></svg>
-              </a>
-              <a class="btn btn--outline" href="Curriculo-Lucas-Vieira.pdf" download="Curriculo-Lucas-Vieira.pdf" target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-doc"/></svg>
-                Currículo (PDF)
-              </a>
-              <a class="btn btn--outline" href="https://wa.me/5531971840502?text=Ol%C3%A1%2C%20Lucas!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener">
-                <svg aria-hidden="true"><use href="#i-wa"/></svg>
-                WhatsApp
-              </a>
-              <button class="btn btn--outline" type="button" data-copy="lucasvieira.tecnologia@gmail.com" data-copy-msg="E-mail copiado para a área de transferência.">
-                <svg aria-hidden="true"><use href="#i-copy"/></svg>
-                Copiar e-mail
-              </button>
-            </div>
-
-            <div class="skills-inline">
-              <span>Power BI (DAX)</span>
-              <span>SQL &amp; modelagem relacional</span>
-              <span>Levantamento de requisitos</span>
-              <span>Power Automate</span>
-              <span>IA local (MCP &amp; RAG)</span>
-            </div>
-          </div>
-
-          <aside class="ficha" data-reveal aria-label="Resumo profissional">
-            <div class="ficha-top">
-              <span class="lbl">Ficha profissional</span>
-              <span class="yr">BH · MG</span>
-            </div>
-            <div class="ficha-body">
-              <dl style="margin:0">
-                <div class="frow">
-                  <dt>Perfil</dt>
-                  <dd>Analista de Requisitos e Dados</dd>
-                </div>
-                <div class="frow">
-                  <dt>Atuação</dt>
-                  <dd>SEDE-MG — Governo de Minas Gerais<br><span class="mono" style="font-size:12px;color:var(--ink-faint)">desde 2020</span></dd>
-                </div>
-                <div class="frow">
-                  <dt>Formação</dt>
-                  <dd>Pós em Data Science (2025–2026) · Pós em Desenvolvimento Full Stack · Bacharelado em Sistemas de Informação · Tecnólogo em Segurança da Informação</dd>
-                </div>
-                <div class="frow">
-                  <dt>Foco</dt>
-                  <dd>Requisitos, dashboards, modelagem relacional, automação, LGPD e IA local</dd>
-                </div>
-                <div class="frow">
-                  <dt>Contato</dt>
-                  <dd style="display:flex;gap:8px;flex-wrap:wrap">
-                    <a class="icon-btn" href="https://www.linkedin.com/in/lucasvieira-dados" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn" style="width:34px;height:34px"><svg class="icon" style="width:16px;height:16px" aria-hidden="true"><use href="#i-in"/></svg></a>
-                    <a class="icon-btn" href="https://wa.me/5531971840502" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp" style="width:34px;height:34px"><svg class="icon" style="width:16px;height:16px" aria-hidden="true"><use href="#i-wa"/></svg></a>
-                    <a class="icon-btn" href="mailto:lucasvieira.tecnologia@gmail.com" aria-label="E-mail" title="E-mail" style="width:34px;height:34px"><svg class="icon" style="width:16px;height:16px" aria-hidden="true"><use href="#i-mail"/></svg></a>
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </aside>
-        </div>
+      <div class="text">
+        <p>
+          Trabalho desde 2020 na Secretaria de Estado de Desenvolvimento Econômico de Minas Gerais.
+          Hoje faço o levantamento de requisitos com as áreas técnicas, monto os painéis em Power BI
+          que a equipe usa para acompanhar os programas de ciência, tecnologia e inovação do estado
+          e escrevo as consultas SQL que alimentam boa parte desses relatórios.
+        </p>
+        <p>
+          Também sou o ponto focal de LGPD da Subsecretaria de Ciência, Tecnologia e Inovação. Nos
+          últimos meses tenho usado modelos de IA rodando localmente para ajudar a escrever e revisar
+          documentos técnicos.
+        </p>
       </div>
-    </section>
 
-    <!-- ===================== NÚMEROS ===================== -->
-    <section class="stats band--tight">
-      <div class="wrap">
-        <div class="stats-grid">
-          <div class="stat">
-            <span class="k">Experiência</span>
-            <div class="v">+<span data-count="5">5</span> anos</div>
-            <p class="d">Atuação contínua no setor público estadual, na SEDE-MG.</p>
-          </div>
-          <div class="stat">
-            <span class="k">Pós-graduação</span>
-            <div class="v">Data Science</div>
-            <p class="d">Especialização concluída pela União das Américas.</p>
-          </div>
-          <div class="stat">
-            <span class="k">Formação</span>
-            <div class="v"><span data-count="4">4</span> títulos</div>
-            <p class="d">Duas graduações e duas pós-graduações concluídas.</p>
-          </div>
-          <div class="stat">
-            <span class="k">Certificações</span>
-            <div class="v"><span data-count="8">8</span> cursos</div>
-            <p class="d">ENAP, Microsoft, DIO, ESR e Udemy, entre 2020 e 2025.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+      <p class="links">
+        <a href="Curriculo-Lucas-Vieira.pdf" download>Currículo (PDF)</a>
+        <a href="https://www.linkedin.com/in/lucasvieira-dados" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:lucasvieira.tecnologia@gmail.com">lucasvieira.tecnologia@gmail.com</a>
+        <a href="https://wa.me/5531971840502" target="_blank" rel="noopener">WhatsApp</a>
+      </p>
+    </div>
 
-    <!-- ===================== 01 SOBRE ===================== -->
-    <section id="sobre" class="band">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow"><span class="idx">01</span> Sobre <span class="tick"></span></p>
-            <h2 class="h2" style="margin-top:16px">Da engenharia de requisitos à análise de dados aplicada.</h2>
-          </div>
-          <p style="color:var(--ink-soft);font-size:15px">
-            Comecei entendendo o processo e as regras do negócio — e é isso que ainda hoje
-            dá contexto ao número que aparece no painel.
-          </p>
-        </div>
+    <!-- Projetos -->
+    <section id="projetos" class="split">
+      <h2>Projetos</h2>
+      <div>
 
-        <div class="cols">
-          <div class="prose" data-reveal>
+        <article class="project">
+          <h3>Mapeamento SPTEC</h3>
+          <p class="meta">Power BI · painel público</p>
+          <div class="prose">
             <p>
-              Atuo na SEDE-MG conduzindo levantamento de requisitos com as áreas de negócio, elaborando
-              relatórios gerenciais, desenvolvendo dashboards em Power BI e acompanhando os indicadores
-              de inovação e as estruturas de P&amp;D em Minas Gerais.
+              Painel com os dados de ciência, tecnologia e inovação de Minas Gerais: estruturas de
+              pesquisa, editais e indicadores de P&amp;D, com filtros por município e mesorregião.
+              Fiz o tratamento dos dados, o modelo relacional e o layout.
             </p>
             <p>
-              No dia a dia, analiso dados de programas estaduais, apoio a sustentação de plataformas como o
-              <em>portal TecPop Minas</em>, automatizo fluxos operacionais com Power Automate e atendo demandas
-              técnicas de órgãos públicos e instituições parceiras por meio de consultas a bancos relacionais (MySQL).
-            </p>
-            <p>
-              Atuo como <strong>ponto focal de LGPD</strong> da Subsecretaria de Ciência, Tecnologia e Inovação
-              e da Superintendência de Pesquisa e Tecnologia (SPTEC), orientando as áreas internas sobre
-              tratamento e conformidade de dados. Também venho implementando <strong>IA local</strong> —
-              LM Studio, arquiteturas MCP e RAG — para apoiar a criação e a revisão de documentos técnicos.
-            </p>
-            <p>
-              Com graduações em <strong>Sistemas de Informação</strong> e <strong>Segurança da Informação</strong>,
-              mais pós-graduações em <strong>Data Science</strong> e <strong>Desenvolvimento Web Full Stack</strong>,
-              combino visão de sistemas com capacidade analítica para entregar soluções organizadas e com
-              leitura fácil para quem decide.
-            </p>
-
-            <blockquote class="pull">
-              Meu trabalho começa na conversa com quem usa o dado e termina no painel
-              que alguém abre numa segunda-feira de manhã.
-            </blockquote>
-          </div>
-
-          <ul class="pillars" data-reveal>
-            <li>
-              <span class="ic"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></span>
-              <div>
-                <h4>Inteligência de dados &amp; BI</h4>
-                <p>Modelagem em Power BI, consultas SQL e DAX para relatórios estratégicos.</p>
-              </div>
-            </li>
-            <li>
-              <span class="ic"><svg class="icon" aria-hidden="true"><use href="#i-flow"/></svg></span>
-              <div>
-                <h4>Requisitos &amp; automação</h4>
-                <p>Levantamento com as áreas de negócio e fluxos automatizados com Power Automate.</p>
-              </div>
-            </li>
-            <li>
-              <span class="ic"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg></span>
-              <div>
-                <h4>LGPD &amp; governança</h4>
-                <p>Ponto focal de LGPD na SPTEC, orientando o tratamento e a conformidade dos dados institucionais.</p>
-              </div>
-            </li>
-            <li>
-              <span class="ic"><svg class="icon" aria-hidden="true"><use href="#i-grad"/></svg></span>
-              <div>
-                <h4>Base multidisciplinar</h4>
-                <p>Ciência de Dados, Sistemas, Segurança da Informação e fundamentos de software.</p>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== 02 TRAJETÓRIA ===================== -->
-    <section id="trajetoria" class="band" style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow"><span class="idx">02</span> Trajetória <span class="tick"></span></p>
-            <h2 class="h2" style="margin-top:16px">Onde venho trabalhando.</h2>
-          </div>
-          <p style="color:var(--ink-soft);font-size:15px">
-            Uma trajetória contínua no setor público estadual, começando pelo suporte técnico
-            e avançando para análise de dados e requisitos.
-          </p>
-        </div>
-
-        <article class="job" data-reveal>
-          <div class="job-when"><b>10/2021 — hoje</b> Atual</div>
-          <div>
-            <h3 class="job-role">Analista de Requisitos e Dados</h3>
-            <p class="job-org">SEDE-MG · Secretaria de Estado de Desenvolvimento Econômico de Minas Gerais</p>
-            <p class="job-desc">
-              Responsável pelo ciclo de análise de dados, acompanhamento de projetos de ciência e
-              tecnologia e sustentação de processos estratégicos do Estado.
-            </p>
-            <ul>
-              <li><strong>Monitoramento de P&amp;D e inovação:</strong> acompanhamento de estruturas de pesquisa e índices de inovação em Minas Gerais, com relatórios e gestão de portfólio.</li>
-              <li><strong>Análise de projetos estaduais:</strong> apoio na avaliação e no acompanhamento documental de propostas e projetos de pesquisa vinculados ao Estado.</li>
-              <li><strong>Dashboards e indicadores:</strong> construção de painéis interativos em Power BI e relatórios em Excel para acompanhamento de métricas e atendimentos.</li>
-              <li><strong>IA local aplicada:</strong> implementação de soluções com LM Studio, arquiteturas MCP e RAG para apoiar a criação e a revisão de documentos técnicos.</li>
-              <li><strong>LGPD:</strong> ponto focal de proteção de dados da Subsecretaria de Ciência, Tecnologia e Inovação e da Superintendência de Pesquisa e Tecnologia (SPTEC).</li>
-              <li><strong>Consultas e banco de dados:</strong> atendimento a demandas de órgãos e empresas parceiras por meio de buscas estruturadas e extrações via SQL.</li>
-              <li><strong>Portal TecPop Minas:</strong> apoio contínuo na manutenção corretiva, preventiva e evolutiva da plataforma.</li>
-              <li><strong>Automação com Power Automate:</strong> fluxos automáticos para captura de dados e envio de notificações.</li>
-            </ul>
-            <div class="tags">
-              <span>Análise de dados</span>
-              <span>Power BI</span>
-              <span>SQL</span>
-              <span>Power Automate</span>
-              <span>Requisitos</span>
-              <span>IA local</span>
-              <span>LGPD</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="job" data-reveal>
-          <div class="job-when"><b>07/2020 — 10/2021</b> Anterior</div>
-          <div>
-            <h3 class="job-role">Estagiário de Suporte Técnico</h3>
-            <p class="job-org">SEDE-MG · Secretaria de Estado de Desenvolvimento Econômico de Minas Gerais</p>
-            <p class="job-desc">Atuação técnica prestando atendimento e suporte especializado a usuários e lideranças da instituição.</p>
-            <ul>
-              <li>Suporte a redes locais, VPN corporativa, servidores de arquivos e infraestrutura de e-mail.</li>
-              <li>Atendimento técnico ao alto escalão governamental, com foco em resolutividade e discrição.</li>
-              <li>Configuração, diagnóstico e manutenção física e lógica de computadores e notebooks.</li>
-              <li>Desenvolvimento de soluções internas e controle de inventário de hardware e software.</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ===================== 03 FORMAÇÃO ===================== -->
-    <section id="formacao" class="band">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow"><span class="idx">03</span> Formação <span class="tick"></span></p>
-            <h2 class="h2" style="margin-top:16px">Educação contínua.</h2>
-          </div>
-          <p style="color:var(--ink-soft);font-size:15px">
-            Ciência de Dados, engenharia de software, sistemas e segurança — uma base
-            multidisciplinar que sustenta o trabalho analítico.
-          </p>
-        </div>
-
-        <div class="edu">
-          <article class="edu-item" data-reveal>
-            <div class="edu-when"><b>Concluída</b>2025 — 2026</div>
-            <div>
-              <span class="edu-kind">Pós-graduação Lato Sensu</span>
-              <h3>Data Science</h3>
-              <p class="edu-school">União das Américas</p>
-              <p>Análise preditiva, mineração de dados, machine learning, estatística descritiva e inferencial, modelagem de dados e geração de insights para decisões de negócio.</p>
-            </div>
-          </article>
-
-          <article class="edu-item" data-reveal>
-            <div class="edu-when"><b>Concluída</b>2024 — 2025</div>
-            <div>
-              <span class="edu-kind">Pós-graduação · base complementar</span>
-              <h3>Desenvolvimento Web Full Stack</h3>
-              <p class="edu-school">União das Américas</p>
-              <p>Alicerce técnico para entender o ecossistema de ponta a ponta: requisições, APIs, consumo de bancos de dados e viabilidade técnica no levantamento de requisitos.</p>
-            </div>
-          </article>
-
-          <article class="edu-item" data-reveal>
-            <div class="edu-when"><b>Concluída</b>2019 — 2023</div>
-            <div>
-              <span class="edu-kind">Bacharelado</span>
-              <h3>Sistemas de Informação</h3>
-              <p class="edu-school">UniBH · Centro Universitário de Belo Horizonte</p>
-              <p>Engenharia de software, modelagem de banco de dados, governança de TI, gestão de requisitos, redes e arquitetura de sistemas corporativos.</p>
-            </div>
-          </article>
-
-          <article class="edu-item" data-reveal>
-            <div class="edu-when"><b>Concluída</b>2020 — 2022</div>
-            <div>
-              <span class="edu-kind">Tecnólogo</span>
-              <h3>Segurança da Informação</h3>
-              <p class="edu-school">Uniasselvi · Universidade Leonardo Da Vinci</p>
-              <p>Proteção de dados corporativos, governança, conformidade, gestão de acessos e políticas de segurança institucional — atuação gerencial e defensiva.</p>
-            </div>
-          </article>
-        </div>
-
-        <div class="certs">
-          <div data-reveal>
-            <h3>Certificações</h3>
-            <ul class="cert-list">
-              <li>
-                <b>Business Analysis Fundamentals</b>
-                <span class="cert-meta"><span class="cert-issuer">Microsoft · jun. 2025</span><button class="cert-code" type="button" data-copy="DOCF5PGHSHGD" data-copy-msg="Código da credencial copiado." title="Copiar código da credencial">DOCF5PGHSHGD</button></span>
-              </li>
-              <li>
-                <b>Virtualização de Servidores Online (EAD)</b>
-                <span class="cert-meta"><span class="cert-issuer">ESR · mai. 2023</span><button class="cert-code" type="button" data-copy="CDC-EAD-0391-23" data-copy-msg="Código da credencial copiado." title="Copiar código da credencial">CDC-EAD-0391-23</button></span>
-              </li>
-              <li>
-                <b>Introdução à Lei Brasileira de Proteção de Dados Pessoais</b>
-                <span class="cert-meta"><span class="cert-issuer">ENAP · out. 2021</span><button class="cert-code" type="button" data-copy="xMLa5664657xuuM" data-copy-msg="Código da credencial copiado." title="Copiar código da credencial">xMLa5664657xuuM</button></span>
-              </li>
-              <li>
-                <b>Proteção de Dados Pessoais no Setor Público</b>
-                <span class="cert-meta"><span class="cert-issuer">ENAP · out. 2021</span><button class="cert-code" type="button" data-copy="iE7a5627507Y3vQ" data-copy-msg="Código da credencial copiado." title="Copiar código da credencial">iE7a5627507Y3vQ</button></span>
-              </li>
-              <li>
-                <b>HTML, CSS e PHP — do Zero para Iniciantes em Programação Web</b>
-                <span class="cert-meta"><span class="cert-issuer">Udemy · out. 2021</span><button class="cert-code" type="button" data-copy="UC-a108d162-e92b-4b6c-8431-2e540b9b28ba/" data-copy-msg="Código da credencial copiado." title="Copiar código da credencial">UC-a108d162-e92b-4b6c-8431-2e540b9b28ba/</button></span>
-              </li>
-              <li>
-                <b>Introdução ao Git e ao Github</b>
-                <span class="cert-meta"><span class="cert-issuer">DIO · jul. 2021</span><button class="cert-code" type="button" data-copy="CBBD6ACB" data-copy-msg="Código da credencial copiado." title="Copiar código da credencial">CBBD6ACB</button></span>
-              </li>
-              <li>
-                <b>Fundamentos do Azure</b>
-                <span class="cert-meta"><span class="cert-issuer">DIO · set. 2020</span><button class="cert-code" type="button" data-copy="3EAB9BD0" data-copy-msg="Código da credencial copiado." title="Copiar código da credencial">3EAB9BD0</button></span>
-              </li>
-              <li>
-                <b>Fundamentos da Computação em Nuvem</b>
-                <span class="cert-meta"><span class="cert-issuer">DIO · set. 2020</span><button class="cert-code" type="button" data-copy="25C978CC" data-copy-msg="Código da credencial copiado." title="Copiar código da credencial">25C978CC</button></span>
-              </li>
-            </ul>
-          </div>
-
-          <div data-reveal>
-            <h3>Idiomas</h3>
-            <ul class="lang-list">
-              <li>Português <span>nativo</span></li>
-              <li>Inglês <span>básico (A2)</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== 04 COMPETÊNCIAS ===================== -->
-    <section id="competencias" class="band" style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow"><span class="idx">04</span> Competências <span class="tick"></span></p>
-            <h2 class="h2" style="margin-top:16px">Matriz de habilidades.</h2>
-          </div>
-          <p style="color:var(--ink-soft);font-size:15px">
-            O que uso de fato no trabalho — e o que está em estudo, marcado como tal.
-            Sem inflar currículo.
-          </p>
-        </div>
-
-        <div class="skills-grid">
-          <div class="skill-col" data-reveal>
-            <div class="ch">
-              <svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg>
-              <h3>Dados &amp; BI</h3>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Power BI (DAX e dashboards)</span><span class="skill-lvl">Avançado</span></div>
-              <div class="meter" data-level="5" role="img" aria-label="Nível 5 de 5"></div>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Análise de indicadores e métricas</span><span class="skill-lvl">Quase avançado</span></div>
-              <div class="meter" data-level="4" role="img" aria-label="Nível 4 de 5"></div>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Excel (relatórios e funções)</span><span class="skill-lvl">Quase avançado</span></div>
-              <div class="meter" data-level="4" role="img" aria-label="Nível 4 de 5"></div>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Python para análise de dados</span><span class="skill-lvl">Básico / interm.</span></div>
-              <div class="meter" data-level="3" role="img" aria-label="Nível 3 de 5"></div>
-              <span class="skill-note">Em aprendizado contínuo</span>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">IA local (LM Studio, MCP e RAG)</span><span class="skill-lvl">Sólido</span></div>
-              <div class="meter" data-level="4" role="img" aria-label="Nível 4 de 5"></div>
-              <span class="skill-note">Aplicada na criação e revisão de documentos técnicos</span>
-            </div>
-          </div>
-
-          <div class="skill-col" data-reveal>
-            <div class="ch">
-              <svg class="icon" aria-hidden="true"><use href="#i-db"/></svg>
-              <h3>Bancos &amp; SQL</h3>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Consultas SQL</span><span class="skill-lvl">Quase avançado</span></div>
-              <div class="meter" data-level="4" role="img" aria-label="Nível 4 de 5"></div>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Modelagem relacional</span><span class="skill-lvl">Básico / interm.</span></div>
-              <div class="meter" data-level="3" role="img" aria-label="Nível 3 de 5"></div>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">MySQL</span><span class="skill-lvl">Sólido</span></div>
-              <div class="meter" data-level="4" role="img" aria-label="Nível 4 de 5"></div>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Busca e extração de dados</span><span class="skill-lvl">Quase avançado</span></div>
-              <div class="meter" data-level="4" role="img" aria-label="Nível 4 de 5"></div>
-            </div>
-          </div>
-
-          <div class="skill-col" data-reveal>
-            <div class="ch">
-              <svg class="icon" aria-hidden="true"><use href="#i-flow"/></svg>
-              <h3>Requisitos &amp; automação</h3>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Levantamento de requisitos</span><span class="skill-lvl">Sólido</span></div>
-              <div class="meter" data-level="4" role="img" aria-label="Nível 4 de 5"></div>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Power Automate (fluxos / RPA)</span><span class="skill-lvl">Sólido</span></div>
-              <div class="meter" data-level="4" role="img" aria-label="Nível 4 de 5"></div>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Mapeamento de regras e processos</span><span class="skill-lvl">Sólido</span></div>
-              <div class="meter" data-level="4" role="img" aria-label="Nível 4 de 5"></div>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Apoio a projetos de inovação</span><span class="skill-lvl">Sólido</span></div>
-              <div class="meter" data-level="4" role="img" aria-label="Nível 4 de 5"></div>
-            </div>
-          </div>
-
-          <div class="skill-col" data-reveal>
-            <div class="ch">
-              <svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg>
-              <h3>TI, segurança &amp; software</h3>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Atendimento e suporte técnico</span><span class="skill-lvl">Avançado</span></div>
-              <div class="meter" data-level="5" role="img" aria-label="Nível 5 de 5"></div>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Governança e segurança da informação</span><span class="skill-lvl">Graduado</span></div>
-              <div class="meter" data-level="4" role="img" aria-label="Nível 4 de 5"></div>
-              <span class="skill-note">Políticas e dados institucionais — sem atuação em pentest.</span>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">LGPD e proteção de dados</span><span class="skill-lvl">Sólido</span></div>
-              <div class="meter" data-level="4" role="img" aria-label="Nível 4 de 5"></div>
-              <span class="skill-note">Ponto focal na Subsecretaria de CT&amp;I e na SPTEC</span>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Processos administrativos (SEI)</span><span class="skill-lvl">Sólido</span></div>
-              <div class="meter" data-level="4" role="img" aria-label="Nível 4 de 5"></div>
-              <span class="skill-note">Instrução, autuação e tramitação eletrônica</span>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Git e controle de versão</span><span class="skill-lvl">Conceitual</span></div>
-              <div class="meter" data-level="2" role="img" aria-label="Nível 2 de 5"></div>
-            </div>
-            <div class="skill">
-              <div class="skill-top"><span class="skill-name">Fundamentos web</span><span class="skill-lvl">Conceitual</span></div>
-              <div class="meter" data-level="2" role="img" aria-label="Nível 2 de 5"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== 05 PROJETOS ===================== -->
-    <section id="projetos" class="band">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow"><span class="idx">05</span> Projetos <span class="tick"></span></p>
-            <h2 class="h2" style="margin-top:16px">Trabalhos e apresentação de dados.</h2>
-          </div>
-          <p style="color:var(--ink-soft);font-size:15px">
-            Um painel público em operação e um projeto interno de busca textual —
-            ambos construídos do modelo de dados até a tela final.
-          </p>
-        </div>
-
-        <div class="notice" data-reveal>
-          <svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg>
-          <p>
-            <strong>Novos projetos em breve.</strong> Neste momento estou direcionando boa parte do
-            tempo ao aprofundamento prático em Ciência de Dados e IA aplicada — o que estou estudando
-            está detalhado ao final desta página.
-          </p>
-        </div>
-
-        <!-- Projeto 1 -->
-        <article class="project" id="projeto-sptec">
-          <div class="project-head">
-            <div>
-              <span class="flag"><i></i>Painel público · em operação</span>
-              <h3>Mapeamento SPTEC — Ciência, Tecnologia e Inovação de Minas Gerais</h3>
-              <p class="sub">
-                Painel oficial com navegação interativa por municípios, mesorregiões, editais e
-                indicadores de P&amp;D. Modelo relacional construído por mim, do tratamento dos
-                dados ao layout do relatório.
-              </p>
-            </div>
-            <a class="btn btn--accent" href="https://app.powerbi.com/view?r=eyJrIjoiMzU0NmU1ZGMtZTRhYy00NTJjLTg5NDAtYjIyNTAzZWQzZGNkIiwidCI6ImU1ZDNhZTdjLTliMzgtNDhkZS1hMDg3LWY2NzM0YTI4NzU3NCJ9" target="_blank" rel="noopener">
-              <svg aria-hidden="true"><use href="#i-arrow-ur"/></svg>
-              Abrir em tela cheia
-            </a>
-          </div>
-
-          <div class="credit">
-            <svg class="icon" aria-hidden="true"><use href="#i-present"/></svg>
-            <p>
-              Painel de indicadores utilizado em apresentação institucional pela
-              <strong>Profª. Sandra Goulart Almeida</strong>, ex-reitora da UFMG.
+              Ele já foi usado em uma apresentação institucional da professora Sandra Goulart Almeida,
+              ex-reitora da UFMG.
             </p>
           </div>
 
-          <div class="frame">
-            <div class="frame-bar">
-              <span class="dots"><i></i><i></i><i></i></span>
-              <span>app.powerbi.com · relatório interativo</span>
-            </div>
-            <iframe title="Mapeamento SPTEC — painel interativo" loading="lazy" allowfullscreen
+          <div class="embed">
+            <iframe title="Mapeamento SPTEC, painel em Power BI" loading="lazy" allowfullscreen
               src="https://app.powerbi.com/view?r=eyJrIjoiMzU0NmU1ZGMtZTRhYy00NTJjLTg5NDAtYjIyNTAzZWQzZGNkIiwidCI6ImU1ZDNhZTdjLTliMzgtNDhkZS1hMDg3LWY2NzM0YTI4NzU3NCJ9"></iframe>
           </div>
-          <p class="mono" style="font-size:11.5px;color:var(--ink-faint);margin-top:12px">
-            O relatório é servido pelo Power BI e pode levar alguns segundos para carregar.
-            Se preferir, use o botão “Abrir em tela cheia”.
+          <p class="small embed-note">
+            Se demorar para carregar, dá para
+            <a href="https://app.powerbi.com/view?r=eyJrIjoiMzU0NmU1ZGMtZTRhYy00NTJjLTg5NDAtYjIyNTAzZWQzZGNkIiwidCI6ImU1ZDNhZTdjLTliMzgtNDhkZS1hMDg3LWY2NzM0YTI4NzU3NCJ9" target="_blank" rel="noopener">abrir direto no Power BI</a>.
           </p>
         </article>
 
-        <!-- Projeto 2 -->
-        <article class="project" id="projeto-tokenizacao">
-          <div class="project-head">
-            <div>
-              <span class="flag flag--accent"><i></i>Projeto interno · dados tarjados</span>
-              <h3>Busca por tokenização e engenharia do modelo relacional</h3>
-              <p class="sub">
-                Mecanismo analítico em Power BI que faz busca textual dinâmica por palavras-chave
-                dentro de propostas científicas, apoiado por um modelo com dezenas de tabelas integradas.
-                As telas abaixo foram tarjadas para proteger nomes e valores (LGPD).
-              </p>
-            </div>
-            <div class="meta-line">
-              <span>4 telas</span>
-              <span>·</span>
-              <span>Power BI · DAX · modelo estrela</span>
-            </div>
+        <article class="project">
+          <h3>Busca por palavra-chave em propostas de pesquisa</h3>
+          <p class="meta">Power BI · DAX · uso interno</p>
+          <div class="prose">
+            <p>
+              A equipe precisava achar todas as propostas que tratavam de um assunto, por exemplo
+              "farmácia", sem depender de alguém lembrar o nome de cada projeto. Montei no Power BI
+              uma busca que quebra títulos e resumos em tokens e cruza com o termo digitado. O mapa
+              e os gráficos se ajustam ao resultado.
+            </p>
+            <p>Como o relatório é interno, nomes e valores aparecem tarjados nas imagens.</p>
           </div>
 
-          <div class="tabs" role="tablist" aria-label="Telas do projeto">
-            <button class="tab is-active" type="button" role="tab" id="tab-0" aria-controls="casePanel" aria-selected="true" data-view="0"><span class="n">1</span>Visão geral</button>
-            <button class="tab" type="button" role="tab" id="tab-1" aria-controls="casePanel" aria-selected="false" data-view="1"><span class="n">2</span>Busca por tokens</button>
-            <button class="tab" type="button" role="tab" id="tab-2" aria-controls="casePanel" aria-selected="false" data-view="2"><span class="n">3</span>Análise composta</button>
-            <button class="tab" type="button" role="tab" id="tab-3" aria-controls="casePanel" aria-selected="false" data-view="3"><span class="n">4</span>Modelo relacional</button>
-          </div>
-
-          <div class="case-grid" id="casePanel" role="tabpanel" aria-labelledby="tab-0">
-            <div class="shot">
-              <img id="shotImg" src="3.png" alt="Visão geral do painel de P&amp;D de Minas Gerais">
-              <button class="shot-open" id="shotOpen" type="button" aria-label="Ampliar imagem em tela cheia">
-                <svg aria-hidden="true"><use href="#i-expand"/></svg>
-                Ampliar
-              </button>
-              <div class="shot-tag"><i></i>Campos sensíveis tarjados</div>
-              <div class="shot-fallback" id="shotFallback">
-                <p>Arquivo <code id="shotFallbackName">3.png</code> não encontrado.</p>
-                <p>Coloque a imagem na mesma pasta deste <code>index.html</code> para exibi-la aqui.</p>
-              </div>
-            </div>
-
-            <div class="case-text">
-              <span class="badge" id="viewBadge">Tela 1 de 4 · visão territorial</span>
-              <h4 id="viewTitle">Painel estratégico de P&amp;D — visão geral de MG</h4>
-              <p id="viewDesc">
-                Visão consolidada das iniciativas de inovação, com filtros multicritério e
-                distribuição espacial por municípios e mesorregiões.
-              </p>
-              <ul class="case-points" id="viewPoints"></ul>
-            </div>
+          <div class="shots">
+            <figure>
+              <button type="button" data-full="3.png"><img src="3.png" alt="Visão geral do painel com mapa de Minas Gerais" loading="lazy"></button>
+              <figcaption><b>Visão geral.</b> Mapa de MG com as ações por município e filtros por mesorregião, executora, ano e diretoria (DPD, DCTT, DIPRO e DIAE).</figcaption>
+            </figure>
+            <figure>
+              <button type="button" data-full="2.png"><img src="2.png" alt="Tela de busca por palavra-chave" loading="lazy"></button>
+              <figcaption><b>Busca.</b> O termo digitado filtra os cards de propostas, e o mapa passa a mostrar só os municípios envolvidos.</figcaption>
+            </figure>
+            <figure>
+              <button type="button" data-full="1.png"><img src="1.png" alt="Gráficos de quantidade e valor por município" loading="lazy"></button>
+              <figcaption><b>Resultado.</b> Quantidade de projetos (colunas) e valor aprovado (linha) por município, com destaque para os maiores.</figcaption>
+            </figure>
+            <figure>
+              <button type="button" data-full="4.png"><img src="4.png" alt="Diagrama do modelo relacional no Power BI" loading="lazy"></button>
+              <figcaption><b>Modelo.</b> Tabelas fato e dimensão, tabelas ponte para os tokens e relacionamentos ajustados para não gerar filtros ambíguos.</figcaption>
+            </figure>
           </div>
         </article>
 
-        <!-- Estudos -->
-        <div class="section-head" style="margin-top:0">
-          <div>
-            <p class="eyebrow"><span class="idx">06</span> Estudos <span class="tick"></span></p>
-            <h2 class="h2" style="margin-top:16px">No que estou trabalhando agora.</h2>
-          </div>
-          <p style="color:var(--ink-soft);font-size:15px">
-            Base teórica e experimentação prática — sempre em ambiente seguro e com dados de teste.
-          </p>
-        </div>
-
-        <div class="lab-grid">
-          <div class="lab" data-reveal>
-            <div class="lab-head">
-              <svg class="icon" aria-hidden="true"><use href="#i-book"/></svg>
-              <span class="t">Leitura atual</span>
-            </div>
-            <h3>Estatística Prática para Cientistas de Dados</h3>
-            <p class="src">Peter Bruce, Andrew Bruce &amp; Peter Gedeck · +50 conceitos com R e Python</p>
+        <article class="project">
+          <h3>No que estou mexendo agora</h3>
+          <div class="prose" style="margin-top:16px">
             <p>
-              Consolidação dos pilares estatísticos da ciência de dados: análise exploratória,
-              distribuição e amostragem, significância, testes de hipóteses, regressão e
-              classificação — ligando a teoria à aplicação em Python.
+              Estou lendo <em>Estatística Prática para Cientistas de Dados</em>, de Peter Bruce,
+              Andrew Bruce e Peter Gedeck, para firmar a base: amostragem, testes de hipótese,
+              regressão. Vou refazendo os exemplos em Python conforme avanço.
+            </p>
+            <p>
+              No meu computador (uma RTX 5070), sigo testando modelos de linguagem locais com
+              LM Studio, MCP e RAG, e fazendo alguns experimentos de fine-tuning com modelos
+              pequenos. Só uso dados públicos ou sintéticos nesses testes.
+            </p>
+            <p class="small">
+              É por isso que a lista de projetos está curta por enquanto. Devo publicar mais coisa
+              assim que esses estudos virarem algo apresentável.
             </p>
           </div>
+        </article>
 
-          <div class="lab" data-reveal>
-            <div class="lab-head">
-              <svg class="icon" aria-hidden="true"><use href="#i-cpu"/></svg>
-              <span class="t">Laboratório</span>
-            </div>
-            <h3>IA local: LM Studio, MCP e RAG, com fine-tuning de SLMs</h3>
-            <p class="src">Ambiente local com aceleração por GPU dedicada (RTX 5070)</p>
-            <p>
-              Uso modelos locais no LM Studio, com arquiteturas MCP e RAG, para apoiar a criação e a
-              revisão de documentos técnicos. Em paralelo, estudo e implemento rotinas de
-              <em>fine-tuning</em> sobre bases públicas e conjuntos sintéticos de teste, com modelos
-              compactos (SLMs) — tudo rodando na minha estação de trabalho, sem exposição de
-              informação sigilosa.
-            </p>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- ===================== 07 CONTATO ===================== -->
-    <section id="contato" class="band" style="background:var(--paper-2);border-top:1px solid var(--line)">
-      <div class="wrap">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow"><span class="idx">07</span> Contato <span class="tick"></span></p>
-            <h2 class="h2" style="margin-top:16px">Se fizer sentido, vamos conversar.</h2>
-          </div>
-          <p style="color:var(--ink-soft);font-size:15px">
-            Estou aberto a trocar ideia sobre dados, BI, gestão pública e novos desafios.
-          </p>
+    <!-- Experiência -->
+    <section id="experiencia" class="split">
+      <h2>Experiência</h2>
+      <div class="prose">
+
+        <div class="job">
+          <h3>Analista de Requisitos e Dados</h3>
+          <p class="meta">SEDE-MG · out. 2021 até hoje</p>
+          <ul>
+            <li>Levanto requisitos com as diretorias e entrego relatórios e painéis em Power BI e Excel.</li>
+            <li>Acompanho as estruturas de P&amp;D e os indicadores de inovação de Minas, e apoio a análise documental de projetos de pesquisa ligados ao Estado.</li>
+            <li>Atendo pedidos de dados de outros órgãos e de instituições parceiras com consultas em MySQL.</li>
+            <li>Dou suporte à manutenção do portal TecPop Minas.</li>
+            <li>Automatizei fluxos de coleta de dados e envio de notificações com Power Automate.</li>
+            <li>Sou ponto focal de LGPD da Subsecretaria de CT&amp;I e da Superintendência de Pesquisa e Tecnologia (SPTEC).</li>
+            <li>Uso LM Studio com MCP e RAG para apoiar a redação e a revisão de documentos técnicos.</li>
+          </ul>
         </div>
 
-        <div class="contact-list">
-          <a class="contact-row" href="https://wa.me/5531971840502?text=Ol%C3%A1%2C%20Lucas!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener">
-            <svg class="ic" aria-hidden="true"><use href="#i-wa"/></svg>
-            <span>
-              <span class="lbl">WhatsApp</span>
-              <span class="val">(31) 97184-0502</span>
-            </span>
-            <svg class="ar" aria-hidden="true"><use href="#i-arrow-ur"/></svg>
-          </a>
-
-          <a class="contact-row" href="https://www.linkedin.com/in/lucasvieira-dados" target="_blank" rel="noopener">
-            <svg class="ic" aria-hidden="true"><use href="#i-in"/></svg>
-            <span>
-              <span class="lbl">LinkedIn</span>
-              <span class="val">/in/lucasvieira-dados</span>
-            </span>
-            <svg class="ar" aria-hidden="true"><use href="#i-arrow-ur"/></svg>
-          </a>
-
-          <a class="contact-row" href="mailto:lucasvieira.tecnologia@gmail.com">
-            <svg class="ic" aria-hidden="true"><use href="#i-mail"/></svg>
-            <span>
-              <span class="lbl">E-mail</span>
-              <span class="val">lucasvieira.tecnologia@gmail.com</span>
-            </span>
-            <svg class="ar" aria-hidden="true"><use href="#i-arrow-ur"/></svg>
-          </a>
-
-          <a class="contact-row" href="Curriculo-Lucas-Vieira.pdf" download="Curriculo-Lucas-Vieira.pdf" target="_blank" rel="noopener">
-            <svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg>
-            <span>
-              <span class="lbl">Currículo</span>
-              <span class="val">Baixar PDF completo</span>
-            </span>
-            <svg class="ar" aria-hidden="true"><use href="#i-arrow-ur"/></svg>
-          </a>
+        <div class="job">
+          <h3>Estagiário de Suporte Técnico</h3>
+          <p class="meta">SEDE-MG · jul. 2020 a out. 2021</p>
+          <ul>
+            <li>Suporte a rede local, VPN, servidores de arquivos e e-mail.</li>
+            <li>Atendimento técnico à alta gestão da secretaria.</li>
+            <li>Manutenção de computadores e notebooks e controle do inventário de hardware e software.</li>
+          </ul>
         </div>
 
-        <div style="margin-top:26px">
-          <button class="btn btn--outline" type="button" data-copy="lucasvieira.tecnologia@gmail.com" data-copy-msg="E-mail copiado para a área de transferência.">
-            <svg aria-hidden="true"><use href="#i-copy"/></svg>
-            Copiar endereço de e-mail
-          </button>
-        </div>
       </div>
     </section>
+
+    <!-- Ferramentas -->
+    <section id="ferramentas" class="split">
+      <h2>Ferramentas</h2>
+      <div class="prose">
+        <p>Separei pelo quanto eu realmente uso cada coisa.</p>
+        <dl class="rows" style="margin-top:20px">
+          <div>
+            <dt>Todo dia</dt>
+            <dd>Power BI (DAX e modelagem), SQL e MySQL, Excel, Power Automate, SEI</dd>
+          </div>
+          <div>
+            <dt>Com frequência</dt>
+            <dd>Levantamento de requisitos, mapeamento de processos, LGPD, IA local (LM Studio, MCP, RAG)</dd>
+          </div>
+          <div>
+            <dt>Aprendendo</dt>
+            <dd>Python para análise de dados, estatística aplicada, fine-tuning de modelos pequenos</dd>
+          </div>
+          <div>
+            <dt>Tenho noção</dt>
+            <dd>Git, HTML e CSS, conceitos de APIs e desenvolvimento web</dd>
+          </div>
+        </dl>
+        <p class="small" style="margin-top:16px">
+          Sobre segurança da informação: minha formação e minha prática são do lado de governança,
+          políticas e conformidade. Não trabalho com pentest.
+        </p>
+      </div>
+    </section>
+
+    <!-- Formação -->
+    <section id="formacao" class="split">
+      <h2>Formação</h2>
+      <div class="prose">
+        <dl class="rows">
+          <div>
+            <dt>2025 – 2026</dt>
+            <dd>Pós-graduação em Data Science<span>União das Américas</span></dd>
+          </div>
+          <div>
+            <dt>2024 – 2025</dt>
+            <dd>Pós-graduação em Desenvolvimento Web Full Stack<span>União das Américas</span></dd>
+          </div>
+          <div>
+            <dt>2019 – 2023</dt>
+            <dd>Bacharelado em Sistemas de Informação<span>UniBH</span></dd>
+          </div>
+          <div>
+            <dt>2020 – 2022</dt>
+            <dd>Tecnólogo em Segurança da Informação<span>Uniasselvi</span></dd>
+          </div>
+        </dl>
+
+        <h4>Cursos e certificados</h4>
+        <ul class="certs">
+          <li>Business Analysis Fundamentals <span class="from">· Microsoft, 2025</span><br><code title="Código da credencial">DOCF5PGHSHGD</code></li>
+          <li>Virtualização de Servidores <span class="from">· ESR, 2023</span><br><code title="Código da credencial">CDC-EAD-0391-23</code></li>
+          <li>Introdução à Lei Brasileira de Proteção de Dados Pessoais <span class="from">· ENAP, 2021</span><br><code title="Código da credencial">xMLa5664657xuuM</code></li>
+          <li>Proteção de Dados Pessoais no Setor Público <span class="from">· ENAP, 2021</span><br><code title="Código da credencial">iE7a5627507Y3vQ</code></li>
+          <li>HTML, CSS e PHP para iniciantes <span class="from">· Udemy, 2021</span><br><code title="Código da credencial">UC-a108d162-e92b-4b6c-8431-2e540b9b28ba</code></li>
+          <li>Introdução ao Git e ao GitHub <span class="from">· DIO, 2021</span><br><code title="Código da credencial">CBBD6ACB</code></li>
+          <li>Fundamentos do Azure <span class="from">· DIO, 2020</span><br><code title="Código da credencial">3EAB9BD0</code></li>
+          <li>Fundamentos da Computação em Nuvem <span class="from">· DIO, 2020</span><br><code title="Código da credencial">25C978CC</code></li>
+        </ul>
+
+        <h4>Idiomas</h4>
+        <p>Português nativo. Inglês básico (A2).</p>
+      </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="split">
+      <h2>Contato</h2>
+      <div class="prose">
+        <p>
+          Se quiser falar sobre uma vaga, um projeto ou só trocar ideia sobre dados no setor
+          público, pode me chamar. Costumo responder mais rápido por e-mail ou WhatsApp.
+        </p>
+        <dl class="rows" style="margin-top:24px">
+          <div>
+            <dt>E-mail</dt>
+            <dd><a href="mailto:lucasvieira.tecnologia@gmail.com">lucasvieira.tecnologia@gmail.com</a></dd>
+          </div>
+          <div>
+            <dt>WhatsApp</dt>
+            <dd><a href="https://wa.me/5531971840502?text=Ol%C3%A1%2C%20Lucas!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener">(31) 97184-0502</a></dd>
+          </div>
+          <div>
+            <dt>LinkedIn</dt>
+            <dd><a href="https://www.linkedin.com/in/lucasvieira-dados" target="_blank" rel="noopener">linkedin.com/in/lucasvieira-dados</a></dd>
+          </div>
+          <div>
+            <dt>Currículo</dt>
+            <dd><a href="Curriculo-Lucas-Vieira.pdf" download>Baixar PDF</a></dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
   </main>
 
-  <footer>
-    <div class="wrap foot-inner">
-      <span>© 2026 Lucas Vieira — Analista de Requisitos e Dados</span>
-      <span>Belo Horizonte, MG</span>
-      <a href="#top">Voltar ao topo ↑</a>
-    </div>
+  <footer class="container">
+    <span>Lucas Vieira · Belo Horizonte, 2026</span>
+    <a href="#topo">Voltar ao topo</a>
   </footer>
 
-  <div class="toast" id="toast" role="status" aria-live="polite">
-    <svg aria-hidden="true"><use href="#i-check"/></svg>
-    <span id="toastMsg">Feito.</span>
-  </div>
-
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Tela ampliada do projeto" hidden>
-    <div class="lb-bar">
-      <span id="lbCaption">Tela 1 de 4</span>
-      <button class="lb-close" id="lbClose" type="button">
-        <svg aria-hidden="true"><use href="#i-close"/></svg>
-        Fechar
-      </button>
-    </div>
-    <div class="lb-stage">
-      <button class="lb-nav" id="lbPrev" type="button" aria-label="Tela anterior"><svg aria-hidden="true"><use href="#i-arrow-left"/></svg></button>
-      <img id="lbImg" src="3.png" alt="">
-      <button class="lb-nav" id="lbNext" type="button" aria-label="Próxima tela"><svg aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
-    </div>
-  </div>
-
-  <div class="palette" id="palette" role="dialog" aria-modal="true" aria-label="Busca rápida" hidden>
-    <div class="palette-panel">
-      <div class="palette-head">
-        <svg aria-hidden="true"><use href="#i-search"/></svg>
-        <input id="paletteInput" type="text" autocomplete="off" spellcheck="false" placeholder="Ir para uma seção, abrir uma tela do projeto, contato..." aria-label="Buscar">
-        <kbd>Esc</kbd>
-      </div>
-      <ul class="palette-list" id="paletteList" role="listbox" aria-label="Ações disponíveis"></ul>
-      <p class="palette-foot">Digite para filtrar · ↑ ↓ para navegar · Enter para abrir</p>
-    </div>
-  </div>
+  <dialog id="viewer">
+    <form method="dialog"><button>Fechar</button></form>
+    <img id="viewerImg" src="" alt="">
+    <p id="viewerCaption"></p>
+  </dialog>
 
   <script>
-    (function () {
-      "use strict";
+    // Abre as telas do projeto em tamanho maior.
+    var viewer = document.getElementById('viewer');
+    var viewerImg = document.getElementById('viewerImg');
+    var viewerCaption = document.getElementById('viewerCaption');
 
-      var root = document.documentElement;
+    document.querySelectorAll('.shots button').forEach(function (btn) {
+      var img = btn.querySelector('img');
 
-      /* ---------- Tema ---------- */
-      var themeBtn = document.getElementById('themeToggle');
-      themeBtn.addEventListener('click', function () {
-        var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', next);
-        localStorage.setItem('lv-theme', next);
-      });
-
-      /* ---------- Barra fixa com borda ao rolar ---------- */
-      var topbar = document.getElementById('topbar');
-      var onScroll = function () {
-        topbar.classList.toggle('is-stuck', window.scrollY > 12);
-      };
-      onScroll();
-      window.addEventListener('scroll', onScroll, { passive: true });
-
-      /* ---------- Menu mobile ---------- */
-      var menuBtn = document.getElementById('menuBtn');
-      var drawer = document.getElementById('drawer');
-      menuBtn.addEventListener('click', function () {
-        var open = drawer.classList.toggle('is-open');
-        menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        menuBtn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#' + (open ? 'i-close' : 'i-menu') + '"/></svg>';
-      });
-      drawer.addEventListener('click', function (e) {
-        if (e.target.closest('a')) {
-          drawer.classList.remove('is-open');
-          menuBtn.setAttribute('aria-expanded', 'false');
-          menuBtn.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>';
-        }
-      });
-
-      /* ---------- Medidores de habilidade ---------- */
-      document.querySelectorAll('.meter').forEach(function (meter) {
-        var level = parseInt(meter.dataset.level, 10) || 0;
-        var html = '';
-        for (var i = 1; i <= 5; i++) {
-          if (i <= level) {
-            html += '<i class="on' + (i === level ? ' a' : '') + '"></i>';
-          } else {
-            html += '<i></i>';
-          }
-        }
-        meter.innerHTML = html;
-      });
-
-      /* ---------- Revelação ao rolar ---------- */
-      var revealables = document.querySelectorAll('[data-reveal]');
-      if ('IntersectionObserver' in window) {
-        var io = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-in');
-              io.unobserve(entry.target);
-            }
-          });
-        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-        revealables.forEach(function (el) { io.observe(el); });
-      } else {
-        revealables.forEach(function (el) { el.classList.add('is-in'); });
+      function markMissing() {
+        btn.classList.add('missing');
+        btn.textContent = 'Imagem ' + btn.dataset.full + ' não encontrada';
       }
+      if (img.complete && img.naturalWidth === 0) markMissing();
+      else img.addEventListener('error', markMissing);
 
-      /* ---------- Toast ---------- */
-      var toast = document.getElementById('toast');
-      var toastMsg = document.getElementById('toastMsg');
-      var toastTimer;
-      function showToast(message) {
-        toastMsg.textContent = message;
-        toast.classList.add('is-on');
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(function () { toast.classList.remove('is-on'); }, 3200);
-      }
-
-      document.querySelectorAll('[data-copy]').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var text = btn.getAttribute('data-copy');
-          var msg = btn.getAttribute('data-copy-msg') || 'Copiado.';
-          var done = function () { showToast(msg); };
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(text).then(done, function () { legacyCopy(text, done); });
-          } else {
-            legacyCopy(text, done);
-          }
-        });
+      btn.addEventListener('click', function () {
+        if (btn.classList.contains('missing')) return;
+        viewerImg.src = btn.dataset.full;
+        viewerImg.alt = img.alt;
+        viewerCaption.textContent = btn.parentElement.querySelector('figcaption').textContent;
+        viewer.showModal();
       });
+    });
 
-      function legacyCopy(text, done) {
-        try {
-          var field = document.createElement('textarea');
-          field.value = text;
-          field.setAttribute('readonly', '');
-          field.style.position = 'fixed';
-          field.style.opacity = '0';
-          document.body.appendChild(field);
-          field.select();
-          document.execCommand('copy');
-          document.body.removeChild(field);
-          done();
-        } catch (err) {
-          showToast('Não foi possível copiar automaticamente.');
-        }
-      }
-
-      /* ---------- Telas do projeto de tokenização ---------- */
-      var views = [
-        {
-          file: '3.png',
-          badge: 'Tela 1 de 4 · visão territorial',
-          title: 'Painel estratégico de P&D — visão geral de MG',
-          desc: 'Visão consolidada das iniciativas de inovação, com filtros multicritério e distribuição espacial por municípios e mesorregiões.',
-          points: [
-            '<strong>Georreferenciamento de MG:</strong> mapa interativo que destaca a densidade de ações científicas em cada polo territorial.',
-            '<strong>Filtros multicritério:</strong> seleção simultânea por município, mesorregião, executora e ano, recalculando as métricas na hora.',
-            '<strong>Visão por diretoria:</strong> quadros segmentando os volumes entre as diretorias da SEDE-MG (DPD, DCTT, DIPRO e DIAE).'
-          ]
-        },
-        {
-          file: '2.png',
-          badge: 'Tela 2 de 4 · busca por tokens',
-          title: 'Busca dinâmica por tokenização em propostas e papers',
-          desc: 'Mecanismo que permite pesquisar um termo livre (por exemplo, "farmácia") e localizar as propostas correspondentes em tempo real.',
-          points: [
-            '<strong>Entrada livre de palavras:</strong> o modelo decompõe a busca em tokens e cruza com títulos e resumos.',
-            '<strong>Detalhamento em cartões:</strong> as propostas encontradas aparecem em cards com programa, município e demais campos — os sensíveis ficam tarjados.',
-            '<strong>Sincronismo cartográfico:</strong> o mapa isola apenas os municípios onde estão os projetos ligados ao termo buscado.'
-          ]
-        },
-        {
-          file: '1.png',
-          badge: 'Tela 3 de 4 · análise composta',
-          title: 'Painel analítico composto após a busca',
-          desc: 'Leitura quantitativa e financeira agregada a partir do resultado da pesquisa feita no relatório.',
-          points: [
-            '<strong>Gráfico composto híbrido:</strong> colunas representam o volume e a linha correlaciona o valor financeiro aprovado.',
-            '<strong>Destaques automáticos:</strong> identificação do município polo em quantidade e da localidade com maior investimento.',
-            '<strong>Navegação ergonômica:</strong> botões para expandir gráficos e alternar entre as visões micro e macro.'
-          ]
-        },
-        {
-          file: '4.png',
-          badge: 'Tela 4 de 4 · arquitetura de dados',
-          title: 'Engenharia do modelo relacional no Power BI',
-          desc: 'Esquema multidimensional com dezenas de tabelas integradas, que sustenta a tokenização, as correlações territoriais e as métricas em execução.',
-          points: [
-            '<strong>Modelo estrela / snowflake:</strong> tabelas fato e dimensão garantindo integridade referencial e velocidade de resposta.',
-            '<strong>Tabelas ponte e tokenização:</strong> índices de busca conectados aos projetos sem perda de performance.',
-            '<strong>Cardinalidade calibrada:</strong> relações 1:N e N:N com direção de filtro cruzado otimizada para evitar ambiguidade analítica.'
-          ]
-        }
-      ];
-
-      var shotImg = document.getElementById('shotImg');
-      var shotFallback = document.getElementById('shotFallback');
-      var shotFallbackName = document.getElementById('shotFallbackName');
-      var tabs = document.querySelectorAll('.tab');
-
-      function renderView(index) {
-        var view = views[index];
-        tabs.forEach(function (tab, i) {
-          var active = i === index;
-          tab.classList.toggle('is-active', active);
-          tab.setAttribute('aria-selected', active ? 'true' : 'false');
-        });
-        document.getElementById('casePanel').setAttribute('aria-labelledby', 'tab-' + index);
-
-        shotFallback.classList.remove('is-on');
-        shotImg.style.visibility = 'hidden';
-        setTimeout(function () {
-          shotImg.src = view.file;
-          shotImg.alt = view.title;
-          shotFallbackName.textContent = view.file;
-          shotImg.style.visibility = '';
-        }, 180);
-
-        document.getElementById('viewBadge').textContent = view.badge;
-        document.getElementById('viewTitle').textContent = view.title;
-        document.getElementById('viewDesc').textContent = view.desc;
-        document.getElementById('viewPoints').innerHTML = view.points.map(function (point) {
-          return '<li>' + point + '</li>';
-        }).join('');
-      }
-
-      tabs.forEach(function (tab) {
-        tab.addEventListener('click', function () {
-          renderView(parseInt(tab.dataset.view, 10));
-        });
-      });
-
-      shotImg.addEventListener('error', function () {
-        shotImg.style.visibility = 'hidden';
-        shotFallback.classList.add('is-on');
-      });
-      shotImg.addEventListener('load', function () {
-        shotImg.style.visibility = '';
-      });
-
-      renderView(0);
-    })();
+    // Fecha ao clicar fora da imagem.
+    viewer.addEventListener('click', function (e) {
+      if (e.target === viewer) viewer.close();
+    });
   </script>
 </body>
 </html>
