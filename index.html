@@ -834,8 +834,8 @@
       var width = 0, height = 0, pointerX = -1000, pointerY = -1000, lastFrame = 0;
       var dots = [];
       function makeDots() {
-        var columns = width < 700 ? 58 : 96;
-        var rows = width < 700 ? 52 : 84;
+        var columns = width < 700 ? 52 : 82;
+        var rows = width < 700 ? 48 : 74;
         dots = [];
         for (var row = 0; row < rows; row++) {
           for (var col = 0; col < columns; col++) {
@@ -856,36 +856,33 @@
       function drawDrape(time) {
         context.clearRect(0, 0, width, height);
         var dark = document.documentElement.dataset.theme === 'dark';
-        var motion = reduced.matches ? 0 : time * .00045;
+        var motion = time * .00085;
         dots.forEach(function (dot) {
           var u = dot.u, v = dot.v;
-          var wave1 = Math.sin(u * 4.5 + v * 3.0 + motion);
-          var wave2 = Math.cos(v * 3.4 - u * 2.2 - motion * .75);
-          var wave = (wave1 + wave2) * .5;
-          var highlight = (wave + 1) * .5;
-          var x = width * (.48 + u * .54) + wave1 * 42 + Math.sin(v * 4.2 + motion) * 26;
-          var y = height * (-.06 + v * 1.12) - wave2 * 48 + Math.cos(u * 4.0 - motion) * 20;
+          var wave1 = Math.sin(u * 2.6 + v * 2.0 + motion);
+          var wave2 = Math.cos(v * 2.2 - u * 1.6 - motion * .8);
+          var highlight = (wave1 + wave2 + 2) * .25;
+          var x = width * (.46 + u * .52) + wave1 * 24 + Math.sin(v * 2.4 + motion) * 14;
+          var y = height * (-.04 + v * 1.08) - wave2 * 26 + Math.cos(u * 2.2 - motion) * 12;
           if (x < 0 || x > width || y < 0 || y > height) return;
           var dx = x - pointerX, dy = y - pointerY;
           var distance = Math.hypot(dx, dy);
-          if (!reduced.matches && distance < 135 && distance > 0) {
+          if (distance < 135 && distance > 0) {
             var push = Math.pow(1 - distance / 135, 2) * 24;
             x += dx / distance * push;
             y += dy / distance * push;
           }
-          var edge = Math.pow(Math.sin(Math.PI * u) * Math.sin(Math.PI * v), .45);
-          var baseAlpha = dark ? .22 : .18;
-          var waveAlpha = dark ? .36 : .28;
-          var alpha = Math.max(0, edge * (baseAlpha + highlight * waveAlpha));
+          var edge = Math.pow(Math.sin(Math.PI * u) * Math.sin(Math.PI * v), .35);
+          var alpha = edge * (dark ? .38 : .30) * (.72 + .28 * highlight);
           context.fillStyle = dark ? 'rgba(196,177,255,' + alpha.toFixed(3) + ')' : 'rgba(79,48,153,' + alpha.toFixed(3) + ')';
           context.beginPath();
-          context.arc(x, y, .9 + highlight * .65, 0, Math.PI * 2);
+          context.arc(x, y, 1.15 + highlight * .35, 0, Math.PI * 2);
           context.fill();
         });
       }
       function animateDrape(time) {
         requestAnimationFrame(animateDrape);
-        if (document.hidden || reduced.matches || time - lastFrame < 33) return;
+        if (document.hidden || time - lastFrame < 30) return;
         lastFrame = time;
         drawDrape(time);
       }
